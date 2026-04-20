@@ -1,0 +1,29 @@
+import { body } from 'express-validator';
+import validate from '../middlewares/validate.js'
+
+// TODO: Falta colocar el AVATAR, deberia estar validado en otro lugar ya que se requiere logica customizada.
+export const registerDTO = [
+    body('full_name')
+        .notEmpty().withMessage('El nombre completo no puede estar vacío.')
+        .isLength({ min: 3, max: 150 }).withMessage('El nombre debe tener entre 3 y 150 caracteres.'),
+
+    body('email')
+        .notEmpty().withMessage('El email no puede estar vacío.')
+        .isEmail().withMessage('El email no es válido.')
+        .isLength({ max: 255 }).withMessage('El email no puede superar los 255 caracteres.'),
+
+    body('password')
+        .notEmpty().withMessage('La contraseña no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La contraseña debe tener mínimo 6 caracteres.'),
+
+    body('phone')
+        .optional()
+        .isInt().withMessage('El teléfono debe ser un número.')
+        .isLength({ min: 7, max: 15 }).withMessage('El teléfono debe tener entre 7 y 15 dígitos.'),
+
+    validate
+]
+
+export const loginDTO = {
+
+}

@@ -13,7 +13,8 @@ const config = {
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
         logging: false
-    }
+    },
+    mode: process.env.NODE_ENV || "development"
 }
 
 export default config;
