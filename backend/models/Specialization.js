@@ -1,7 +1,7 @@
-import db from '../config/sequelize.config.js';
+import sequelize from '../db/index.js';
 import { DataTypes } from "sequelize";
 
-export const Specialization = db.define("Specialization", {
+export const Specialization = sequelize.define("Specialization", {
 
   user_id: {
     type: DataTypes.UUID,

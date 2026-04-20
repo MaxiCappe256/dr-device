@@ -1,7 +1,7 @@
-import db from '../config/sequelize.config.js';
+import sequelize from '../db/index.js';
 import { DataTypes } from 'sequelize';
 
-export const RolesUsers = db.define(
+export const RolesUsers = sequelize.define(
   'RolesUsers',
   {
     id: {

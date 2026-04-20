@@ -1,8 +1,8 @@
 import './models/index.js';
 import express from 'express';
 import cors from 'cors';
-import { PORT } from './config/config.js';
-import { connectDB } from './config/sequelize.config.js';
+import config from './config/index.js'
+import { connectDB } from './db/index.js';
 
 const app = express();
 
@@ -12,4 +12,4 @@ app.use(express.json());
 
 app.use(cors());
 
-app.listen(PORT, console.log(`Listening on port: ${PORT}`));
+app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));

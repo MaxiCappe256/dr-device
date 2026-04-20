@@ -1,10 +1,10 @@
-import db from '../config/sequelize.config.js';
+import sequelize from '../db/index.js';
 import { DataTypes } from 'sequelize';
 import { Category } from './Category.js';
 
 // falta terminar las relaciones
 
-export const Order = db.define(
+export const Order = sequelize.define(
   'Order',
   {
     id: {
