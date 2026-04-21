@@ -4,11 +4,12 @@ import {
     loginCtrl, 
     logoutCtrl
 } from '../controllers/auth.controller.js';
-import { registerDTO } from "../dtos/auth.dtos.js";
+import { registerDTO, loginDTO } from "../dtos/auth.dtos.js";
 const router = Router();
 
 router.post('/register', registerDTO, registerCtrl);
-router.post('/login', loginCtrl);
+// ? Debe existir login (token), hacer middleware
+router.post('/login', loginDTO, loginCtrl);
 router.post('/logout', logoutCtrl);
 
 export default router;

@@ -8,9 +8,9 @@ export const registerDTO = [
         .isLength({ min: 3, max: 150 }).withMessage('El nombre debe tener entre 3 y 150 caracteres.'),
 
     body('email')
-        .notEmpty().withMessage('El email no puede estar vacío.')
-        .isEmail().withMessage('El email no es válido.')
-        .isLength({ max: 255 }).withMessage('El email no puede superar los 255 caracteres.'),
+        .notEmpty().withMessage('El correo elecrónico no puede estar vacío.')
+        .isEmail().withMessage('El correo elecrónico no es válido.')
+        .isLength({ max: 255 }).withMessage('El correo elecrónico no puede superar los 255 caracteres.'),
 
     body('password')
         .notEmpty().withMessage('La contraseña no puede estar vacía.')
@@ -24,6 +24,14 @@ export const registerDTO = [
     validate
 ]
 
-export const loginDTO = {
+export const loginDTO = [
+    body('email')
+        .notEmpty().withMessage('El correo elecrónico no puede estar vacío.')
+        .isEmail().withMessage('El correo elecrónico no es válido.')
+        .isLength({ max: 255 }).withMessage('El correo elecrónico no puede superar los 255 caracteres.'),
 
-}
+    body('password')
+        .notEmpty().withMessage('La contraseña no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La contraseña debe tener mínimo 6 caracteres.'),
+    validate
+]

@@ -36,23 +36,13 @@ export const User = sequelize.define(
     avatar: {
       type: DataTypes.STRING,
     },
-
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-
-    updated_at: {
-      type: DataTypes.DATE,
-    },
-
     deleted_at: {
       type: DataTypes.DATE,
     },
   },
   {
     tableName: 'users',
-    timestamps: false,
+    timestamps: true,
   },
 );
 
@@ -66,7 +56,7 @@ User.associate = (models) => {
   });
 
   User.belongsToMany(models.Role, {
-    through: models.RolesUsers,
+    through: models.RoleUser,
     foreignKey: 'user_id',
   });
 
