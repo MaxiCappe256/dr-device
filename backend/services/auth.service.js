@@ -4,7 +4,7 @@ import { Role } from "../models/Role.js";
 import * as bcrypt from 'bcryptjs';
 import AppError from "../utils/appError.js"
 import { createToken, verifyToken } from "../utils/jwt.js";
-import jwt from "jsonwebtoken";
+
 
 export const registerSrv = async (body) => {
     const { full_name, email, password, phone, avatar, role_id } = body;
@@ -30,15 +30,33 @@ export const registerSrv = async (body) => {
 
     await RoleUser.create({ user_id: user.id, role_id: role.dataValues.id })
 
+    const valueRoles = await RoleUser.findAll({
+        where: { user_id: userWithoutPassword.id },
+        include: [
+            {
+                model: Role,
+                attributes: ['title']
+            }
+        ]
+    })
+
+    const rolesTitle = await Promise.all(
+        valueRoles.map(async (rol) => {
+            const data = await rol.dataValues.Role;
+            return data.dataValues.title;
+        })
+    );
+
     const payload = {
-        id: user.id
+        id: user.id,
+        roles: rolesTitle,
     };
 
     const token = await createToken(payload, "1d")
 
     return {
         ...user,
-        role: role.dataValues.title,
+        roles: rolesTitle,
         token
     }
 }
@@ -57,15 +75,31 @@ export const loginSrv = async (body) => {
     if (!isValidPassword) throw new AppError("Las crendenciales no coinciden.", 401)
 
     const { password: _, ...userWithoutPassword } = userExists.dataValues;
-
+    const valueRoles = await RoleUser.findAll({
+        where: { user_id: userWithoutPassword.id },
+        include: [
+            {
+                model: Role,
+                attributes: ['title']
+            }
+        ]
+    })
+    const rolesTitle = await Promise.all(
+        valueRoles.map(async (rol) => {
+            const data = await rol.dataValues.Role;
+            return data.dataValues.title;
+        })
+    );
     const payload = {
-        id: userWithoutPassword.id
+        id: userWithoutPassword.id,
+        roles: rolesTitle
     };
 
     const token = await createToken(payload, "1d")
 
     return {
         ...userWithoutPassword,
+        roles: rolesTitle,
         token
     };
 }

@@ -38,3 +38,8 @@ export const TechnicianOffer = sequelize.define(
     timestamps: false,
   },
 );
+
+TechnicianOffer.associate = (models) => {
+  TechnicianOffer.belongsTo(models.User, { foreignKey: 'technician_id' })
+  TechnicianOffer.belongsTo(models.Order, { foreignKey: 'order_id' })
+};
