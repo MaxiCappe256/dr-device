@@ -21,6 +21,10 @@ export const registerDTO = [
         .isInt().withMessage('El teléfono debe ser un número.')
         .isLength({ min: 7, max: 15 }).withMessage('El teléfono debe tener entre 7 y 15 dígitos.'),
 
+    body('role_id')
+        .notEmpty().withMessage('El rol no puede estar vacío.')
+        .isUUID().withMessage('ID incorrecto'),
+
     validate
 ]
 

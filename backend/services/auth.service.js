@@ -3,6 +3,7 @@ import { RoleUser } from "../models/RoleUser.js";
 import { Role } from "../models/Role.js";
 import * as bcrypt from 'bcryptjs';
 import AppError from "../utils/appError.js"
+import { createToken, verifyToken } from "../utils/jwt.js";
 import jwt from "jsonwebtoken";
 
 export const registerSrv = async (body) => {
@@ -15,7 +16,7 @@ export const registerSrv = async (body) => {
     if (!role) throw new AppError('El rol ingresado no es válido.', 404)
 
     // le hacemos la psicologica! ingenieria inversa. LA DOBLE NELSON EN EL 92'
-    if(role.dataValues.title === 'admin') throw new AppError('El rol ingresado no es válido.', 404)
+    if (role.dataValues.title === 'admin') throw new AppError('El rol ingresado no es válido.', 404)
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -29,9 +30,16 @@ export const registerSrv = async (body) => {
 
     await RoleUser.create({ user_id: user.id, role_id: role.dataValues.id })
 
+    const payload = {
+        id: user.id
+    };
+
+    const token = await createToken(payload, "1d")
+
     return {
         ...user,
-        role: role.dataValues.title
+        role: role.dataValues.title,
+        token
     }
 }
 
@@ -50,10 +58,14 @@ export const loginSrv = async (body) => {
 
     const { password: _, ...userWithoutPassword } = userExists.dataValues;
 
-    // crear jwt -> ALMACENA id
-    // JWT: gwnuiogwhuoignwerpiuogbnwuiopghbw --> id: 3120348912045812
-    // /user { id:  } --> full_name, email, role
-    // creat cookie
+    const payload = {
+        id: userWithoutPassword.id
+    };
 
-    return userWithoutPassword;
+    const token = await createToken(payload, "1d")
+
+    return {
+        ...userWithoutPassword,
+        token
+    };
 }

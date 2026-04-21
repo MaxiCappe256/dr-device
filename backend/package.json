@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
+    "cookie-parser": "^1.4.7",
     "cors": "2.8.6",
     "express": "5.2.1",
     "express-validator": "7.3.2",
