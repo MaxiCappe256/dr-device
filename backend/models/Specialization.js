@@ -17,3 +17,8 @@ export const Specialization = sequelize.define("Specialization", {
   tableName: "specializations",
   timestamps: false,
 });
+
+Specialization.associate = (models) => {
+  Specialization.belongsTo(models.User, { foreignKey: 'user_id' })
+  Specialization.belongsTo(models.Category, { foreignKey: 'category_id' })
+}
