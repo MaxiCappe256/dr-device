@@ -49,24 +49,29 @@ export const User = sequelize.define(
 User.associate = (models) => {
   User.hasMany(models.Order, {
     foreignKey: 'user_id',
-  });
+    as: 'ClientOrders'
+  })
 
   User.hasMany(models.Order, {
     foreignKey: 'technician_id',
-  });
+    as: 'TechnicianOrders'
+  })
 
   User.belongsToMany(models.Role, {
     through: models.RoleUser,
     foreignKey: 'user_id',
-  });
+    as: 'Roles'
+  })
 
   User.belongsToMany(models.Category, {
     through: models.Specialization,
     foreignKey: 'user_id',
-  });
+    as: 'Specializations'
+  })
 
   User.belongsToMany(models.Order, {
     through: models.TechnicianOffer,
     foreignKey: 'technician_id',
-  });
-};
+    as: 'OfferedOrders'
+  })
+}
