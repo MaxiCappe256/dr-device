@@ -48,6 +48,7 @@ export const User = sequelize.define(
 
 User.associate = (models) => {
   User.hasMany(models.Order, {
+<<<<<<< HEAD
     foreignKey: "user_id",
   });
 
@@ -70,3 +71,32 @@ User.associate = (models) => {
     foreignKey: "technician_id",
   });
 };
+=======
+    foreignKey: 'user_id',
+    as: 'ClientOrders'
+  })
+
+  User.hasMany(models.Order, {
+    foreignKey: 'technician_id',
+    as: 'TechnicianOrders'
+  })
+
+  User.belongsToMany(models.Role, {
+    through: models.RoleUser,
+    foreignKey: 'user_id',
+    as: 'Roles'
+  })
+
+  User.belongsToMany(models.Category, {
+    through: models.Specialization,
+    foreignKey: 'user_id',
+    as: 'Specializations'
+  })
+
+  User.belongsToMany(models.Order, {
+    through: models.TechnicianOffer,
+    foreignKey: 'technician_id',
+    as: 'OfferedOrders'
+  })
+}
+>>>>>>> 9b4d87a4386b9ec15636af9c51bfff0f6dade0fa

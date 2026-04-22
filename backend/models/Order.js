@@ -53,29 +53,35 @@ export const Order = sequelize.define(
 Order.associate = (models) => {
   Order.belongsTo(models.User, {
     foreignKey: 'user_id',
-  });
+    as: 'Client'
+  })
 
   Order.belongsTo(models.User, {
     foreignKey: 'technician_id',
-  });
+    as: 'Technician'
+  })
 
   Order.belongsTo(models.Category, {
     foreignKey: 'category_id',
-  });
+    as: 'Category'
+  })
 
   Order.belongsToMany(models.User, {
     through: models.TechnicianOffer,
     foreignKey: 'order_id',
-  });
-};
+    as: 'Offers'
+  })
+}
 
 Category.associate = (models) => {
   Category.hasMany(models.Order, {
     foreignKey: 'category_id',
-  });
+    as: 'Orders'
+  })
 
   Category.belongsToMany(models.User, {
     through: models.Specialization,
     foreignKey: 'category_id',
-  });
-};
+    as: 'Technicians'
+  })
+}

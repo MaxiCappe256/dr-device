@@ -25,7 +25,8 @@ Role.associate = (models) => {
 
   Role.belongsToMany(models.User, {
     through: models.RoleUser,
-    foreignKey: "role_id"
+    foreignKey: "role_id",
+    as:'Users'
   });
 
 };
