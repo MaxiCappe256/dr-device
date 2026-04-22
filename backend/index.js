@@ -9,6 +9,7 @@ import './models/index.js';
 import { connectDB } from './db/index.js';
 
 import authRoutes from './routes/auth.routes.js';
+import seedRoutes from './routes/seed.routes.js';
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use(cookieParser());
 await connectDB();
 
 app.use('/api/auth', authRoutes)
+app.use('/api/seed', seedRoutes)
 
 app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));
