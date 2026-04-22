@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "seed_password_plain": "123456"
+  },
+  "ids": {
+    "roles": {
+      "user": "a1b2c3d4-0001-0001-0001-000000000001",
+      "technical": "a1b2c3d4-0001-0001-0001-000000000002",
+      "admin": "a1b2c3d4-0001-0001-0001-000000000003"
+    },
+    "categories": {
+      "phone": "b2c3d4e5-0002-0002-0002-000000000001",
+      "pc": "b2c3d4e5-0002-0002-0002-000000000002",
+      "notebook": "b2c3d4e5-0002-0002-0002-000000000003",
+      "screen": "b2c3d4e5-0002-0002-0002-000000000004"
+    },
+    "users": {
+      "client1": "c3d4e5f6-0003-0003-0003-000000000001",
+      "client2": "c3d4e5f6-0003-0003-0003-000000000002",
+      "client3": "c3d4e5f6-0003-0003-0003-000000000003",
+      "client4": "c3d4e5f6-0003-0003-0003-000000000004",
+      "client5": "c3d4e5f6-0003-0003-0003-000000000005",
+      "tech1": "d4e5f6a7-0004-0004-0004-000000000001",
+      "tech2": "d4e5f6a7-0004-0004-0004-000000000002",
+      "tech3": "d4e5f6a7-0004-0004-0004-000000000003",
+      "tech4": "d4e5f6a7-0004-0004-0004-000000000004",
+      "tech5": "d4e5f6a7-0004-0004-0004-000000000005",
+      "admin1": "e5f6a7b8-0005-0005-0005-000000000001"
+    },
+    "orders": {
+      "order1": "f6a7b8c9-0006-0006-0006-000000000001",
+      "order2": "f6a7b8c9-0006-0006-0006-000000000002",
+      "order3": "f6a7b8c9-0006-0006-0006-000000000003",
+      "order4": "f6a7b8c9-0006-0006-0006-000000000004",
+      "order5": "f6a7b8c9-0006-0006-0006-000000000005",
+      "order6": "f6a7b8c9-0006-0006-0006-000000000006",
+      "order7": "f6a7b8c9-0006-0006-0006-000000000007",
+      "order8": "f6a7b8c9-0006-0006-0006-000000000008",
+      "order9": "f6a7b8c9-0006-0006-0006-000000000009",
+      "order10": "f6a7b8c9-0006-0006-0006-000000000010"
+    }
+  },
+  "roles": [
+    { "id": "a1b2c3d4-0001-0001-0001-000000000001", "title": "user" },
+    { "id": "a1b2c3d4-0001-0001-0001-000000000002", "title": "technical" },
+    { "id": "a1b2c3d4-0001-0001-0001-000000000003", "title": "admin" }
+  ],
+  "categories": [
+    {
+      "id": "b2c3d4e5-0002-0002-0002-000000000001",
+      "name": "Teléfono",
+      "description": "Diagnóstico y reparación de teléfonos móviles: batería, carga, audio, conectividad, pantalla, software."
+    },
+    {
+      "id": "b2c3d4e5-0002-0002-0002-000000000002",
+      "name": "PC de escritorio",
+      "description": "Reparación y mantenimiento de PC: hardware, sistema operativo, limpieza, fuente, performance y backups."
+    },
+    {
+      "id": "b2c3d4e5-0002-0002-0002-000000000003",
+      "name": "Notebook",
+      "description": "Servicio técnico para notebooks/laptops: fallas de encendido, temperatura, teclado, batería, almacenamiento y rendimiento."
+    },
+    {
+      "id": "b2c3d4e5-0002-0002-0002-000000000004",
+      "name": "Pantalla",
+      "description": "Reparación o reemplazo de pantallas: roturas, líneas, manchas, retroiluminación o display sin imagen."
+    }
+  ],
+  "users": [
+    {
+      "id": "c3d4e5f6-0003-0003-0003-000000000001",
+      "full_name": "Lucía Fernández",
+      "email": "lucia.fernandez@mail.com",
+      "phone": "+543411234567"
+    },
+    {
+      "id": "c3d4e5f6-0003-0003-0003-000000000002",
+      "full_name": "Martín Gómez",
+      "email": "martin.gomez@mail.com",
+      "phone": "+543412345678"
+    },
+    {
+      "id": "c3d4e5f6-0003-0003-0003-000000000003",
+      "full_name": "Valentina Torres",
+      "email": "valentina.torres@mail.com",
+      "phone": "+543413456789"
+    },
+    {
+      "id": "c3d4e5f6-0003-0003-0003-000000000004",
+      "full_name": "Agustín Romero",
+      "email": "agustin.romero@mail.com",
+      "phone": "+543414567890"
+    },
+    {
+      "id": "c3d4e5f6-0003-0003-0003-000000000005",
+      "full_name": "Camila Díaz",
+      "email": "camila.diaz@mail.com",
+      "phone": "+543415678901"
+    },
+    {
+      "id": "d4e5f6a7-0004-0004-0004-000000000001",
+      "full_name": "Carlos Medina",
+      "email": "carlos.medina@mail.com",
+      "phone": "+543416789012"
+    },
+    {
+      "id": "d4e5f6a7-0004-0004-0004-000000000002",
+      "full_name": "Roberto Sánchez",
+      "email": "roberto.sanchez@mail.com",
+      "phone": "+543417890123"
+    },
+    {
+      "id": "d4e5f6a7-0004-0004-0004-000000000003",
+      "full_name": "Florencia López",
+      "email": "florencia.lopez@mail.com",
+      "phone": "+543418901234"
+    },
+    {
+      "id": "d4e5f6a7-0004-0004-0004-000000000004",
+      "full_name": "Diego Herrera",
+      "email": "diego.herrera@mail.com",
+      "phone": "+543419012345"
+    },
+    {
+      "id": "d4e5f6a7-0004-0004-0004-000000000005",
+      "full_name": "Natalia Suárez",
+      "email": "natalia.suarez@mail.com",
+      "phone": "+543410123456"
+    },
+    {
+      "id": "e5f6a7b8-0005-0005-0005-000000000001",
+      "full_name": "Admin Principal",
+      "email": "admin@techfix.com",
+      "phone": "+543411111111"
+    }
+  ],
+  "roles_users": [
+    { "id": "e1000001-0007-0007-0007-000000000001", "user_id": "c3d4e5f6-0003-0003-0003-000000000001", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" },
+    { "id": "e1000001-0007-0007-0007-000000000002", "user_id": "c3d4e5f6-0003-0003-0003-000000000002", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" },
+    { "id": "e1000001-0007-0007-0007-000000000003", "user_id": "c3d4e5f6-0003-0003-0003-000000000003", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" },
+    { "id": "e1000001-0007-0007-0007-000000000004", "user_id": "c3d4e5f6-0003-0003-0003-000000000004", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" },
+    { "id": "e1000001-0007-0007-0007-000000000005", "user_id": "c3d4e5f6-0003-0003-0003-000000000005", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" },
+
+    { "id": "e1000001-0007-0007-0007-000000000006", "user_id": "d4e5f6a7-0004-0004-0004-000000000001", "role_id": "a1b2c3d4-0001-0001-0001-000000000002" },
+    { "id": "e1000001-0007-0007-0007-000000000007", "user_id": "d4e5f6a7-0004-0004-0004-000000000002", "role_id": "a1b2c3d4-0001-0001-0001-000000000002" },
+    { "id": "e1000001-0007-0007-0007-000000000008", "user_id": "d4e5f6a7-0004-0004-0004-000000000003", "role_id": "a1b2c3d4-0001-0001-0001-000000000002" },
+    { "id": "e1000001-0007-0007-0007-000000000009", "user_id": "d4e5f6a7-0004-0004-0004-000000000004", "role_id": "a1b2c3d4-0001-0001-0001-000000000002" },
+    { "id": "e1000001-0007-0007-0007-000000000010", "user_id": "d4e5f6a7-0004-0004-0004-000000000005", "role_id": "a1b2c3d4-0001-0001-0001-000000000002" },
+
+    { "id": "e1000001-0007-0007-0007-000000000011", "user_id": "e5f6a7b8-0005-0005-0005-000000000001", "role_id": "a1b2c3d4-0001-0001-0001-000000000003" },
+    { "id": "e1000001-0007-0007-0007-000000000012", "user_id": "e5f6a7b8-0005-0005-0005-000000000001", "role_id": "a1b2c3d4-0001-0001-0001-000000000001" }
+  ],
+  "specializations": [
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000001", "category_id": "b2c3d4e5-0002-0002-0002-000000000001" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000001", "category_id": "b2c3d4e5-0002-0002-0002-000000000004" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000002", "category_id": "b2c3d4e5-0002-0002-0002-000000000002" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000003", "category_id": "b2c3d4e5-0002-0002-0002-000000000003" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000003", "category_id": "b2c3d4e5-0002-0002-0002-000000000004" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000004", "category_id": "b2c3d4e5-0002-0002-0002-000000000004" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000005", "category_id": "b2c3d4e5-0002-0002-0002-000000000002" },
+    { "user_id": "d4e5f6a7-0004-0004-0004-000000000005", "category_id": "b2c3d4e5-0002-0002-0002-000000000001" }
+  ],
+  "orders": [
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000001",
+      "status": "SEARCHING",
+      "description": "Mi celular no carga y la batería se agota muy rápido.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000001",
+      "technician_id": null,
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000001",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000002",
+      "status": "SEARCHING",
+      "description": "La PC se reinicia sola y a veces no da imagen al encender.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000002",
+      "technician_id": null,
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000002",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000003",
+      "status": "SEARCHING",
+      "description": "Notebook muy lenta; tarda muchísimo en iniciar Windows.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000003",
+      "technician_id": null,
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000003",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000004",
+      "status": "IN_PROGRESS",
+      "description": "La pantalla del celular quedó con líneas verticales después de una caída.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000004",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000004",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000005",
+      "status": "IN_PROGRESS",
+      "description": "Notebook se apaga por temperatura; necesito limpieza y cambio de pasta térmica.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000005",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000003",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000006",
+      "status": "IN_PROGRESS",
+      "description": "Mi PC no reconoce el disco; creo que se dañó el SSD/HDD.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000001",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000002",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000002",
+      "finished_at": null,
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000007",
+      "status": "COMPLETED",
+      "description": "Cambio de batería de celular y revisión de puerto de carga.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000002",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000005",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000001",
+      "finished_at": "2026-04-07T14:30:00.000Z",
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000008",
+      "status": "COMPLETED",
+      "description": "Reinstalación de sistema y backup de archivos en notebook.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000003",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000003",
+      "finished_at": "2026-03-25T17:45:22.123Z",
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000009",
+      "status": "COMPLETED",
+      "description": "Cambio de monitor/pantalla: display sin imagen y retroiluminación fallando.",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000004",
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000004",
+      "finished_at": "2026-03-08T09:15:33.456Z",
+      "canceled_at": null
+    },
+    {
+      "id": "f6a7b8c9-0006-0006-0006-000000000010",
+      "status": "CANCELLED",
+      "description": "Diagnóstico de PC para upgrade (cancelado por el cliente).",
+      "user_id": "c3d4e5f6-0003-0003-0003-000000000005",
+      "technician_id": null,
+      "category_id": "b2c3d4e5-0002-0002-0002-000000000002",
+      "finished_at": null,
+      "canceled_at": "2026-04-14T11:00:00.789Z"
+    }
+  ],
+  "technician_offers": [
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000001",
+      "status": "SEARCHING",
+      "price": "4500.00",
+      "description": "Incluye diagnóstico y repuesto si corresponde."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000005",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000001",
+      "status": "SEARCHING",
+      "price": "3800.00",
+      "description": "Reparación rápida, garantía 3 meses."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000002",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000002",
+      "status": "SEARCHING",
+      "price": "2000.00",
+      "description": "Revisión completa (fuente/RAM/temperaturas)."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000005",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000002",
+      "status": "SEARCHING",
+      "price": "1800.00",
+      "description": "Solo mano de obra, sin repuestos."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000003",
+      "status": "SEARCHING",
+      "price": "12000.00",
+      "description": "Incluye optimización + limpieza y revisión general."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000004",
+      "status": "ACCEPTED",
+      "price": "3200.00",
+      "description": "Cambio de módulo de pantalla (según modelo)."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000005",
+      "status": "ACCEPTED",
+      "price": "5500.00",
+      "description": "Incluye limpieza interna y pasta térmica."
+    },
+    {
+      "technician_id": "d4e5f6a7-0004-0004-0004-000000000002",
+      "order_id": "f6a7b8c9-0006-0006-0006-000000000006",
+      "status": "ACCEPTED",
+      "price": "4000.00",
+      "description": "Diagnóstico + clonación si el disco lo permite."
+    }
+  ]
+}

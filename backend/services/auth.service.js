@@ -3,8 +3,7 @@ import { RoleUser } from "../models/RoleUser.js";
 import { Role } from "../models/Role.js";
 import * as bcrypt from 'bcryptjs';
 import AppError from "../utils/appError.js"
-import { createToken, verifyToken } from "../utils/jwt.js";
-
+import { createToken } from "../utils/jwt.js";
 
 export const registerSrv = async (body) => {
     const { full_name, email, password, phone, avatar, role_id } = body;
