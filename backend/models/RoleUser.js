@@ -22,6 +22,6 @@ export const RoleUser = sequelize.define(
   },
   {
     tableName: 'roles_users',
-    timestamps: false,
+    timestamps: true,
   },
 );

@@ -15,5 +15,5 @@ export const Specialization = sequelize.define("Specialization", {
 
 }, {
   tableName: "specializations",
-  timestamps: false,
+  timestamps: true,
 });

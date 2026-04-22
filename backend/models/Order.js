@@ -14,9 +14,9 @@ export const Order = sequelize.define(
     },
 
     status: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.ENUM('SEARCHING', 'PENDING', 'IN_PROGRESS', 'CANCELLED', 'COMPLETED'),
       allowNull: false,
-      defaultValue: 'PENDING',
+      defaultValue: 'SEARCHING',
     },
 
     description: {
@@ -37,23 +37,16 @@ export const Order = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
     },
-
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-
     finished_at: {
       type: DataTypes.DATE,
     },
-
     canceled_at: {
       type: DataTypes.DATE,
     },
   },
   {
     tableName: 'orders',
-    timestamps: false,
+    timestamps: true,
   },
 );
 
