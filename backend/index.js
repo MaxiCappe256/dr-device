@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import config from './config/index.js'
 import './models/index.js';
 import { connectDB } from './db/index.js';
+import rolesRoutes from './routes/roles.routes.js';
 
 import authRoutes from './routes/auth.routes.js';
 
@@ -20,5 +21,6 @@ app.use(cookieParser());
 await connectDB();
 
 app.use('/api/auth', authRoutes)
+app.use('/api/roles', rolesRoutes)
 
 app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));
