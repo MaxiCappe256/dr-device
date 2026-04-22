@@ -1,8 +1,8 @@
-import sequelize from '../db/index.js';
-import { DataTypes } from 'sequelize';
+import sequelize from "../db/index.js";
+import { DataTypes } from "sequelize";
 
 export const User = sequelize.define(
-  'User',
+  "User",
   {
     id: {
       type: DataTypes.UUID,
@@ -30,7 +30,7 @@ export const User = sequelize.define(
     },
 
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(20),
     },
 
     avatar: {
@@ -41,32 +41,32 @@ export const User = sequelize.define(
     },
   },
   {
-    tableName: 'users',
+    tableName: "users",
     timestamps: true,
   },
 );
 
 User.associate = (models) => {
   User.hasMany(models.Order, {
-    foreignKey: 'user_id',
+    foreignKey: "user_id",
   });
 
   User.hasMany(models.Order, {
-    foreignKey: 'technician_id',
+    foreignKey: "technician_id",
   });
 
   User.belongsToMany(models.Role, {
     through: models.RoleUser,
-    foreignKey: 'user_id',
+    foreignKey: "user_id",
   });
 
   User.belongsToMany(models.Category, {
     through: models.Specialization,
-    foreignKey: 'user_id',
+    foreignKey: "user_id",
   });
 
   User.belongsToMany(models.Order, {
     through: models.TechnicianOffer,
-    foreignKey: 'technician_id',
+    foreignKey: "technician_id",
   });
 };
