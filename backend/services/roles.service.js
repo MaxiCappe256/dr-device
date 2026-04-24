@@ -29,4 +29,7 @@ export const createRoleSrv = async (title) => {
   const role = await Role.create({ title });
   if (!role) throw new AppError('No se ha podido crear', 400);
   return role;
+
+  // guardar el permiso DE ESE ROL QUE SE CREO
+  
 };

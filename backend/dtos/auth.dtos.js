@@ -18,7 +18,7 @@ export const registerDTO = [
 
     body('phone')
         .optional()
-        .isString().withMessage('El teléfono debe ser un número.')
+        .isString().withMessage('El teléfono debe ser un texto.')
         .isLength({ min: 7, max: 20 }).withMessage('El teléfono debe tener entre 7 y 20 dígitos.'),
 
     body('role_id')
