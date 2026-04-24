@@ -1,3 +1,5 @@
+import sequelize from '../db/index.js';
+import { Permission } from '../models/Permision.js';
 import { Role } from '../models/Role.js';
 import AppError from '../utils/appError.js';
 
@@ -25,11 +27,44 @@ export const updateRoleSrv = async (id, title) => {
   return role;
 };
 
-export const createRoleSrv = async (title) => {
-  const role = await Role.create({ title });
-  if (!role) throw new AppError('No se ha podido crear', 400);
-  return role;
+export const createRoleSrv = async (title, actions) => {
+  // action = crear y eliminar = [create, eliminar]
+  const transaction = await sequelize.transaction();
 
-  // guardar el permiso DE ESE ROL QUE SE CREO
-  
+  try {
+    const role = await Role.create({ title }, { transaction });
+
+    if (!role) throw new AppError('No se ha podido crear', 400);
+
+    const permissions = await Permission.findAll({
+      where: { action: actions },
+      transaction,
+    });
+
+    if (!permissions.length)
+      throw new AppError('No se encontraron permisos', 404);
+
+    if (permissions.length !== actions.length)
+      throw new AppError('Alguno de los permisos no existe', 400);
+
+    await role.addPermissions(permissions, { transaction });
+
+    // revisar
+    const roleWithPermissions = await Role.findByPk(role.id, {
+      include: {
+        model: Permission,
+        as: 'permissions',
+        attributes: ['id', 'name'],
+        through: { attributes: [] },
+      },
+      transaction: t,
+    });
+
+    await transaction.commit();
+
+    return roleWithPermissions;
+  } catch (error) {
+    console.log(error);
+    await transaction.rollback();
+  }
 };

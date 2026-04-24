@@ -66,9 +66,9 @@ export const updateRoleCtrl = async (req, res) => {
 
 export const createRoleCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const { title } = req.body;
+  const { title, actions } = req.body;
   try {
-    const data = await createRoleSrv(title);
+    const data = await createRoleSrv(title, actions);
     response.created('Rol creado', data);
   } catch (error) {
     console.error(error.message);
