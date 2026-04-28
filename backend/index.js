@@ -8,11 +8,11 @@ import config from './config/index.js'
 import './models/index.js';
 import { connectDB } from './db/index.js';
 
-// importacion de rutas
+// importacion de rutas 
 import rolesRoutes from './routes/roles.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import seedRoutes from './routes/seed.routes.js';
-import permissionRoutes from './routes/permissions.routes.js'
+import permissionsRoutes from './routes/permissions.routes.js'
 
 const app = express();
 
@@ -26,6 +26,6 @@ await connectDB();
 app.use('/api/auth', authRoutes)
 app.use('/api/seed', seedRoutes)
 app.use('/api/roles', rolesRoutes)
-app.use('/api/permission', permissionRoutes)
+app.use('/api/permissions', permissionsRoutes)
 
 app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));
