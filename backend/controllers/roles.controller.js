@@ -6,6 +6,7 @@ import {
   updateRoleSrv,
   createRoleSrv,
 } from '../services/roles.service.js';
+import { getPermissionsSrv } from '../services/permission.service.js';
 
 export const getRolesCtrl = async (req, res) => {
   const response = new ApiResponse(res);
@@ -49,13 +50,13 @@ export const deleteRoleCtrl = async (req, res) => {
 
 export const updateRoleCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const { title } = req.body;
+  const { title, permissions } = req.body;
   const { id } = req.params;
   try {
     await getRoleSrv(id);
-
-    await updateRoleSrv(id, title);
-    response.noContent('Rol actualizado', `Rol: ${title} actualizado`);
+    const permissionsList = await getPermissionsSrv(permissions)
+    const updatedRole = await updateRoleSrv({ id, title, permissionsList });
+    response.ok('Rol actualizado', updatedRole);
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 400) return response.badRequest(error.message);
@@ -66,13 +67,16 @@ export const updateRoleCtrl = async (req, res) => {
 
 export const createRoleCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const { title, actions } = req.body;
+  const { title, permissions } = req.body;
+
   try {
-    const data = await createRoleSrv(title, actions);
+    const permissionsList = await getPermissionsSrv(permissions)
+    const data = await createRoleSrv({ title, permissionsList });
     response.created('Rol creado', data);
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 400) return response.badRequest(error.message);
+    if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }
 };
