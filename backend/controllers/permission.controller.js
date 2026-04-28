@@ -10,8 +10,8 @@ import {
 export const getPermissionsCtrl = async (req, res) => {
   const response = new ApiResponse(res);
   try {
-    const permissions = await getPermissionsSrv();
-    response.ok('Permisos encontrados', permissions);
+    const getPermissions = await getPermissionsSrv();
+    response.ok('Permisos encontrados', getPermissions);
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
@@ -39,7 +39,7 @@ export const deletePermissionCtrl = async (req, res) => {
 
     await deletePermissionSrv(id);
 
-    response.noContent();
+    response.noContent(); 
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 400) return response.badRequest(error.message);

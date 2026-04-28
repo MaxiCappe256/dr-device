@@ -1,9 +1,15 @@
 import { Permission } from '../models/Permision.js';
+import { Op } from 'sequelize';
 import AppError from '../utils/appError.js';
 
-export const getPermissionsSrv = async () => {
-  const permissions = await Permission.findAll();
-  if (!permissions) throw new AppError('No se han encontrado permisos', 404);
+export const getPermissionsSrv = async (idList) => {
+  const permissions = idList && idList.length > 0
+    ? (await Permission.findAll({ where: { id: { [Op.in]: idList } } }))
+    : (await Permission.findAll());
+    
+  if (idList && (!permissions || !permissions.length)) throw new AppError('No se han encontrado permisos', 404);
+  if(idList && (permissions.length !== idList.length)) throw new AppError('Ciertos permisos indicados no existen.', 404)
+
   return permissions;
 };
 
@@ -31,5 +37,5 @@ export const createPermissionSrv = async (title) => {
   return permission;
 
   // guardar el permiso DE ESE ROL QUE SE CREO
-  
+
 };

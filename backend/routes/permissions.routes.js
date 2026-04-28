@@ -11,9 +11,9 @@ import { permissionDTO } from '../dtos/permission.dtos.js';
 const router = Router();
 
 router.get('/', getPermissionsCtrl);
+router.get('/:id', getPermissionCtrl);
 router.post('/', permissionDTO, createPermissionCtrl);
 router.patch('/:id', permissionDTO, updatePermissionCtrl);
 router.delete('/:id', deletePermissionCtrl);
-router.get('/:id', getPermissionCtrl);
 
 export default router;
