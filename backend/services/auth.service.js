@@ -6,6 +6,7 @@ import AppError from "../utils/appError.js"
 import { createToken } from "../utils/jwt.js";
 
 export const registerSrv = async (body) => {
+    const validRoles=['technician', 'user']
     const { full_name, email, password, phone, avatar, role_id } = body;
 
     const userExists = await User.findOne({ where: { email } })
@@ -15,7 +16,7 @@ export const registerSrv = async (body) => {
     if (!role) throw new AppError('El rol ingresado no es válido.', 404)
 
     // le hacemos la psicologica! ingenieria inversa. LA DOBLE NELSON EN EL 92'
-    if (role.dataValues.title === 'admin') throw new AppError('El rol ingresado no es válido.', 404)
+    if (!validRoles.includes(role.dataValues.title)) throw new AppError('El rol ingresado no es válido.', 404)
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
