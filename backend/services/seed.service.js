@@ -3,8 +3,17 @@ import sequelize from "../db/index.js";
 import models from "../models/index.js";
 import seedData from "../utils/seed.data.json" with { type: "json" };
 
-const { User, Role, RoleUser, Category, Order, TechnicianOffer, Specialization } =
-  models;
+const {
+  User,
+  Role,
+  RoleUser,
+  Category,
+  Order,
+  TechnicianOffer,
+  Specialization,
+  Permission,
+  RolePermission,
+} = models;
 
 function parseSeedDate(value) {
   if (value == null || value === "") return null;
@@ -19,8 +28,9 @@ export const clearDBSrv = async () => {
     // 1) technician_offers (FK a orders y users)
     // 2) specializations (FK a users y categories)
     // 3) roles_users (FK a users y roles)
-    // 4) orders (FK a users y categories)
-    // 5) users / roles / categories
+    // 4) role_permission (FK a roles y permissions)
+    // 5) orders (FK a users y categories)
+    // 6) users / roles / permissions / categories
     const deleted = {
       technician_offers: await TechnicianOffer.destroy({
         where: {},
@@ -31,9 +41,11 @@ export const clearDBSrv = async () => {
         transaction: t,
       }),
       roles_users: await RoleUser.destroy({ where: {}, transaction: t }),
+      role_permission: await RolePermission.destroy({ where: {}, transaction: t }),
       orders: await Order.destroy({ where: {}, transaction: t }),
       users: await User.destroy({ where: {}, transaction: t }),
       roles: await Role.destroy({ where: {}, transaction: t }),
+      permissions: await Permission.destroy({ where: {}, transaction: t }),
       categories: await Category.destroy({ where: {}, transaction: t }),
     };
 
@@ -56,12 +68,22 @@ export const executeSrv = async () => {
       await Role.upsert(role, { transaction: t });
     }
 
-    // 2) Categorías
+    // 2) Permisos
+    for (const permission of seedData.permissions) {
+      await Permission.upsert(permission, { transaction: t });
+    }
+
+    // 2b) Rol ↔ permiso
+    for (const rp of seedData.role_permissions) {
+      await RolePermission.upsert(rp, { transaction: t });
+    }
+
+    // 3) Categorías
     for (const category of seedData.categories) {
       await Category.upsert(category, { transaction: t });
     }
 
-    // 3) Usuarios (password del seed hasheada)
+    // 4) Usuarios (password del seed hasheada)
     for (const user of seedData.users) {
       await User.upsert(
         {
@@ -72,12 +94,12 @@ export const executeSrv = async () => {
       );
     }
 
-    // 4) RolesUsers (tabla intermedia con id)
+    // 5) RolesUsers (tabla intermedia con id)
     for (const ru of seedData.roles_users) {
       await RoleUser.upsert(ru, { transaction: t });
     }
 
-    // 5) Specializations (PK compuesta: user_id + category_id)
+    // 6) Specializations (PK compuesta: user_id + category_id)
     for (const spec of seedData.specializations) {
       await Specialization.findOrCreate({
         where: { user_id: spec.user_id, category_id: spec.category_id },
@@ -86,7 +108,7 @@ export const executeSrv = async () => {
       });
     }
 
-    // 6) Órdenes (finished_at / canceled_at en ISO como Sequelize timestamps)
+    // 7) Órdenes (finished_at / canceled_at en ISO como Sequelize timestamps)
     for (const o of seedData.orders) {
       await Order.upsert(
         {
@@ -103,7 +125,7 @@ export const executeSrv = async () => {
       );
     }
 
-    // 7) Ofertas (PK compuesta: technician_id + order_id; created_at en ISO)
+    // 8) Ofertas (PK compuesta: technician_id + order_id; created_at en ISO)
     for (const offer of seedData.technician_offers) {
       await TechnicianOffer.findOrCreate({
         where: {
@@ -127,6 +149,8 @@ export const executeSrv = async () => {
       seed_password_plain: seedPassword,
       counts: {
         roles: seedData.roles.length,
+        permissions: seedData.permissions.length,
+        role_permissions: seedData.role_permissions.length,
         categories: seedData.categories.length,
         users: seedData.users.length,
         roles_users: seedData.roles_users.length,
