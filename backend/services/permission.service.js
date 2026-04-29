@@ -2,13 +2,20 @@ import { Permission } from '../models/Permision.js';
 import { Op } from 'sequelize';
 import AppError from '../utils/appError.js';
 
-export const getPermissionsSrv = async (idList) => {
-  const permissions = idList && idList.length > 0
-    ? (await Permission.findAll({ where: { id: { [Op.in]: idList } } }))
-    : (await Permission.findAll());
-    
-  if (idList && (!permissions || !permissions.length)) throw new AppError('No se han encontrado permisos', 404);
-  if(idList && (permissions.length !== idList.length)) throw new AppError('Ciertos permisos indicados no existen.', 404)
+export const getPermissionsSrv = async (idList, actionsList) => {
+  let permissions = [];
+
+  if (idList && idList.length) {
+    permissions = await Permission.findAll({ where: { id: { [Op.in]: idList } } })
+    if (permissions.length !== idList.length) throw new AppError('Ciertos permisos indicados no existen.', 404)
+  } else if (actionsList && actionsList.length) {
+    permissions = await Permission.findAll({ where: { action: { [Op.in]: actionsList } } })
+    if (permissions.length !== actionsList.length) throw new AppError('Ciertos permisos indicados no existen.', 404)
+  } else {
+    permissions = await Permission.findAll();
+  }
+  
+  if (!permissions || !permissions.length) throw new AppError('No se han encontrado permisos', 404);
 
   return permissions;
 };
