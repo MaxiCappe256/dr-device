@@ -15,8 +15,24 @@ export const authMiddleware = async (req, res, next) => {
         if (!userFound) return response.notFound("Usuario no encontrado")
 
         const { password, ...userWithoutPassword } = userFound.dataValues;
+        const roles = await userFound.getRoles();
 
-        req.user = userWithoutPassword;
+        const permissionsByRole = await Promise.all(
+            roles.map(role => role.getPermissions())
+        );
+
+        const permissions = [
+            ...new Set(
+                permissionsByRole
+                    .flat()
+                    .map(p => p.dataValues.action)
+            )
+        ];
+        req.user = {
+            ...userWithoutPassword,
+            roles: roles.map(role => role.dataValues.title),
+            permissions
+        }
 
         next();
     } catch (error) {
