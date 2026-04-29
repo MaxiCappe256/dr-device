@@ -9,6 +9,7 @@ export const createRoleDTO = [
     .notEmpty().withMessage('Debes indicar al menos un permiso.')
     .isArray().withMessage('Debe ser un array.'),
   body('permissions.*')
+    .notEmpty().withMessage('Cada permiso debe contener algo.')
     .isString().withMessage('Cada permiso debe ser un string.')
     .matches(/^[0-9a-fA-F-]{36}$/).withMessage('Cada permiso debe ser un UUID válido.'),
   validate

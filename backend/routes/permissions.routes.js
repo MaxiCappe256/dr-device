@@ -1,11 +1,5 @@
 import { Router } from 'express';
-import {
-  createPermissionCtrl,
-  deletePermissionCtrl,
-  getPermissionCtrl,
-  getPermissionsCtrl,
-  updatePermissionCtrl,
-} from '../controllers/permission.controller.js';
+import { createPermissionCtrl, deletePermissionCtrl, getPermissionCtrl, getPermissionsCtrl, updatePermissionCtrl } from '../controllers/permission.controller.js';
 import { permissionDTO } from '../dtos/permission.dtos.js';
 
 const router = Router();

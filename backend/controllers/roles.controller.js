@@ -1,11 +1,5 @@
 import ApiResponse from '../handlers/response.js';
-import {
-  getRolesSrv,
-  getRoleSrv,
-  deleteRoleSrv,
-  updateRoleSrv,
-  createRoleSrv,
-} from '../services/roles.service.js';
+import { getRolesSrv, getRoleSrv, deleteRoleSrv, updateRoleSrv, createRoleSrv } from '../services/roles.service.js';
 import { getPermissionsSrv } from '../services/permission.service.js';
 
 export const getRolesCtrl = async (req, res) => {

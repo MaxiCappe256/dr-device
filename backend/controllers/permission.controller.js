@@ -1,11 +1,5 @@
 import ApiResponse from '../handlers/response.js';
-import {
-  getPermissionSrv,
-  getPermissionsSrv,
-  updatePermissionSrv,
-  deletePermissionSrv,
-  createPermissionSrv,
-} from '../services/permission.service.js';
+import { getPermissionSrv, getPermissionsSrv, updatePermissionSrv, deletePermissionSrv } from '../services/permission.service.js';
 
 export const getPermissionsCtrl = async (req, res) => {
   const response = new ApiResponse(res);
@@ -39,7 +33,7 @@ export const deletePermissionCtrl = async (req, res) => {
 
     await deletePermissionSrv(id);
 
-    response.noContent(); 
+    response.noContent();
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 400) return response.badRequest(error.message);
