@@ -14,6 +14,10 @@ export const authMiddleware = async (req, res, next) => {
         const userFound = await User.findByPk(isValid.id)
         if (!userFound) return response.notFound("Usuario no encontrado")
 
+        const { password, ...userWithoutPassword } = userFound.dataValues;
+
+        req.user = userWithoutPassword;
+
         next();
     } catch (error) {
         console.error(error.message)
