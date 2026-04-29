@@ -17,7 +17,10 @@ import permissionsRoutes from './routes/permissions.routes.js'
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true // Permite compartir cookies con el frontend
+}));
 app.use(morgan('dev'));
 app.use(cookieParser());
 
