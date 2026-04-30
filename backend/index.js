@@ -13,8 +13,10 @@ import rolesRoutes from './routes/roles.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import seedRoutes from './routes/seed.routes.js';
 import permissionsRoutes from './routes/permissions.routes.js'
+import usersRoutes from './routes/user.routes.js'
 
 const app = express();
+const prefix = '/api';
 
 app.use(express.json());
 app.use(cors({
@@ -26,9 +28,10 @@ app.use(cookieParser());
 
 await connectDB();
 
-app.use('/api/auth', authRoutes)
-app.use('/api/seed', seedRoutes)
-app.use('/api/roles', rolesRoutes)
-app.use('/api/permissions', permissionsRoutes)
+app.use(`${prefix}/auth`, authRoutes)
+app.use(`${prefix}/seed`, seedRoutes)
+app.use(`${prefix}/roles`, rolesRoutes)
+app.use(`${prefix}/permissions`, permissionsRoutes)
+app.use(`${prefix}/users`, usersRoutes)
 
 app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));

@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import validate from '../middlewares/validate.js'
+import validate from '../middlewares/validate.middleware.js'
 
 // TODO: Falta colocar el AVATAR, deberia estar validado en otro lugar ya que se requiere logica customizada.
 export const registerDTO = [
@@ -23,8 +23,7 @@ export const registerDTO = [
 
     body('role_id')
         .notEmpty().withMessage('El rol no puede estar vacío.')
-        .isUUID().withMessage('ID incorrecto'),
-
+        .matches(/^[0-9a-fA-F-]{36}$/).withMessage('El rol debe ser un UUID válido.'),
     validate
 ]
 
