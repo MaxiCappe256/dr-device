@@ -90,3 +90,8 @@ export const createRoleSrv = async ({title, permissionsList }) => {
     throw error;
   }
 };
+
+export const checkExistsRoleSrv = async (title) => {
+  const role = await Role.findOne({where: { title }});
+  return role ? true : false;
+}
