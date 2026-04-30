@@ -32,17 +32,19 @@ export const deletePermissionSrv = async (id) => {
   return permission;
 };
 
-export const updatePermissionSrv = async (id, title) => {
-  const permission = await Permission.update({ title }, { where: { id } });
+export const updatePermissionSrv = async (id, action) => {
+  const permission = await Permission.update({ action }, { where: { id } });
   if (!permission) throw new AppError('No se ha podido actualizar el permiso', 400);
   return permission;
 };
 
-export const createPermissionSrv = async (title) => {
-  const permission = await Permission.create({ title });
+export const createPermissionSrv = async (action) => {
+  const permission = await Permission.create({ action });
   if (!permission) throw new AppError('No se ha podido crear', 400);
   return permission;
-
-  // guardar el permiso DE ESE ROL QUE SE CREO
-
 };
+
+export const checkExistsPermissionSrv = async (action) => {
+  const permission = await Permission.findOne({where: { action }});
+  return permission ? true : false;
+}

@@ -1,5 +1,5 @@
 import ApiResponse from '../handlers/response.js';
-import { getRolesSrv, getRoleSrv, deleteRoleSrv, updateRoleSrv, createRoleSrv } from '../services/roles.service.js';
+import { getRolesSrv, getRoleSrv, deleteRoleSrv, updateRoleSrv, createRoleSrv, checkExistsRoleSrv } from '../services/roles.service.js';
 import { getPermissionsSrv } from '../services/permission.service.js';
 
 export const getRolesCtrl = async (req, res) => {
@@ -48,7 +48,9 @@ export const updateRoleCtrl = async (req, res) => {
   const { id } = req.params;
   try {
     await getRoleSrv(id);
-    const permissionsList = await getPermissionsSrv(permissions)
+    const permissionsList = await getPermissionsSrv(permissions, [])
+    const existsRole = await checkExistsRoleSrv(title)
+    if(existsRole) return response.conflict('El Rol con ese título ya se encuentra registrado.') 
     const updatedRole = await updateRoleSrv({ id, title, permissionsList });
     response.ok('Rol actualizado', updatedRole);
   } catch (error) {
@@ -62,9 +64,10 @@ export const updateRoleCtrl = async (req, res) => {
 export const createRoleCtrl = async (req, res) => {
   const response = new ApiResponse(res);
   const { title, permissions } = req.body;
-
   try {
-    const permissionsList = await getPermissionsSrv(permissions)
+    const permissionsList = await getPermissionsSrv(permissions);
+    const existsRole = await checkExistsRoleSrv(title);
+    if(existsRole) return response.conflict('El Rol con ese título ya se encuentra registrado.') 
     const data = await createRoleSrv({ title, permissionsList });
     response.created('Rol creado', data);
   } catch (error) {
