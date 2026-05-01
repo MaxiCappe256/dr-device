@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import AppError from "../utils/appError.js";
+import { Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
 
 export const getUsersSrv = async (offset, limit) => {
@@ -60,6 +61,13 @@ export const updateUserSrv = async (id, data) => {
 };
 
 // activar al usuario
-export const updateDeletedAtUserSrv = async (id) => {
+export const removeDeletedAtUserSrv = async (id) => {
   return await User.update({ deleted_at: null }, { where: { id } });
+};
+
+export const addDeletedAtUserSrv = async (id) => {
+  return await User.update(
+    { deleted_at: Sequelize.fn('NOW') }, 
+    { where: { id } }
+  );
 };

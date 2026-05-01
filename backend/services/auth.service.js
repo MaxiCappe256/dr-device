@@ -4,7 +4,7 @@ import { Role } from "../models/Role.js";
 import AppError from "../utils/appError.js";
 import { createToken } from "../utils/jwt.js";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
-import { updateDeletedAtUserSrv, updateUserSrv } from "./users.service.js";
+import { removeDeletedAtUserSrv, updateUserSrv } from "./users.service.js";
 
 export const registerSrv = async (body) => {
   const validRoles = ["technician", "user"];
@@ -81,7 +81,7 @@ export const loginSrv = async (body) => {
 
   if (!userExists) throw new AppError("Las crendenciales no coinciden.", 401);
 
-  if (userExists.dataValues.deleted_at !== null) await updateDeletedAtUserSrv(userExists.dataValues.id);
+  if (userExists.dataValues.deleted_at !== null) await removeDeletedAtUserSrv(userExists.dataValues.id);
  
   // verificar que la contraseña es valida, comparando la encriptada con la ingresada
   const isValidPassword = comparePassword(
