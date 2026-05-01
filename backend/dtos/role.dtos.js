@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import validate from '../middlewares/validate.js'
+import validate from '../middlewares/validate.middleware.js'
 
 export const createRoleDTO = [
   body('title')
