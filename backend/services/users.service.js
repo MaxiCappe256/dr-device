@@ -1,7 +1,8 @@
 import { User } from "../models/User.js";
 import AppError from "../utils/appError.js";
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
+
 
 export const getUsersSrv = async (offset, limit) => {
   const { count: total, rows: usersDB } = await User.findAndCountAll({
@@ -62,12 +63,38 @@ export const updateUserSrv = async (id, data) => {
 
 // activar al usuario
 export const removeDeletedAtUserSrv = async (id) => {
-  return await User.update({ deleted_at: null }, { where: { id } });
+  const [affectedRows] = await User.update({ deleted_at: null }, { where: { id, deleted_at: { [Op.ne]: null } } });
+  if (!affectedRows) throw new AppError("El usuario ya se encuentra activo")
+  return affectedRows;
 };
 
 export const addDeletedAtUserSrv = async (id) => {
-  return await User.update(
-    { deleted_at: Sequelize.fn('NOW') }, 
-    { where: { id } }
+
+  const [affectedRows] = await User.update(
+    { deleted_at: Sequelize.fn('NOW') },
+    { where: { id, deleted_at: { [Op.eq]: null } } },
   );
+  if (!affectedRows) throw new AppError("El usuario ya se elimino")
+  return affectedRows
+
 };
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+export const massiveDeleteUserSrv = async (batchSize, dayElapsed) => {
+  // a la fecha actual le restamos 30 dias
+  const currentDate = new Date();
+  const dateLimit = new Date(currentDate.getTime() - (1440 * dayElapsed) * 60 * 1000);
+
+  let deleted=0;
+  do {
+    deleted = await User.destroy({
+      where: {
+        deleted_at: {
+          [Op.lte]: dateLimit
+        }
+      },
+      limit: batchSize
+    });
+    await sleep(200)
+  } while (deleted === batchSize);
+
+}

@@ -14,6 +14,7 @@ import authRoutes from './routes/auth.routes.js';
 import seedRoutes from './routes/seed.routes.js';
 import permissionsRoutes from './routes/permissions.routes.js'
 import usersRoutes from './routes/user.routes.js'
+import { cleanUpUserJob } from './jobs/clean-up-user.job.js';
 
 const app = express();
 const prefix = '/api';
@@ -27,6 +28,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 await connectDB();
+await cleanUpUserJob();
 
 app.use(`${prefix}/auth`, authRoutes)
 app.use(`${prefix}/seed`, seedRoutes)

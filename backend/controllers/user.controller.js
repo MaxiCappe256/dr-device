@@ -47,5 +47,4 @@ export const deleteUserCtrl= async (req, res)=>{
 
   response.ok("Tu cuenta fue eliminada correctamente")
 
-
 }
