@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 await connectDB();
-await cleanUpUserJob();
+cleanUpUserJob();
 
 app.use(`${prefix}/auth`, authRoutes)
 app.use(`${prefix}/seed`, seedRoutes)
