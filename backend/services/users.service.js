@@ -2,6 +2,7 @@ import { User } from "../models/User.js";
 import AppError from "../utils/appError.js";
 import { Op, Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
+import config from '../config/index.js';
 
 
 export const getUsersSrv = async (offset, limit) => {
@@ -78,13 +79,18 @@ export const addDeletedAtUserSrv = async (id) => {
   return affectedRows
 
 };
+
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
 export const massiveDeleteUserSrv = async (batchSize, dayElapsed) => {
   // a la fecha actual le restamos 30 dias
   const currentDate = new Date();
   const dateLimit = new Date(currentDate.getTime() - (1440 * dayElapsed) * 60 * 1000);
 
-  let deleted=0;
+  let deleted = 0;
+  
+  console.log(`[${config.prefix}] Comenzando borrado de usuarios inactivos... | ${new Date().toISOString('es-AR')}`)
+
   do {
     deleted = await User.destroy({
       where: {
@@ -97,4 +103,9 @@ export const massiveDeleteUserSrv = async (batchSize, dayElapsed) => {
     await sleep(200)
   } while (deleted === batchSize);
 
+  if(deleted === 0) {
+    console.log(`[${config.prefix}] No hay usuarios inactivos. | ${new Date().toISOString('es-AR')}`)
+  } else {    
+    console.log(`[${config.prefix}] Se ${deleted > 1 ? `borraron ${deleted} usuarios` : `borro ${deleted} usuario`} correctamente. | ${new Date().toISOString('es-AR')}`)
+  }
 }

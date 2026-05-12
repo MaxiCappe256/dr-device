@@ -30,8 +30,8 @@ const config = {
             month: '*',
             day_x: '*'
         },
-        days_elapsed:0.001,
-        batch_size:100
+        days_elapsed: 0.001,
+        batch_size: 100
     }
 }
 
