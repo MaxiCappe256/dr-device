@@ -86,9 +86,9 @@ export const massiveDeleteUserSrv = async (batchSize, dayElapsed) => {
   // a la fecha actual le restamos 30 dias
   const currentDate = new Date();
   const dateLimit = new Date(currentDate.getTime() - (1440 * dayElapsed) * 60 * 1000);
-
-  let deleted = 0;
   
+  let deleted = 0;
+
   console.log(`[${config.prefix}] Comenzando borrado de usuarios inactivos... | ${new Date().toISOString('es-AR')}`)
 
   do {
