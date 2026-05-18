@@ -2,12 +2,17 @@ import { Op } from 'sequelize';
 import { Category } from '../models/Category.js';
 import AppError from '../utils/appError.js';
 
-export const getCategoriesSrv = async () => {
-  const categories = await Category.findAll();
+export const getCategoriesSrv = async (idList) => {
+  let categories = [];
 
-  if (!categories || !categories.length) {
-    throw new AppError('No se han encontrado categorias', 404);
+  if (idList && idList.length) {
+    categories = await Category.findAll({ where: { id: { [Op.in]: idList } } })
+    if (categories.length !== idList.length) throw new AppError('Ciertas categorias indicadas no existen.', 404)
+  } else {
+    categories = await Category.findAll();
   }
+  
+  if (!categories || !categories.length) throw new AppError('No se han encontrado categorias', 404);
 
   return categories;
 };

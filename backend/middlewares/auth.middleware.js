@@ -25,13 +25,25 @@ export const authMiddleware = async (req, res, next) => {
     );
 
     const permissions = [
-      ...new Set(permissionsByRole.flat().map((p) => p.dataValues.action)),
+      ...new Set(permissionsByRole.flat().map((p) => ({
+        id: p.id,
+        action: p.action,
+      }))),
     ];
+
+    const specializations = await userFound.getCategories();
 
     req.user = {
       ...userWithoutPassword,
-      roles: roles.map((role) => role.dataValues.title),
+      roles: roles.map((role) => ({
+        id: role.id,
+        title: role.title,
+      })),
       permissions,
+      specializations: specializations.map((spe) => ({
+        id: spe.id,
+        name: spe.name,
+      })),
     };
 
     next();
