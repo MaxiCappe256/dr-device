@@ -37,9 +37,11 @@ export const Order = sequelize.define(
       type: DataTypes.UUID,
       allowNull: false,
     },
+
     finished_at: {
       type: DataTypes.DATE,
     },
+    
     canceled_at: {
       type: DataTypes.DATE,
     },

@@ -1,17 +1,87 @@
-import AppError from '../utils/appError.js';
-import { Op } from 'sequelize';
-import { Order } from '../models/Order.js';
+import AppError from "../utils/appError.js";
+import { Op } from "sequelize";
+import { Order } from "../models/Order.js";
 
-const STATUS_LIST=['SEARCHING','PENDING']
-export const createOrderSrv= async({category_id, description, user_id })=>{
-    const quanty= await getOrdersByUserAndCount({category_id,user_id})
-    if (quanty>=5) throw new AppError('Has excedido el limite',400)
-    const createdOrder = await Order.create({category_id, description, user_id})
-    return createdOrder
-}
+const STATUS_LIST = ["SEARCHING", "PENDING"];
 
-export const getOrdersByUserAndCount =async({category_id,user_id})=>{
-    const orderQuantity= await Order.count({where:{user_id, category_id, status: { [Op.in]: STATUS_LIST }}})
-    return orderQuantity
-}
+const getOrdersByUserAndCount = async ({ category_id, user_id }) => {
+  const orderQuantity = await Order.count({
+    where: { user_id, category_id, status: { [Op.in]: STATUS_LIST } },
+  });
+  return orderQuantity;
+};
 
+export const createOrderSrv = async ({ category_id, description, user_id }) => {
+  const quanty = await getOrdersByUserAndCount({ category_id, user_id });
+  if (quanty >= 5) throw new AppError("Has excedido el limite", 400);
+  const createdOrder = await Order.create({
+    category_id,
+    description,
+    user_id,
+  });
+  return createdOrder;
+};
+
+export const changeStatusOrderSrv = async (order_id, new_status) => {
+  let order;
+
+  if (new_status === "CANCELLED") {
+    order = await Order.update(
+      { status: new_status, canceled_at: new Date() },
+      { where: { id: order_id } },
+    );
+  } else if (new_status === "COMPLETED") {
+    order = await Order.update(
+      { status: new_status, finished_at: new Date() },
+      { where: { id: order_id } },
+    );
+  } else {
+    order = await Order.update(
+      { status: new_status },
+      { where: { id: order_id } },
+    );
+  }
+
+  const [orderUpdated] = order;
+
+  if (!orderUpdated) throw new AppError("No se encontro la orden", 404);
+
+  return orderUpdated;
+};
+
+export const isOrderOwnerSrv = async (user_id, order_id) => {
+  const order = await Order.findOne({ where: { user_id, id: order_id } });
+
+  if (!order) throw new AppError("La orden no corresponde a ese usuario", 401);
+
+  return order.dataValues;
+};
+
+export const isTechnicianOwnerSrv = async (user_id, order_id) => {
+  const order = await Order.findOne({
+    where: { technician_id: user_id, id: order_id },
+  });
+
+  if (!order) throw new AppError("La orden no corresponde a ese tecnico", 401);
+
+  return order.dataValues;
+};
+
+export const getOrdersSrv = async (user_id) => {
+  const orders = await Order.findAll({ where: { user_id } });
+
+  if (!orders) throw new AppError("No se encontraron ordenes", 404);
+
+  return orders;
+};
+
+export const getOrderSrv = async (user_id, order_id) => {
+  const order = await Order.findOne({ where: { id: order_id, user_id } });
+
+  if (!order) throw new AppError("No se encontraro la orden", 404);
+
+  if (order.user_id !== user_id)
+    throw new AppError("La orden no pertenece a ese usuario", 401);
+
+  return order;
+};

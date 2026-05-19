@@ -13,7 +13,7 @@ export const TechnicianOffer = sequelize.define(
       primaryKey: true,
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('PENDING', ''),
       defaultValue: 'PENDING',
     },
     price: {
