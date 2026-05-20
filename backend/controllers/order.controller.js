@@ -4,7 +4,7 @@ import {
   changeStatusOrderSrv,
   createOrderSrv,
   getOrderSrv,
-  getOrdersSrv,
+  getOrdersPerUserSrv,
   isOrderOwnerSrv,
   isTechnicianOwnerSrv,
 } from "../services/order.service.js";
@@ -91,7 +91,7 @@ export const getOrdersCtrl = async (req, res) => {
   const user_id = req.user.id;
 
   try {
-    const orders = await getOrdersSrv(user_id);
+    const orders = await getOrdersPerUserSrv(user_id);
     response.ok("Ordenes obtenidas correctamente", orders);
   } catch (error) {
     console.error(error.message);
@@ -102,16 +102,14 @@ export const getOrdersCtrl = async (req, res) => {
 
 export const getOrderCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const user_id = req.user.id;
   const order_id = req.params.id;
 
   try {
-    const order = await getOrderSrv(user_id, order_id);
+    const order = await getOrderSrv(order_id);
     response.ok("Orden obtenida correctamente", order);
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
-    if (error.statusCode === 401) return response.unauthorized(error.message);
     return response.error(error.message);
   }
 };
