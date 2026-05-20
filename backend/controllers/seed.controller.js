@@ -9,7 +9,6 @@ export const executeCtrl = async (req, res) => {
 
   try {
     await clearDBSrv();
-    
     const data = await executeSrv();
     return response.ok("Seed ejecutado correctamente.", data);
   } catch (error) {

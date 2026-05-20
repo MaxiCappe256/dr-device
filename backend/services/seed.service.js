@@ -9,7 +9,7 @@ const {
   RoleUser,
   Category,
   Order,
-  TechnicianOffer,
+  Offer,
   Specialization,
   Permission,
   RolePermission,
@@ -21,27 +21,26 @@ function parseSeedDate(value) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
+async function safeRollback(transaction) {
+  if (!transaction.finished) {
+    await transaction.rollback();
+  }
+}
+
 export const clearDBSrv = async () => {
   const t = await sequelize.transaction();
   try {
-    // Orden de borrado (primero tablas intermedia / con FK):
-    // 1) technician_offers (FK a orders y users)
-    // 2) specializations (FK a users y categories)
-    // 3) roles_users (FK a users y roles)
-    // 4) role_permission (FK a roles y permissions)
-    // 5) orders (FK a users y categories)
-    // 6) users / roles / permissions / categories
     const deleted = {
-      technician_offers: await TechnicianOffer.destroy({
-        where: {},
-        transaction: t,
-      }),
+      offers: await Offer.destroy({ where: {}, transaction: t }),
       specializations: await Specialization.destroy({
         where: {},
         transaction: t,
       }),
       roles_users: await RoleUser.destroy({ where: {}, transaction: t }),
-      role_permission: await RolePermission.destroy({ where: {}, transaction: t }),
+      role_permission: await RolePermission.destroy({
+        where: {},
+        transaction: t,
+      }),
       orders: await Order.destroy({ where: {}, transaction: t }),
       users: await User.destroy({ where: {}, transaction: t }),
       roles: await Role.destroy({ where: {}, transaction: t }),
@@ -52,7 +51,7 @@ export const clearDBSrv = async () => {
     await t.commit();
     return { ok: true, deleted };
   } catch (error) {
-    await t.rollback();
+    await safeRollback(t);
     throw error;
   }
 };
@@ -63,27 +62,22 @@ export const executeSrv = async () => {
     const seedPassword = seedData?.meta?.seed_password_plain || "123456";
     const hashedPassword = await bcrypt.hash(seedPassword, 12);
 
-    // 1) Roles
     for (const role of seedData.roles) {
       await Role.upsert(role, { transaction: t });
     }
 
-    // 2) Permisos
     for (const permission of seedData.permissions) {
       await Permission.upsert(permission, { transaction: t });
     }
 
-    // 2b) Rol ↔ permiso
     for (const rp of seedData.role_permissions) {
       await RolePermission.upsert(rp, { transaction: t });
     }
 
-    // 3) Categorías
     for (const category of seedData.categories) {
       await Category.upsert(category, { transaction: t });
     }
 
-    // 4) Usuarios (password del seed hasheada)
     for (const user of seedData.users) {
       await User.upsert(
         {
@@ -94,21 +88,14 @@ export const executeSrv = async () => {
       );
     }
 
-    // 5) RolesUsers (tabla intermedia con id)
     for (const ru of seedData.roles_users) {
       await RoleUser.upsert(ru, { transaction: t });
     }
 
-    // 6) Specializations (PK compuesta: user_id + category_id)
     for (const spec of seedData.specializations) {
-      await Specialization.findOrCreate({
-        where: { user_id: spec.user_id, category_id: spec.category_id },
-        defaults: spec,
-        transaction: t,
-      });
+      await Specialization.upsert(spec, { transaction: t });
     }
 
-    // 7) Órdenes (finished_at / canceled_at en ISO como Sequelize timestamps)
     for (const o of seedData.orders) {
       await Order.upsert(
         {
@@ -125,42 +112,30 @@ export const executeSrv = async () => {
       );
     }
 
-    // 8) Ofertas (PK compuesta: technician_id + order_id; created_at en ISO)
-    for (const offer of seedData.technician_offers) {
-      await TechnicianOffer.findOrCreate({
-        where: {
-          technician_id: offer.technician_id,
-          order_id: offer.order_id,
-        },
-        defaults: {
-          technician_id: offer.technician_id,
-          order_id: offer.order_id,
-          status: offer.status,
-          price: offer.price,
-          description: offer.description,
-        },
-        transaction: t,
-      });
+    for (const offer of seedData.offers) {
+      await Offer.upsert(offer, { transaction: t });
     }
+
+    const counts = {
+      roles: seedData.roles.length,
+      permissions: seedData.permissions.length,
+      role_permissions: seedData.role_permissions.length,
+      categories: seedData.categories.length,
+      users: seedData.users.length,
+      roles_users: seedData.roles_users.length,
+      specializations: seedData.specializations.length,
+      orders: seedData.orders.length,
+      offers: seedData.offers.length,
+    };
 
     await t.commit();
     return {
       ok: true,
       seed_password_plain: seedPassword,
-      counts: {
-        roles: seedData.roles.length,
-        permissions: seedData.permissions.length,
-        role_permissions: seedData.role_permissions.length,
-        categories: seedData.categories.length,
-        users: seedData.users.length,
-        roles_users: seedData.roles_users.length,
-        specializations: seedData.specializations.length,
-        orders: seedData.orders.length,
-        technician_offers: seedData.technician_offers.length,
-      },
+      counts,
     };
   } catch (error) {
-    await t.rollback();
+    await safeRollback(t);
     throw error;
   }
 };
