@@ -49,6 +49,7 @@ export const Order = sequelize.define(
   {
     tableName: 'orders',
     timestamps: true,
+    underscored: true,
   },
 );
 
@@ -69,7 +70,7 @@ Order.associate = (models) => {
   })
 
   Order.belongsToMany(models.User, {
-    through: models.TechnicianOffer,
+    through: models.Offer,
     foreignKey: 'order_id',
     as: 'Offers'
   })

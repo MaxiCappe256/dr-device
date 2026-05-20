@@ -43,6 +43,7 @@ export const User = sequelize.define(
   {
     tableName: "users",
     timestamps: true,
+    underscored: true,
   },
 );
 
@@ -66,7 +67,7 @@ User.associate = (models) => {
   });
 
   User.belongsToMany(models.Order, {
-    through: models.TechnicianOffer,
+    through: models.Offer,
     foreignKey: "technician_id",
   });
 };

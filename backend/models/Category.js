@@ -24,5 +24,6 @@ export const Category = sequelize.define(
   {
     tableName: 'categories',
     timestamps: true,
+    underscored: true,
   },
 );

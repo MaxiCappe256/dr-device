@@ -67,7 +67,7 @@ export const isTechnicianOwnerSrv = async (user_id, order_id) => {
   return order.dataValues;
 };
 
-export const getOrdersSrv = async (user_id) => {
+export const getOrdersPerUserSrv = async (user_id) => {
   const orders = await Order.findAll({ where: { user_id } });
 
   if (!orders) throw new AppError("No se encontraron ordenes", 404);
@@ -75,13 +75,9 @@ export const getOrdersSrv = async (user_id) => {
   return orders;
 };
 
-export const getOrderSrv = async (user_id, order_id) => {
-  const order = await Order.findOne({ where: { id: order_id, user_id } });
-
+export const getOrderSrv = async (order_id) => {
+  const order = await Order.findByPk(order_id);
   if (!order) throw new AppError("No se encontraro la orden", 404);
 
-  if (order.user_id !== user_id)
-    throw new AppError("La orden no pertenece a ese usuario", 401);
-
-  return order;
+  return order.dataValues;
 };
