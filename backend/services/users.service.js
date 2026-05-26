@@ -33,7 +33,7 @@ export const updateUserSrv = async (id, data) => {
   if (passwordBody) {
     const isEqual = await comparePassword(passwordBody, user.dataValues.password);
 
-    if (isEqual) throw new AppError("La contrasenia es igual a la que tenias");
+    if (isEqual) throw new AppError("La contraseña es igual a la que tenias");
 
     updatedUser = User.update(
       {

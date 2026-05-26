@@ -22,23 +22,26 @@ export const createOrderSrv = async ({ category_id, description, user_id }) => {
   return createdOrder;
 };
 
-export const changeStatusOrderSrv = async (order_id, new_status) => {
+export const changeStatusOrderSrv = async (order_id, new_status, transaction = null) => {
   let order;
 
   if (new_status === "CANCELLED") {
     order = await Order.update(
       { status: new_status, canceled_at: new Date() },
       { where: { id: order_id } },
+      transaction
     );
   } else if (new_status === "COMPLETED") {
     order = await Order.update(
       { status: new_status, finished_at: new Date() },
       { where: { id: order_id } },
+      transaction
     );
   } else {
     order = await Order.update(
       { status: new_status },
       { where: { id: order_id } },
+      transaction
     );
   }
 
@@ -77,7 +80,22 @@ export const getOrdersPerUserSrv = async (user_id) => {
 
 export const getOrderSrv = async (order_id) => {
   const order = await Order.findByPk(order_id);
-  if (!order) throw new AppError("No se encontraro la orden", 404);
+  if (!order) throw new AppError("No se encontro la orden", 404);
 
   return order.dataValues;
+};
+
+export const updateOrderSrv = async (order_id, data, transaction = null) => {
+  if (transaction) {
+
+  }
+  const [updatedOrder] = await Order.update(
+    data,
+    { where: { id: order_id } },
+    transaction
+  );
+
+  if (!updatedOrder) throw new AppError("No se pudo actualizar la orden", 400);
+
+  return updatedOrder;
 };
