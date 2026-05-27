@@ -1,1 +1,89 @@
 @import 'tailwindcss';
+
+@theme {
+  /* ===== Brand ===== */
+  --color-primary: #0f56d9;
+  --color-primary-container: #2563eb;
+  --color-primary-hover: #004ac6;
+  --color-primary-soft: #dbe8ff;
+
+  --color-secondary: #4c5a9c;
+  --color-secondary-container: #a7b5fd;
+
+  --color-tertiary: #4b5760;
+  --color-tertiary-container: #636f78;
+
+  /* ===== Surface ===== */
+  --color-background: #f8f9ff;
+
+  --color-surface: #f8f9ff;
+  --color-surface-dim: #cbdbf5;
+  --color-surface-bright: #f8f9ff;
+
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+
+  --color-surface-variant: #d3e4fe;
+  --color-surface-tint: #0053db;
+
+  /* ===== Text ===== */
+  --color-on-background: #0b1c30;
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #434655;
+
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #eeefff;
+
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #374485;
+
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #e6f2fd;
+
+  /* ===== Error ===== */
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  /* ===== Fixed ===== */
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+
+  --color-on-primary-fixed: #00174b;
+  --color-on-primary-fixed-variant: #003ea8;
+
+  --color-secondary-fixed: #dde1ff;
+  --color-secondary-fixed-dim: #b9c3ff;
+
+  --color-on-secondary-fixed: #011355;
+  --color-on-secondary-fixed-variant: #344282;
+
+  --color-tertiary-fixed: #d8e4ef;
+  --color-tertiary-fixed-dim: #bcc8d3;
+
+  --color-on-tertiary-fixed: #121d25;
+  --color-on-tertiary-fixed-variant: #3d4851;
+
+}
+
+@layer components {
+  .auth-brand-panel {
+    background-color: var(--color-primary-container);
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+      linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(255, 255, 255, 0.08) 25%, var(--color-primary-container) 25%);
+    background-position:
+      28px 0,
+      28px 0,
+      0 0,
+      0 0;
+    background-size: 56px 56px;
+  }
+}
