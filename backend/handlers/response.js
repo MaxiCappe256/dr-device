@@ -57,6 +57,14 @@ class ApiResponse {
         });
     }
 
+    conflict(message, data = null) {
+        return this.res.status(409).json({
+            success: false,
+            message,
+            data
+        });
+    }
+
     error(message, data = null) {
         return this.res.status(500).json({
             success: false,

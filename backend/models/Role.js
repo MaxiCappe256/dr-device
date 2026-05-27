@@ -17,16 +17,23 @@ export const Role = sequelize.define(
   },
   {
     tableName: 'roles',
-    timestamps: false,
+    timestamps: true,
+    underscored: true,
   },
 );
 
 Role.associate = (models) => {
-
   Role.belongsToMany(models.User, {
     through: models.RoleUser,
-    foreignKey: "role_id",
-    as:'Users'
+    foreignKey: 'role_id',
+    otherKey: 'user_id',
+    as: 'users',
   });
 
+  Role.belongsToMany(models.Permission, {
+    through: models.RolePermission,
+    foreignKey: 'role_id',
+    otherKey: 'permission_id',
+    as: 'permissions',
+  });
 };
