@@ -13,10 +13,6 @@ const config = {
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
         logging: false,
-        define: {
-            underscored: true,
-        },
-
     },
     mode: process.env.NODE_ENV || "development",
     jwt_secret: process.env.JWT_SECRET,

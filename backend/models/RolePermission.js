@@ -4,20 +4,28 @@ import { DataTypes } from 'sequelize';
 export const RolePermission = sequelize.define(
   'RolePermission',
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
+    },
     role_id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
     },
     permission_id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true,
     },
   },
   {
     tableName: 'role_permission',
     timestamps: false,
+    underscored: true,
+    indexes: [
+      { unique: true, fields: ['role_id', 'permission_id'] },
+    ],
   },
 );
 RolePermission.associate = (models) => {

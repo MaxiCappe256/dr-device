@@ -16,6 +16,8 @@ import permissionsRoutes from './routes/permissions.routes.js';
 import usersRoutes from './routes/user.routes.js';
 import categoriesRoutes from './routes/categories.routes.js';
 import specializationsRoutes from './routes/specializations.routes.js';
+import orderRoutes from './routes/orders.routes.js'
+import offerRoutes from './routes/offers.routes.js';
 
 import { cleanUpUserJob } from './jobs/clean-up-user.job.js';
 
@@ -40,5 +42,7 @@ app.use(`${prefix}/permissions`, permissionsRoutes)
 app.use(`${prefix}/users`, usersRoutes)
 app.use(`${prefix}/categories`, categoriesRoutes)
 app.use(`${prefix}/specializations`, specializationsRoutes)
+app.use(`${prefix}/orders`, orderRoutes)
+app.use(`${prefix}/offers`, offerRoutes)
 
 app.listen(config.port, console.log(`[${config.prefix}] Listening on port: ${config.port}`));

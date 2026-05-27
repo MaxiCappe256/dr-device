@@ -17,6 +17,7 @@ export const Permission = sequelize.define(
   {
     tableName: 'permissions',
     timestamps: true,
+    underscored: true,
   },
 );
 
