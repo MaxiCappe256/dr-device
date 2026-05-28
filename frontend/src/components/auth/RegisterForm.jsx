@@ -1,12 +1,13 @@
+import { UserIcon, PhoneIcon, EmailIcon, LockIcon, ArrowRightIcon } from "../../utils/icons";
 import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import { UserIcon, PhoneIcon, EmailIcon, LockIcon } from "../../utils/icons";
 
-export default function RegisterForm() {
+export default function RegisterForm({ onNext, }) {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -15,17 +16,16 @@ export default function RegisterForm() {
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={onSubmit}>
       <label htmlFor="full_name" className="text-lg font-medium text-tertiary">
         Nombre completo <span className="text-red-500">*</span>
       </label>
-
       <Input
         id="full_name"
         type="text"
         {...register("full_name", { required: true })}
         icon={<UserIcon height="24" />}
-        placeholder="Facundo Gómez"
+        placeholder="Cristián Gallo"
       />
 
       {errors.full_name && <p>{errors.full_name.message}</p>}
@@ -48,7 +48,7 @@ export default function RegisterForm() {
         type="email"
         {...register("email", { required: true })}
         icon={<EmailIcon height="24" />}
-        placeholder="culoflojo92@gmail.com"
+        placeholder="cristiangallo@gmail.com"
       />
       <label htmlFor="password" className="text-lg font-medium text-tertiary">
         Contraseña <span className="text-red-500">*</span>
@@ -60,10 +60,11 @@ export default function RegisterForm() {
         icon={<LockIcon height="24" />}
         placeholder="* * * * * * * *"
       />
-
-      <Button variant="primary" type="button">
-        Siguiente
-      </Button>
+      <div className="float-right">
+        <Button variant="primary" type="button" onClick={onNext} iconRight={<ArrowRightIcon height="24"/>}>
+          Siguiente
+        </Button>
+      </div>
     </form>
   );
 }

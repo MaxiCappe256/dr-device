@@ -1,21 +1,46 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import RegisterForm from "../../components/auth/RegisterForm";
 import Stepper from "../../components/ui/Stepper";
+import Button from "../../components/ui/Button"
+
+const ComponentePrueba = ({ onBack, onNext }) => {
+  const [searchParams] = useSearchParams()
+  const role = searchParams.get('role')
+
+  return (
+    <>
+      <Button variant="outline" onClick={onBack}>Volver</Button>
+      <Button variant="primary" onClick={onNext}>Siguiente</Button>
+      <span>Rol: {role === "tech" ? 'Seleccionaste TECNICO' : 'Seleccionaste USUARIO'}</span>
+    </>
+  )
+}
+
+const ComponentePrueba2 = ({ onBack }) => {
+  return (
+    <>
+      <Button variant="outline" onClick={onBack}>Volver</Button>
+    </>
+  )
+}
 
 const Register = () => {
   const steps = [
     {
+      id: 1,
       label: "Datos personales",
-      children: <RegisterForm />,
+      Component: RegisterForm
     },
     {
-      label: "Selecciona tu rol",
-      children: <i>Segundo paso</i>,
+      id: 2,
+      label: "Seleccionar rol",
+      Component: ComponentePrueba
     },
     {
+      id: 3,
       label: "Confirmación",
-      children: <i>Tercer paso</i>,
-    },
+      Component: ComponentePrueba2
+    }
   ];
 
   return (

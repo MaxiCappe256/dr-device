@@ -1,4 +1,4 @@
-export default function Button({ variant, children, ...props }) {
+export default function Button({ variant, iconLeft, iconRight, children, ...props }) {
   let className = "";
 
   switch (variant) {
@@ -26,10 +26,12 @@ export default function Button({ variant, children, ...props }) {
 
   return (
     <button
-      className={`${className} w-full lg:w-auto p-3 rounded-md cursor-pointer`}
+      className={`${className} flex items-center gap-2 w-full lg:w-auto p-3 rounded-md cursor-pointer`}
       {...props}
     >
+      {iconLeft}
       {children}
+      {iconRight}
     </button>
   );
 }
