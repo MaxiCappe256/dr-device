@@ -1,10 +1,14 @@
+import { Link } from "react-router";
+import LoginForm from "../../components/auth/LoginForm";
 
 const Login = () => {
   return (
     <div>
-      <h1>Este es el contenido Login</h1>
+      <h1>Iniciar sesion</h1>
+      <LoginForm />
+      <Link to={"/auth/register"}>Registro</Link>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
