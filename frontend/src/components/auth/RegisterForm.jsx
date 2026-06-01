@@ -1,22 +1,16 @@
 import { UserIcon, PhoneIcon, EmailIcon, LockIcon, ArrowRightIcon } from "../../utils/icons";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 export default function RegisterForm({ onNext, }) {
   const {
     register,
-    handleSubmit,
-    getValues,
     formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  } = useFormContext();
 
   return (
-    <form className="space-y-4" onSubmit={onSubmit}>
+    <>
       <label htmlFor="full_name" className="text-lg font-medium text-tertiary">
         Nombre completo <span className="text-red-500">*</span>
       </label>
@@ -65,6 +59,6 @@ export default function RegisterForm({ onNext, }) {
           Siguiente
         </Button>
       </div>
-    </form>
+    </>
   );
 }

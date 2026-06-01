@@ -107,17 +107,6 @@ export default function AuthLayout() {
             </article>
           </div>
         </section>
-
-        <footer className="border-t border-white/30 pt-11">
-          <blockquote className="text-xl leading-7 font-light text-on-primary/75 italic">
-            "La precisión de los mejores técnicos estan en Dr. Device."
-          </blockquote>
-          <div className="mt-6 flex gap-2" aria-hidden="true">
-            <span className="h-1 w-10 rounded-full bg-on-primary" />
-            <span className="h-1 w-2 rounded-full bg-on-primary/60" />
-            <span className="h-1 w-2 rounded-full bg-on-primary/35" />
-          </div>
-        </footer>
       </aside>
 
       <section
