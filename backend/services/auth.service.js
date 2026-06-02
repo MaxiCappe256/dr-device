@@ -1,104 +1,123 @@
 import { User } from "../models/User.js";
 import { RoleUser } from "../models/RoleUser.js";
 import { Role } from "../models/Role.js";
-import * as bcrypt from 'bcryptjs';
-import AppError from "../utils/appError.js"
+import AppError from "../utils/appError.js";
 import { createToken } from "../utils/jwt.js";
+import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
+import { removeDeletedAtUserSrv, updateUserSrv } from "./users.service.js";
 
 export const registerSrv = async (body) => {
-    const { full_name, email, password, phone, avatar, role_id } = body;
+  const validRoles = ["technician", "user"];
 
-    const userExists = await User.findOne({ where: { email } })
-    if (userExists) throw new AppError('El correo electrónico ya está registrado.', 400)
+  const {
+    full_name,
+    email,
+    password: passwordBody,
+    phone,
+    avatar,
+    role_id,
+  } = body;
 
-    const role = await Role.findOne({ where: { id: role_id } })
-    if (!role) throw new AppError('El rol ingresado no es válido.', 404)
+  const userExists = await User.findOne({ where: { email } });
 
-    // le hacemos la psicologica! ingenieria inversa. LA DOBLE NELSON EN EL 92'
-    if (role.dataValues.title === 'admin') throw new AppError('El rol ingresado no es válido.', 404)
+  if (userExists)
+    throw new AppError("El correo electrónico ya está registrado.", 400);
 
-    const hashedPassword = await bcrypt.hash(password, 12)
+  const role = await Role.findOne({ where: { id: role_id } });
 
-    const { password: _, ...user } = (await User.create({
-        full_name,
-        email,
-        password: hashedPassword,
-        phone,
-        avatar
-    })).dataValues
+  if (!role) throw new AppError("El rol ingresado no es válido.", 404);
 
-    await RoleUser.create({ user_id: user.id, role_id: role.dataValues.id })
+  // le hacemos la psicologica! ingenieria inversa. LA DOBLE NELSON EN EL 92'
+  if (!validRoles.includes(role.dataValues.title))
+    throw new AppError("El rol ingresado no es válido.", 404);
 
-    const valueRoles = await RoleUser.findAll({
-        where: { user_id: userWithoutPassword.id },
-        include: [
-            {
-                model: Role,
-                attributes: ['title']
-            }
-        ]
+  const { password: _, ...user } = (
+    await User.create({
+      full_name,
+      email,
+      password: await hashedPassword(passwordBody),
+      phone,
+      avatar,
     })
+  ).dataValues;
 
-    const rolesTitle = await Promise.all(
-        valueRoles.map(async (rol) => {
-            const data = await rol.dataValues.Role;
-            return data.dataValues.title;
-        })
-    );
+  await RoleUser.create({ user_id: user.id, role_id: role.dataValues.id });
 
-    const payload = {
-        id: user.id,
-        roles: rolesTitle,
-    };
+  const valueRoles = await RoleUser.findAll({
+    where: { user_id: user.id },
+    include: [
+      {
+        model: Role,
+        attributes: ["title"],
+      },
+    ],
+  });
 
-    const token = await createToken(payload, "1d")
+  const rolesTitle = await Promise.all(
+    valueRoles.map(async (rol) => {
+      const data = await rol.dataValues.Role;
+      return data.dataValues.title;
+    }),
+  );
 
-    return {
-        ...user,
-        roles: rolesTitle,
-        token
-    }
-}
+  const payload = {
+    id: user.id,
+    roles: rolesTitle,
+  };
+
+  const token = await createToken(payload, "1d");
+
+  return {
+    ...user,
+    roles: rolesTitle,
+    token,
+  };
+};
 
 export const loginSrv = async (body) => {
-    const { email, password: originalPassword } = body;
+  const { email, password: originalPassword } = body;
 
-    const userExists = await User.findOne({ where: { email } })
-    if (!userExists) throw new AppError("Las crendenciales no coinciden.", 401)
+  const userExists = await User.findOne({ where: { email } });
 
-    // contraseña alamcenada
-    const hashedPassword = userExists.dataValues.password;
+  if (!userExists) throw new AppError("Las crendenciales no coinciden.", 401);
 
-    // verificar que la contraseña es valida, comparando la encriptada con la ingresada
-    const isValidPassword = bcrypt.compare(originalPassword, hashedPassword)
-    if (!isValidPassword) throw new AppError("Las crendenciales no coinciden.", 401)
+  if (userExists.dataValues.deleted_at !== null) await removeDeletedAtUserSrv(userExists.dataValues.id);
+ 
+  // verificar que la contraseña es valida, comparando la encriptada con la ingresada
+  const isValidPassword = comparePassword(
+    originalPassword,
+    userExists.password,
+  );
 
-    const { password: _, ...userWithoutPassword } = userExists.dataValues;
-    const valueRoles = await RoleUser.findAll({
-        where: { user_id: userWithoutPassword.id },
-        include: [
-            {
-                model: Role,
-                attributes: ['title']
-            }
-        ]
-    })
-    const rolesTitle = await Promise.all(
-        valueRoles.map(async (rol) => {
-            const data = await rol.dataValues.Role;
-            return data.dataValues.title;
-        })
-    );
-    const payload = {
-        id: userWithoutPassword.id,
-        roles: rolesTitle
-    };
+  if (!isValidPassword)
+    throw new AppError("Las crendenciales no coinciden.", 401);
 
-    const token = await createToken(payload, "1d")
+  const { password: _, ...userWithoutPassword } = userExists.dataValues;
+  const valueRoles = await RoleUser.findAll({
+    where: { user_id: userWithoutPassword.id },
+    include: [
+      {
+        model: Role,
+        attributes: ["title"],
+      },
+    ],
+  });
+  const rolesTitle = await Promise.all(
+    valueRoles.map(async (rol) => {
+      const data = await rol.dataValues.Role;
+      return data.dataValues.title;
+    }),
+  );
+  const payload = {
+    id: userWithoutPassword.id,
+    roles: rolesTitle,
+  };
 
-    return {
-        ...userWithoutPassword,
-        roles: rolesTitle,
-        token
-    };
-}
+  const token = await createToken(payload, "1d");
+
+  return {
+    ...userWithoutPassword,
+    roles: rolesTitle,
+    token,
+  };
+};
