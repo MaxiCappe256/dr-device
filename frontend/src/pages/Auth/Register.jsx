@@ -1,46 +1,13 @@
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import RegisterForm from "../../components/auth/RegisterForm";
-import { useFormContext } from "react-hook-form";
+import RegisterRoleForm from "../../components/auth/RegisterRoleForm";
 import Stepper from "../../components/ui/Stepper";
-import Button from "../../components/ui/Button"
-import Input from "../../components/ui/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { useEffect } from "react";
 
-
-const ComponentePrueba = ({ onBack, onNext }) => {
-  const [searchParams] = useSearchParams()
-  const role = searchParams.get('role')
-  const { register, formState: { errors } } = useFormContext()
-
-  return (
-    <>
-      <Input
-        id="mama_de_eze"
-        type="text"
-        {...register("mama_de_eze", { required: true })}
-        placeholder="Que opinas de mi mama?"
-      />
-      <Button variant="outline" onClick={onBack}>Volver</Button>
-      <Button variant="primary" onClick={onNext}>Siguiente</Button>
-      <span>Rol: {role === "tech" ? 'Seleccionaste TECNICO' : 'Seleccionaste USUARIO'}</span>
-    </>
-  )
-}
-
-const ComponentePrueba2 = ({ onBack }) => {
-  return (
-    <>
-      <Button variant="primary" type="submit">
-        Enviar full picado anasheeeeeeeee
-      </Button>
-    </>
-  )
-}
-
 const Register = () => {
   const methods = useForm()
-  const { register, handleSubmit, formState: { errors }, getValues } = methods
+  const { handleSubmit, formState: { errors }, watch } = methods
   const steps = [
     {
       id: 1,
@@ -50,18 +17,21 @@ const Register = () => {
     {
       id: 2,
       label: "Seleccionar rol",
-      Component: ComponentePrueba
+      Component: RegisterRoleForm
     },
     {
       id: 3,
       label: "Confirmación",
-      Component: ComponentePrueba2
+      Component: RegisterRoleForm
     }
   ];
 
+  const campos = watch();
+
   useEffect(() => {
     console.log(errors)
-  }, [errors])
+    console.log(campos)
+  }, [errors, campos])
 
 
   return (

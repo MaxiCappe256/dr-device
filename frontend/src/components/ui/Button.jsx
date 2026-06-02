@@ -26,7 +26,7 @@ export default function Button({ variant, iconLeft, iconRight, children, ...prop
 
   return (
     <button
-      className={`${className} flex items-center gap-2 w-full lg:w-auto p-3 rounded-md cursor-pointer`}
+      className={`${className} flex items-center justify-center gap-2 w-full lg:w-auto p-3 rounded-md cursor-pointer`}
       {...props}
     >
       {iconLeft}

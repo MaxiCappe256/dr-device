@@ -8,7 +8,7 @@ export default function Stepper({ steps }) {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center space-y-3">
         {steps.map((step, i) => (
           <Fragment key={step.id}>
             <div
@@ -26,9 +26,9 @@ export default function Stepper({ steps }) {
               </span>
             </div>
             {i != steps.length - 1 &&
-              <div className="h-[1px] bg-surface-dim w-full">
+              <div className="h-px bg-surface-dim w-full">
                 <div
-                  className={`h-[1px] bg-primary transition-[width] duration-500 ease-in-out ${i < activeStep ? 'w-full' : 'w-0'
+                  className={`h-px bg-primary transition-[width] duration-500 ease-in-out ${i < activeStep ? 'w-full' : 'w-0'
                     }`}
                 />
               </div>

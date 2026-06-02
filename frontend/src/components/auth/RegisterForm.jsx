@@ -54,7 +54,7 @@ export default function RegisterForm({ onNext, }) {
         icon={<LockIcon height="24" />}
         placeholder="* * * * * * * *"
       />
-      <div className="float-right">
+      <div className="w-full">
         <Button variant="primary" type="button" onClick={onNext} iconRight={<ArrowRightIcon height="24"/>}>
           Siguiente
         </Button>

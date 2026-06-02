@@ -5,6 +5,7 @@ import {
   getRolesCtrl,
   updateRoleCtrl,
   createRoleCtrl,
+  getPublicRolesCtrl
 } from '../controllers/roles.controller.js';
 import { createRoleDTO, updateRoleDTO } from '../dtos/role.dtos.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
@@ -13,6 +14,7 @@ import { PERMISSIONS_LIST } from '../constants/permissions.js';
 
 const router = Router();
 
+router.get('/public', getPublicRolesCtrl);
 router.get('/', authMiddleware, getRolesCtrl);
 router.post('/', authMiddleware, validateAccessMiddleware([PERMISSIONS_LIST.ORDER.CREATE]), createRoleDTO, createRoleCtrl);
 router.patch('/:id', authMiddleware, validateAccessMiddleware([PERMISSIONS_LIST.ORDER.UPDATE]), updateRoleDTO, updateRoleCtrl);
