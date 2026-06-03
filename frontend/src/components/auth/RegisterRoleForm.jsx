@@ -1,64 +1,46 @@
-import React, { useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useSearchParams } from 'react-router';
 import { CheckIcon, ToolIcon, UserIcon, ArrowRightIcon } from "../../utils/icons.js";
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useFormState, useWatch } from 'react-hook-form';
+import { usePublicRoles } from '../../hooks/usePublicRoles.js';
 import Button from '../ui/Button.jsx';
+import Error from '../ui/Error.jsx';
 
 export default function RegisterRoleForm({ onBack, onNext }) {
-    const mockData = [
-        {
-            "id": "a1b2c3d4-0001-0001-0001-000000000001",
-            "title": "user",
-            "label": "Cliente",
-            "description": "Crea solicitudes de reparación para tus dispositivos",
-            "createdAt": "2026-06-02T12:11:11.918Z",
-            "updatedAt": "2026-06-02T12:11:11.918Z",
-            "permissions": [
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000001"
-                },
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000002"
-                },
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000003"
-                }
-            ]
-        },
-        {
-            "id": "a1b2c3d4-0001-0001-0001-000000000002",
-            "title": "technician",
-            "label": "Técnico",
-            "description": "Propone soluciones a los dispositivos de los usuarios",
-            "createdAt": "2026-06-02T12:11:11.922Z",
-            "updatedAt": "2026-06-02T12:11:11.922Z",
-            "permissions": [
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000002"
-                },
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000004"
-                },
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000005"
-                },
-                {
-                    "id": "f7b8c9d0-0008-0008-0008-000000000006"
-                }
-            ]
-        }]
+    const {
+        register,
+        control,
+        setValue,
+    } = useFormContext();
+    const { errors } = useFormState({
+        control,
+        name: ['role_id']
+    });
+    const roles = usePublicRoles();
 
-    const { register } = useFormContext();
-
-    const [selectedRole, setSelectedRole] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const role = searchParams.get('role')
+    const selectedRole = useWatch({ control, name: 'role_id' });
     const labelRefs = useRef({});
     const getRoleIcon = (title) => (title === "technician" ? ToolIcon : UserIcon);
-    const roleField = register('role_id', { required: true });
+    const roleField = register('role_id', {
+        required: "Seleccioná un rol para continuar"
+    });
+
+    useEffect(() => {
+        const roleId = roles.find(data => data.title === role)?.id ?? null;
+
+        if (roleId) {
+            setValue('role_id', roleId, { shouldValidate: true });
+        }
+    }, [role, setValue, roles])
 
     return (
         <>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {mockData.map((mock) => {
+                {roles.map((mock) => {
                     const isSelected = selectedRole === mock.id;
+        
                     const RoleIcon = getRoleIcon(mock.title);
 
                     return (
@@ -68,11 +50,10 @@ export default function RegisterRoleForm({ onBack, onNext }) {
                             ref={(element) => {
                                 labelRefs.current[mock.id] = element;
                             }}
-                            tabIndex={-1}
-                            className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors ${isSelected
+                            className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors select-none ${isSelected
                                 ? "border-primary bg-surface-container shadow-sm"
                                 : "border-surface-container-highest bg-surface-container-lowest hover:border-primary/40"
-                                } focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background`}
+                                } focus:outline-none`}
                         >
                             <input
                                 id={mock.id}
@@ -85,8 +66,10 @@ export default function RegisterRoleForm({ onBack, onNext }) {
                                 onBlur={roleField.onBlur}
                                 onChange={(event) => {
                                     roleField.onChange(event);
-                                    setSelectedRole(mock.id);
                                     labelRefs.current[mock.id]?.focus();
+                                    if(role) {
+                                        setSearchParams({ role: mock.title })
+                                    }
                                 }}
                             />
 
@@ -111,7 +94,8 @@ export default function RegisterRoleForm({ onBack, onNext }) {
                     );
                 })}
             </div>
-            <div className="w-full flex items-center gap-2">
+            {errors.role_id && <Error message={errors.role_id.message}/>}
+            <div className="w-full flex items-center gap-2 mt-8">
                 <Button variant="outline" type="button" onClick={onBack} iconLeft={<ArrowRightIcon height="24" className='rotate-180' />}>
                     Volver
                 </Button>

@@ -1,10 +1,25 @@
 import { useState } from "react";
 import { CheckIcon } from "../../utils/icons";
 import { Fragment } from "react";
+import { useFormContext } from "react-hook-form";
 
-export default function Stepper({ steps }) {
+export default function Stepper({ steps, extra }) {
   const [activeStep, setActiveStep] = useState(0);
   const { Component } = steps[activeStep]
+  const { trigger } = useFormContext();
+
+  const goBack = () => {
+    setActiveStep((step) => Math.max(step - 1, 0));
+  };
+
+  const goNext = async () => {
+    const fields = steps[activeStep].fields ?? [];
+    const isStepValid = fields.length === 0 || await trigger(fields, { shouldFocus: true });
+
+    if (!isStepValid) return; 
+
+    setActiveStep((step) => Math.min(step + 1, steps.length - 1));
+  };
 
   return (
     <>
@@ -37,8 +52,9 @@ export default function Stepper({ steps }) {
         ))}
       </div>
       <Component
-        onBack={() => setActiveStep((s) => s - 1)}
-        onNext={() => setActiveStep((s) => s + 1)}
+        onBack={goBack}
+        onNext={goNext}
+        extra={extra}
       />
     </>
   );

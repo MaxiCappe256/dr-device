@@ -1,39 +1,44 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { FormProvider, useForm } from "react-hook-form";
+import { useAuth } from "../../hooks/useAuth";
 import RegisterForm from "../../components/auth/RegisterForm";
 import RegisterRoleForm from "../../components/auth/RegisterRoleForm";
+import RegisterSummaryForm from "../../components/auth/RegisterSummaryForm";
 import Stepper from "../../components/ui/Stepper";
-import { FormProvider, useForm } from "react-hook-form";
-import { useEffect } from "react";
 
 const Register = () => {
   const methods = useForm()
-  const { handleSubmit, formState: { errors }, watch } = methods
+  const { handleSubmit } = methods
+  const { registerMutation } = useAuth()
+  const navigate = useNavigate();
+
+  const onSubmit = (credentials) => {
+    registerMutation.mutateAsync(credentials, {
+      onSuccess: () => navigate('/')
+    })
+  }
+
   const steps = [
     {
       id: 1,
       label: "Datos personales",
-      Component: RegisterForm
+      Component: RegisterForm,
+      fields: ["full_name", "phone", "email", "password"]
     },
     {
       id: 2,
       label: "Seleccionar rol",
-      Component: RegisterRoleForm
+      Component: RegisterRoleForm,
+      fields: ["role_id"]
     },
     {
       id: 3,
       label: "Confirmación",
-      Component: RegisterRoleForm
+      Component: RegisterSummaryForm
     }
   ];
 
-  const campos = watch();
-
-  useEffect(() => {
-    console.log(errors)
-    console.log(campos)
-  }, [errors, campos])
-
-
+  
   return (
     <FormProvider {...methods}>
       <div className="flex flex-col gap-4">
@@ -46,8 +51,8 @@ const Register = () => {
             laboriosam dolor, obcaecati illum qui nobis voluptate dolorem.
           </p>
         </div>
-        <form className="space-y-2" onSubmit={handleSubmit((data) => console.log(data))}>
-          <Stepper steps={steps} />
+        <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+          <Stepper steps={steps} extra={{loading: registerMutation.isPending, error: registerMutation?.error?.response?.data}}/>
         </form>
         <p className="text-center text-lg">
           ¿Ya tenés una cuenta?{" "}
