@@ -1,14 +1,22 @@
 import { Link } from "react-router";
 import LoginForm from "../../components/auth/LoginForm";
 
-const Login = () => {
+export default function Login() {
   return (
-    <div>
-      <h1>Iniciar sesion</h1>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-4xl text-on-surface font-semibold">
+        Inicia sesión
+      </h1>
       <LoginForm />
-      <Link to={"/auth/register"}>Registro</Link>
+      <p className="text-center text-lg">
+        ¿No tenes cuenta?{" "}
+        <Link
+          className="text-primary font-semibold hover:underline"
+          to="/auth/register"
+        >
+          Registrate
+        </Link>
+      </p>
     </div>
   );
-};
-
-export default Login;
+}

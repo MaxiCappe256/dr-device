@@ -87,3 +87,13 @@
     background-size: 56px 56px;
   }
 }
+
+/* Deshabilitar incremento y decremento de los input numericos */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}

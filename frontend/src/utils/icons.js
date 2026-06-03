@@ -5,5 +5,6 @@ import LockIcon from "@iconify-react/boxicons/lock";
 import CheckIcon from '@iconify-react/boxicons/check';
 import ToolIcon from '@iconify-react/mynaui/tool';
 import ArrowRightIcon from '@iconify-react/si/arrow-right-duotone';
+import LoginIcon from '@iconify-react/cuida/login-outline';
 
-export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon };
+export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, LoginIcon };

@@ -4,7 +4,6 @@ import { Outlet, useLocation } from "react-router";
 export default function AuthLayout() {
   const [isLogin, setIsLogin] = useState(true);
   const { pathname } = useLocation();
-  console.log(pathname);
 
   useEffect(() => {
     if (pathname === "/auth/register") {
