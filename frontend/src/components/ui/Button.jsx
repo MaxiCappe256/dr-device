@@ -1,22 +1,22 @@
-export default function Button({ variant, iconLeft, iconRight, children, ...props }) {
-  let className = "";
+export default function Button({ variant, iconLeft, iconRight, children, className, loading, ...props }) {
+  let customClassName = "";
 
   switch (variant) {
     case "primary":
-      className =
+      customClassName =
         "text-on-primary bg-primary-container hover:bg-primary-hover transition-all";
       break;
 
     case "secondary":
-      className = "text-secondary bg-secondary-container";
+      customClassName = "text-secondary bg-secondary-container";
       break;
 
     case "inverted":
-      className = "text-on-primary bg-on-background";
+      customClassName = "text-on-primary bg-on-background";
       break;
 
     case "outline":
-      className =
+      customClassName =
         "text-on-background bg-on-primary-container outline outline-on-background";
       break;
 
@@ -26,12 +26,18 @@ export default function Button({ variant, iconLeft, iconRight, children, ...prop
 
   return (
     <button
-      className={`${className} flex items-center justify-center gap-2 w-full lg:w-auto p-3 rounded-md cursor-pointer`}
+      className={`flex items-center justify-center gap-2 w-full p-3 rounded-md cursor-pointer ${customClassName} ${className} disabled:opacity-80 disabled:cursor-not-allowed`}
+      disabled={loading}
       {...props}
     >
-      {iconLeft}
-      {children}
-      {iconRight}
-    </button>
+      {loading ? <p>Cargando...</p> : (
+        <>
+          {iconLeft}
+          {children}
+          {iconRight}
+        </>
+      )
+      }
+    </button >
   );
 }
