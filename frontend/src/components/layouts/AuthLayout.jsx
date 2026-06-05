@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 
 export default function AuthLayout() {
-  const [isLogin, setIsLogin] = useState(true);
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    if (pathname === "/auth/register") {
-      setIsLogin(false);
-    } else {
-      setIsLogin(true);
-    }
-  }, [pathname]);
+  const isLogin = pathname !== "/auth/register";
 
   return (
     <main

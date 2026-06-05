@@ -1,8 +1,12 @@
-import { Routes, Route, Navigate } from "react-router";
-import Login from "./pages/Auth/Login.jsx";
-import Register from "./pages/Auth/Register.jsx";
-import Home from "./pages/Home.jsx";
-import AuthLayout from "./components/layouts/AuthLayout.jsx";
+import { Routes, Route, Navigate } from 'react-router';
+import Login from './pages/Auth/Login.jsx';
+import Register from './pages/Auth/Register.jsx';
+import Home from './pages/Home.jsx';
+import AuthLayout from './components/layouts/AuthLayout.jsx';
+import ProtectedAuth from './components/auth/ProtectedAuth.jsx';
+import Account from './pages/Account/Account.jsx';
+import AccountLayout from './components/layouts/AccountLayout.jsx';
+import AccountSpecializations from './pages/Account/AccountSpecializations.jsx';
 
 const App = () => {
   return (
@@ -12,7 +16,15 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>
-      <Route path="/" element={<Home />}/>
+
+      <Route element={<ProtectedAuth />}>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/account" element={<AccountLayout />}>
+          <Route index element={<Account />} />
+          <Route path="specializations" element={<AccountSpecializations />} />
+        </Route>
+      </Route>
     </Routes>
   );
 };
