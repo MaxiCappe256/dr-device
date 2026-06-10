@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { useAccount } from '../../hooks/useAccount';
 
 const AccountIcon = ({ className = 'size-6' }) => (
   <svg
@@ -9,8 +10,16 @@ const AccountIcon = ({ className = 'size-6' }) => (
     stroke="currentColor"
     strokeWidth="2"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 20.25a7.5 7.5 0 0 1 15 0" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
+    />
   </svg>
 );
 
@@ -23,8 +32,16 @@ const SpecializationIcon = ({ className = 'size-6' }) => (
     stroke="currentColor"
     strokeWidth="2"
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="m14.25 6.75 3-3 3 3-3 3-3-3Z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 16.5 3.75-3.75 3.75 3.75-3.75 3.75L3.75 16.5Z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m14.25 6.75 3-3 3 3-3 3-3-3Z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m3.75 16.5 3.75-3.75 3.75 3.75-3.75 3.75L3.75 16.5Z"
+    />
     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 12.75 14.25 6" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 17.25h7.5" />
   </svg>
@@ -40,13 +57,26 @@ const DeleteIcon = ({ className = 'size-6' }) => (
     strokeWidth="2"
   >
     <path strokeLinecap="round" strokeLinejoin="round" d="M6 7.5h12" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 7.5V5.25h4.5V7.5" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 10.5v7.5m7.5-7.5v7.5" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 7.5 8.25 21h7.5l.75-13.5" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9.75 7.5V5.25h4.5V7.5"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8.25 10.5v7.5m7.5-7.5v7.5"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M7.5 7.5 8.25 21h7.5l.75-13.5"
+    />
   </svg>
 );
 
 export default function AssideAccount() {
+  const { deletedMutation } = useAccount();
   const links = [
     {
       label: 'Cuenta',
@@ -60,7 +90,7 @@ export default function AssideAccount() {
     },
     {
       label: 'Eliminar',
-      to: '/specializations',
+      to: '/',
       icon: DeleteIcon,
       danger: true,
     },
@@ -79,13 +109,23 @@ export default function AssideAccount() {
             strokeWidth="2.4"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 6V4h6v2" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 6h14v14H5z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m-3-3h6" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 6h14v14H5z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 10v6m-3-3h6"
+            />
           </svg>
         </div>
 
         <div>
-          <p className="text-2xl font-bold leading-6 text-primary">Dr. Device</p>
+          <p className="text-2xl font-bold leading-6 text-primary">
+            Dr. Device
+          </p>
         </div>
       </div>
 
@@ -103,9 +143,12 @@ export default function AssideAccount() {
                   isActive && !link.danger
                     ? 'bg-primary-soft text-primary'
                     : 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary',
-                  link.danger ? 'mt-auto text-error hover:bg-error-container hover:text-on-error-container' : '',
+                  link.danger
+                    ? 'mt-auto text-error hover:bg-error-container hover:text-on-error-container'
+                    : '',
                 ].join(' ')
               }
+              onClick={link.danger ? deletedMutation.mutateAsync : null}
             >
               <Icon className="size-6 shrink-0" />
               <span>{link.label}</span>
