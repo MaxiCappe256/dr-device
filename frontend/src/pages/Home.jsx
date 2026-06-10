@@ -6,7 +6,6 @@ export default function Home() {
   const { user, loading } = useAuthContext();
   const { logoutMutation } = useAuth();
   if (loading) return <p>Cargando...</p>;
-  console.log(user);
 
   return (
     <div>
