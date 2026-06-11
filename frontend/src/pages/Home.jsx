@@ -1,25 +1,12 @@
-import { useAuthContext } from '../hooks/useAuthContext';
-import { useAuth } from '../hooks/useAuth';
-import Button from '../components/ui/Button';
+import Hero from '../components/ui/home/Hero.jsx';
+import Categories from '../components/ui/home/Categories.jsx';
 
 export default function Home() {
-  const { user, loading } = useAuthContext();
-  const { logoutMutation } = useAuth();
-  if (loading) return <p>Cargando...</p>;
 
   return (
-    <div>
-      Hola <b>{user?.data?.full_name}</b>
-      {user && (
-        <Button
-          variant="inverted"
-          type="button"
-          onClick={logoutMutation.mutateAsync}
-          loading={logoutMutation.isPending}
-        >
-          Cerrar sesión
-        </Button>
-      )}
-    </div>
+    <>
+      <Hero/>
+      <Categories/>
+    </>
   );
 }

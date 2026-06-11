@@ -1,8 +1,7 @@
-import React from 'react'
 import { NavLink } from 'react-router'
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 import Button from './Button';
-import { UserIcon, AngleDownIcon } from '../../utils/icons';
+import { UserIcon, AngleDownIcon } from '../../../utils/icons';
 
 export default function Navbar() {
   const { user } = useAuthContext()

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckIcon } from "../../utils/icons";
+import { CheckIcon } from "../../../utils/icons";
 import { Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 

@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { LoginIcon } from "../../utils/icons";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Error from "../ui/Error";
+import Button from "../ui/shared/Button";
+import Input from "../ui/shared/Input";
+import Error from "../ui/shared/Error";
 
 export default function LoginForm() {
   const { register, formState: { errors }, handleSubmit } = useForm();

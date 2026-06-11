@@ -7,5 +7,12 @@ import ToolIcon from '@iconify-react/mynaui/tool';
 import ArrowRightIcon from '@iconify-react/si/arrow-right-duotone';
 import LoginIcon from '@iconify-react/cuida/login-outline';
 import AngleDownIcon from '@iconify-react/fa6-solid/angle-down';
+import SmartPhoneIcon from '@iconify-react/et/phone';
+import LaptopIcon from '@iconify-react/et/laptop';
+import GameConsoleIcon from '@iconify-react/material-symbols-light/stadia-controller-outline';
+import DesktopIcon from '@iconify-react/ph/desktop-tower-thin';
 
-export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon };
+
+
+
+export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon, SmartPhoneIcon, LaptopIcon, GameConsoleIcon, DesktopIcon };

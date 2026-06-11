@@ -17,7 +17,7 @@ export default function Button({ variant, iconLeft, iconRight, children, classNa
 
     case "outline":
       customClassName =
-        "text-on-background bg-on-primary-container outline outline-on-background";
+        "text-on-background bg-on-primary-container border border-on-background";
       break;
 
     default:

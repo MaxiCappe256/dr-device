@@ -12,10 +12,13 @@
   "dependencies": {
     "@iconify-react/boxicons": "^1.0.2",
     "@iconify-react/cuida": "^1.0.2",
+    "@iconify-react/et": "^1.0.2",
     "@iconify-react/fa6-solid": "^1.0.2",
     "@iconify-react/material-symbols": "^1.0.16",
+    "@iconify-react/material-symbols-light": "^1.0.18",
     "@iconify-react/mdi": "^1.0.2",
     "@iconify-react/mynaui": "^1.0.2",
+    "@iconify-react/ph": "^1.0.2",
     "@iconify-react/si": "^1.0.2",
     "@tailwindcss/vite": "4.3.0",
     "@tanstack/react-query": "^5.101.0",

@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 import { ArrowRightIcon } from '../../utils/icons';
 import { usePublicRoles } from '../../hooks/usePublicRoles';
-import Button from '../ui/Button';
-import Error from '../ui/Error';
+import Button from '../ui/shared/Button';
+import Error from '../ui/shared/Error';
 
 export default function RegisterSummaryForm({ onBack, extra }) {
     const { getValues } = useFormContext()
