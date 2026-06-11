@@ -1,5 +1,10 @@
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { useAccount } from '../../hooks/useAccount';
+import Modal from '../ui/Modal';
+import { useState } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import Button from '../ui/Button';
+import { useAuth } from '../../hooks/useAuth';
 
 const AccountIcon = ({ className = 'size-6' }) => (
   <svg
@@ -77,6 +82,7 @@ const DeleteIcon = ({ className = 'size-6' }) => (
 
 export default function AssideAccount() {
   const { deletedMutation } = useAccount();
+  const { logoutMutation } = useAuth();
   const links = [
     {
       label: 'Cuenta',
@@ -90,14 +96,24 @@ export default function AssideAccount() {
     },
     {
       label: 'Eliminar',
-      to: '/',
       icon: DeleteIcon,
       danger: true,
     },
   ];
 
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const {
+    user: { data },
+    logout,
+  } = useAuthContext();
+
+  const { full_name } = data;
+
+  const navigate = useNavigate();
+
   return (
-    <aside className="flex min-h-screen w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
+    <aside className="flex w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
       <div className="flex items-center gap-4 px-5 py-6">
         <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-on-primary shadow-lg shadow-primary/25">
           <svg
@@ -148,7 +164,7 @@ export default function AssideAccount() {
                     : '',
                 ].join(' ')
               }
-              onClick={link.danger ? deletedMutation.mutateAsync : null}
+              onClick={link.danger ? () => setIsModalActive(true) : undefined}
             >
               <Icon className="size-6 shrink-0" />
               <span>{link.label}</span>
@@ -156,6 +172,42 @@ export default function AssideAccount() {
           );
         })}
       </nav>
+      {isModalActive && (
+        <Modal>
+          <div className="flex flex-col h-full justify-between items-center">
+            <div className="space-y-6">
+              <h3 className="text-4xl font-bold">
+                {full_name}, <br />
+                ¿Deseas eliminar tu cuenta?
+              </h3>
+              <p className="text-xl">
+                Al confirmar tu cuenta quedara suspendida durante 30 días, para
+                volver a activarla deberás volver a iniciar sesión con las
+                mismas credenciales.
+              </p>
+            </div>
+
+            <div className="flex gap-10 items-center jusitfy-between w-full">
+              <Button onClick={() => setIsModalActive(false)} variant="outline">
+                Cancelar
+              </Button>
+
+              <Button
+                onClick={() => {
+                  deletedMutation.mutateAsync();
+                  setIsModalActive(false);
+                  navigate('/auth/login');
+                  logoutMutation.mutateAsync();
+                }}
+                variant="danger"
+                className="text-white"
+              >
+                Eliminar
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </aside>
   );
 }

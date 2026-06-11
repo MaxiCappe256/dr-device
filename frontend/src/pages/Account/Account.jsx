@@ -35,12 +35,10 @@ export default function Account() {
   const {
     user: { data },
   } = useAuthContext();
-  console.log(data);
   const { full_name, email, phone, createdAt, roles } = data;
   const [activeTab, setActiveTab] = useState('personal');
-
   return (
-    <section className="min-h-screen bg-background">
+    <section className={`bg-background `}>
       <AccountTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       <div className="mt-10 max-w-5xl rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
