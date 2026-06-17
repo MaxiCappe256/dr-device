@@ -11,8 +11,13 @@ import SmartPhoneIcon from '@iconify-react/et/phone';
 import LaptopIcon from '@iconify-react/et/laptop';
 import GameConsoleIcon from '@iconify-react/material-symbols-light/stadia-controller-outline';
 import DesktopIcon from '@iconify-react/ph/desktop-tower-thin';
+import GithubAltIcon from '@iconify-react/uit/github-alt';
+import WhatsappIcon from '@iconify-react/ic/baseline-whatsapp';
+import ArrowCloseIcon from '@iconify-react/line-md/arrow-close-right';
+import MenuIcon from '@iconify-react/material-symbols/menu-rounded';
 
 
 
 
-export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon, SmartPhoneIcon, LaptopIcon, GameConsoleIcon, DesktopIcon };
+export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon, SmartPhoneIcon, LaptopIcon, GameConsoleIcon, DesktopIcon, GithubAltIcon, WhatsappIcon, ArrowCloseIcon, MenuIcon };
+
