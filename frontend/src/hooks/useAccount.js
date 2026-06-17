@@ -8,7 +8,6 @@ export function useAccount() {
     mutationFn: account.updated,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-me'] });
-      console.log('EXITOS');
     },
     onError: (error) => {
       console.log(error.response?.data?.error);

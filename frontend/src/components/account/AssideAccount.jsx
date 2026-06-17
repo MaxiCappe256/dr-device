@@ -83,23 +83,6 @@ const DeleteIcon = ({ className = 'size-6' }) => (
 export default function AssideAccount() {
   const { deletedMutation } = useAccount();
   const { logoutMutation } = useAuth();
-  const links = [
-    {
-      label: 'Cuenta',
-      to: '/account',
-      icon: AccountIcon,
-    },
-    {
-      label: 'Especializaciones',
-      to: '/account/specializations',
-      icon: SpecializationIcon,
-    },
-    {
-      label: 'Eliminar',
-      icon: DeleteIcon,
-      danger: true,
-    },
-  ];
 
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -108,9 +91,27 @@ export default function AssideAccount() {
     logout,
   } = useAuthContext();
 
-  const { full_name } = data;
-
+  const { full_name, roles } = data;
+  const isTechnician = roles?.find(role => role.title === 'technician');
   const navigate = useNavigate();
+
+  const links = [
+    {
+      label: 'Cuenta',
+      to: '/account',
+      icon: AccountIcon,
+    },
+    ...(isTechnician ? [{
+      label: 'Especializaciones',
+      to: '/account/specializations',
+      icon: SpecializationIcon,
+    }] : []),
+    {
+      label: 'Eliminar',
+      icon: DeleteIcon,
+      danger: true,
+    },
+  ];
 
   return (
     <aside className="flex w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
@@ -153,6 +154,7 @@ export default function AssideAccount() {
             <NavLink
               to={link.to}
               key={link.label}
+              end={link.to === '/account'}
               className={({ isActive }) =>
                 [
                   'flex items-center gap-4 rounded-xl px-5 py-4 text-xl font-medium transition-colors',
