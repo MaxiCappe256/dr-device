@@ -11,6 +11,9 @@ importers:
       '@iconify-react/boxicons':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/carbon':
+        specifier: ^1.0.6
+        version: 1.0.6(react@19.2.6)
       '@iconify-react/cuida':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
@@ -24,6 +27,9 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/line-md':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/famicons':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/material-symbols':
@@ -253,6 +259,9 @@ packages:
   '@iconify-react/boxicons@1.0.2':
     resolution: {integrity: sha512-TeqlqtYqVpYVqqHTzUx6TNG4Od6q94vklKwCx/5CWvP5ZG+e7Nn5FCcw3AQnk+UUSB2wzAXtiwYYNfwuQl3EmQ==}
 
+  '@iconify-react/carbon@1.0.6':
+    resolution: {integrity: sha512-vuta/wJ23wXZsxylTWPjyQsikgSOxCFFQwF9AzzjdMnflsumWvgfZCJ5axvGyhelms7Lm1PkNVfoJ8WmSFaWig==}
+
   '@iconify-react/cuida@1.0.2':
     resolution: {integrity: sha512-oz0CGH0wKiQVW0zFuLKNlme0VpECX4lxjfdjumF4Fh9MFV+4boLkHdB8OCLzbE0iJ5sUBNutJRhEpAVsgMKRlg==}
 
@@ -267,6 +276,9 @@ packages:
 
   '@iconify-react/line-md@1.0.2':
     resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
+
+  '@iconify-react/famicons@1.0.2':
+    resolution: {integrity: sha512-78OAl2yndWaE9UkpAWl4zw/XLvJXYUUrXasbPJY9k1wX+wl9Mhbdk1T3aIUms0KrrzQ+/e8gP8n/8I7HrncSog==}
 
   '@iconify-react/material-symbols-light@1.0.18':
     resolution: {integrity: sha512-IvzTFid+O8g0plsPnXXUhfLuGn9DsNa8Ijb1AhUG6QyKRkO5Udebj/64W3LgfJPvStg0kvZi4Co4hHi7ujYWLQ==}
@@ -1529,6 +1541,12 @@ snapshots:
     transitivePeerDependencies:
       - react
 
+  '@iconify-react/carbon@1.0.6(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
   '@iconify-react/cuida@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
@@ -1542,6 +1560,12 @@ snapshots:
       - react
 
   '@iconify-react/fa6-solid@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/famicons@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:
