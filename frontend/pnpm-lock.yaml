@@ -17,11 +17,10 @@ importers:
       '@iconify-react/fa6-solid':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
-<<<<<<< HEAD
-      '@iconify-react/line-md':
-=======
       '@iconify-react/ic':
->>>>>>> e67df5eb6a9151b785757b0be8973f2d2f8fd72b
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/line-md':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/material-symbols':
@@ -251,13 +250,11 @@ packages:
   '@iconify-react/fa6-solid@1.0.2':
     resolution: {integrity: sha512-Vv+G/RGv1SWdmo5Pq4jf2tghJQxWeTOsZsEQ+o4mFFdlwC36QDxqU3hX4UxqvFj+We/CH5HO7npCjXRIO1jh7A==}
 
-<<<<<<< HEAD
-  '@iconify-react/line-md@1.0.2':
-    resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
-=======
   '@iconify-react/ic@1.0.2':
     resolution: {integrity: sha512-Ofo00y/HAWus5Cm12FW3uqsmilRjCYqoIbOwgU7bnDSv8afRm6sCTj41as+/vc6Y8a5ROB9Mj2YYlH87BFs/SQ==}
->>>>>>> e67df5eb6a9151b785757b0be8973f2d2f8fd72b
+
+  '@iconify-react/line-md@1.0.2':
+    resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
 
   '@iconify-react/material-symbols@1.0.16':
     resolution: {integrity: sha512-inyBSaLgwlF20L0AwENF/mjGKIXBRMlIa+o1GElxgTdUUL0ylIAhVmhGS0MmMi0f4n1EstgsgR9zltm9IBHmOQ==}
@@ -1518,11 +1515,13 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-<<<<<<< HEAD
-  '@iconify-react/line-md@1.0.2(react@19.2.6)':
-=======
   '@iconify-react/ic@1.0.2(react@19.2.6)':
->>>>>>> e67df5eb6a9151b785757b0be8973f2d2f8fd72b
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/line-md@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:

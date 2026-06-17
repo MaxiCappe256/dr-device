@@ -13,11 +13,8 @@
     "@iconify-react/boxicons": "^1.0.2",
     "@iconify-react/cuida": "^1.0.2",
     "@iconify-react/fa6-solid": "^1.0.2",
-<<<<<<< HEAD
     "@iconify-react/line-md": "^1.0.2",
-=======
     "@iconify-react/ic": "^1.0.2",
->>>>>>> e67df5eb6a9151b785757b0be8973f2d2f8fd72b
     "@iconify-react/material-symbols": "^1.0.16",
     "@iconify-react/mdi": "^1.0.2",
     "@iconify-react/mynaui": "^1.0.2",

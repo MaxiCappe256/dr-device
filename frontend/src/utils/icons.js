@@ -9,5 +9,7 @@ import LoginIcon from '@iconify-react/cuida/login-outline';
 import AngleDownIcon from '@iconify-react/fa6-solid/angle-down';
 import GithubAltIcon from '@iconify-react/uit/github-alt';
 import WhatsappIcon from '@iconify-react/ic/baseline-whatsapp';
+import ArrowCloseIcon from '@iconify-react/line-md/arrow-close-right';
+import MenuIcon from '@iconify-react/material-symbols/menu-rounded';
 
-export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon, GithubAltIcon, WhatsappIcon};
+export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, AngleDownIcon, LoginIcon, GithubAltIcon, WhatsappIcon, ArrowCloseIcon, MenuIcon };
