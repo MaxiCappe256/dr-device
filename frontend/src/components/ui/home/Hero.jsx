@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "../../../utils/icons.js"
 
 export default function Hero() {
     return (
-        <header className="flex w-11/12 mx-auto justify-between h-[calc(100vh-90px)] items-center overflow-hidden max-lg:justify-center max-lg:text-center">
+        <header className="flex w-11/12 mx-auto justify-between h-[calc(100vh-90px)] items-center overflow-hidden max-lg:justify-center max-lg:text-center mb-10">
             <div className="flex flex-col space-y-8 w-1/2 max-lg:w-full">
                 <h1 className="text-6xl font-extralight">Tus dispositivos en <strong className="text-primary">manos expertas</strong></h1>
                 <p className="text-gray-600 text-xl">Conectamos usuarios con técnicos especializados para reparaciones rápidas y garantizadas. El software definitivo para la gestión técnica moderna.</p>
