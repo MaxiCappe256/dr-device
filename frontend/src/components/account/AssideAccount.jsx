@@ -5,80 +5,7 @@ import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Button from '../ui/Button';
 import { useAuth } from '../../hooks/useAuth';
-
-const AccountIcon = ({ className = 'size-6' }) => (
-  <svg
-    aria-hidden="true"
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
-    />
-  </svg>
-);
-
-const SpecializationIcon = ({ className = 'size-6' }) => (
-  <svg
-    aria-hidden="true"
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="m14.25 6.75 3-3 3 3-3 3-3-3Z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="m3.75 16.5 3.75-3.75 3.75 3.75-3.75 3.75L3.75 16.5Z"
-    />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 12.75 14.25 6" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 17.25h7.5" />
-  </svg>
-);
-
-const DeleteIcon = ({ className = 'size-6' }) => (
-  <svg
-    aria-hidden="true"
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 7.5h12" />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9.75 7.5V5.25h4.5V7.5"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M8.25 10.5v7.5m7.5-7.5v7.5"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M7.5 7.5 8.25 21h7.5l.75-13.5"
-    />
-  </svg>
-);
+import { UserIcon, DeleteIcon, SpecializationIcon } from '../../utils/icons';
 
 export default function AssideAccount() {
   const { deletedMutation } = useAccount();
@@ -99,7 +26,7 @@ export default function AssideAccount() {
     {
       label: 'Cuenta',
       to: '/account',
-      icon: AccountIcon,
+      icon: UserIcon,
     },
     ...(isTechnician ? [{
       label: 'Especializaciones',

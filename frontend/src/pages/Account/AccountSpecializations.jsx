@@ -3,6 +3,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useSpecializations } from '../../hooks/useSpecializations';
 import Button from '../../components/ui/Button';
 import { CheckIcon } from '../../utils/icons';
+import Error from '../../components/ui/Error';
 
 export default function AccountSpecializations() {
   const {
@@ -13,7 +14,7 @@ export default function AccountSpecializations() {
   const { categoriesQuery, updatedMutation } = useSpecializations();
   const categories = categoriesQuery.data ?? [];
 
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedIds, setSelectedIds] = useState(['asd']);
 
   useEffect(() => {
     if (currentSpecializations.length > 0) {
@@ -31,13 +32,15 @@ export default function AccountSpecializations() {
     updatedMutation.mutate({ categories: selectedIds });
   };
 
+  const { error } = updatedMutation;
+
   if (categoriesQuery.isLoading) return <p className="p-10 text-xl">Cargando...</p>;
 
   return (
     <section className="bg-background">
       <div className="mt-10 max-w-5xl rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
         <h2 className="mb-2 text-2xl font-bold text-primary">
-          Mis Especializaciones
+          Mis especializaciones
         </h2>
 
         <p className="mb-8 text-lg text-tertiary">
@@ -53,11 +56,10 @@ export default function AccountSpecializations() {
                 key={category.id}
                 type="button"
                 onClick={() => toggleCategory(category.id)}
-                className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors select-none ${
-                  isSelected
-                    ? 'border-primary bg-surface-container shadow-sm'
-                    : 'border-surface-container-highest bg-surface-container-low hover:border-primary/40'
-                }`}
+                className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors select-none ${isSelected
+                  ? 'border-primary bg-surface-container shadow-sm'
+                  : 'border-surface-container-highest bg-surface-container-low hover:border-primary/40'
+                  }`}
               >
                 {isSelected && (
                   <span className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full bg-primary text-on-primary">
@@ -78,6 +80,12 @@ export default function AccountSpecializations() {
             );
           })}
         </div>
+
+        {error?.response?.data?.message && (
+          <div className="mt-6 rounded-xl border border-error/20 bg-error-container/60 px-5 py-3">
+            <Error message={error.response.data.message} />
+          </div>
+        )}
 
         <div className="mt-8 flex justify-end">
           <Button

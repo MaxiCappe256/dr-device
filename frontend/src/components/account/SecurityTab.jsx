@@ -1,3 +1,5 @@
+import Button from "../ui/Button";
+
 export default function SecurityTab() {
   return (
     <form className="grid gap-8 md:grid-cols-2">
@@ -19,12 +21,12 @@ export default function SecurityTab() {
         />
       </label>
 
-      <div className="rounded-xl border border-surface-container-highest bg-surface-container-low p-6 md:col-span-2">
-        <h3 className="text-xl font-bold text-on-surface">Sesiones activas</h3>
-        <p className="mt-2 text-lg text-tertiary">
-          Revisá tus dispositivos conectados y cerrá sesiones que ya no uses.
-        </p>
-      </div>
+      <Button
+        variant="primary"
+        type="submit"
+      >
+        Cambiar contraseña
+      </Button>
     </form>
   );
 }

@@ -3,6 +3,11 @@ import { Category } from '../models/Category.js';
 import AppError from '../utils/appError.js';
 
 export const getCategoriesSrv = async (idList) => {
+  
+  if (Array.isArray(idList) && idList.length === 0) {
+    return [];
+  }
+
   let categories = [];
 
   if (idList && idList.length) {
@@ -11,7 +16,7 @@ export const getCategoriesSrv = async (idList) => {
   } else {
     categories = await Category.findAll();
   }
-  
+
   if (!categories || !categories.length) throw new AppError('No se han encontrado categorias', 404);
 
   return categories;
