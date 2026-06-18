@@ -1,7 +1,6 @@
 import { body } from 'express-validator';
 import validate from '../middlewares/validate.middleware.js'
 
-// TODO: Falta colocar el AVATAR, deberia estar validado en otro lugar ya que se requiere logica customizada.
 export const registerDTO = [
     body('full_name')
         .notEmpty().withMessage('El nombre completo no puede estar vacío.')

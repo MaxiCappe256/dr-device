@@ -4,7 +4,6 @@ import { Op, Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
 import config from '../config/index.js';
 
-
 export const getUsersSrv = async (offset, limit) => {
   const { count: total, rows: usersDB } = await User.findAndCountAll({
     offset,
@@ -24,7 +23,7 @@ export const getUsersSrv = async (offset, limit) => {
 };
 
 export const updateUserSrv = async (id, data) => {
-  const { full_name, email, phone, avatar, password: passwordBody } = data;
+  const { full_name, email, phone, password: passwordBody } = data;
 
   const user = await User.findOne({ where: { id } });
 
@@ -40,7 +39,6 @@ export const updateUserSrv = async (id, data) => {
         full_name,
         email,
         phone,
-        avatar,
         password: await hashedPassword(passwordBody),
       },
       { where: { id } },
@@ -51,7 +49,6 @@ export const updateUserSrv = async (id, data) => {
         full_name,
         email,
         phone,
-        avatar,
       },
       { where: { id } },
     );
