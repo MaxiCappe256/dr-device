@@ -14,10 +14,9 @@ export default function AccountSpecializations() {
   const { categoriesQuery, updatedMutation } = useSpecializations();
   const categories = categoriesQuery.data ?? [];
 
- const [selectedIds, setSelectedIds] = useState(
-  () => currentSpecializations.map((s) => s.id)
-);
-
+  const [selectedIds, setSelectedIds] = useState(
+    () => currentSpecializations.map((s) => s.id)
+  );
 
   const toggleCategory = (id) => {
     setSelectedIds((prev) =>
@@ -44,7 +43,7 @@ export default function AccountSpecializations() {
           Selecciona las categorías en las que te especializas
         </p>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 mb-2 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => {
             const isSelected = selectedIds.includes(category.id);
 
@@ -78,11 +77,7 @@ export default function AccountSpecializations() {
           })}
         </div>
 
-        {error?.response?.data?.message && (
-          <div className="mt-6 rounded-xl border border-error/20 bg-error-container/60 px-5 py-3">
-            <Error message={error.response.data.message} />
-          </div>
-        )}
+        {error?.response?.data?.message && <Error message={error.response.data.message} />}
 
         <div className="mt-8 flex justify-end">
           <Button

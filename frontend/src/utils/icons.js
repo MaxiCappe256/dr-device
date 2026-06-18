@@ -20,6 +20,9 @@ import ArrowCloseIcon from '@iconify-react/line-md/arrow-close-right';
 import MenuIcon from '@iconify-react/material-symbols/menu-rounded';
 import SecurityIcon from '@iconify-react/carbon/security';
 import NavigateOutlineIcon from '@iconify-react/famicons/navigate-outline';
+import EyeIcon from '@iconify-react/mdi/eye';
+import EyeClosedIcon from '@iconify-react/mdi/eye-closed';
+
 export { 
     UserIcon, 
     PhoneIcon, 
@@ -42,5 +45,7 @@ export {
     NavigateOutlineIcon, 
     DeleteIcon, 
     SpecializationIcon, 
-    EditIcon 
+    EditIcon,
+    EyeIcon,
+    EyeClosedIcon
 };

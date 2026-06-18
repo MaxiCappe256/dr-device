@@ -1,9 +1,12 @@
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useAuth } from '../../hooks/useAuth';
+import UserMenu from '../ui/shared/UserMenu';
 
 export default function ProfileHeader() {
   const {
     user: { data },
   } = useAuthContext();
+  const { logoutMutation } = useAuth()
 
   const { roles, full_name, email, createdAt } = data;
   return (
@@ -11,10 +14,7 @@ export default function ProfileHeader() {
       <header className="flex h-20 items-center justify-between border-b border-surface-container-highest bg-surface-container-lowest px-12">
         <h1 className="text-3xl font-bold text-primary">Cuenta</h1>
 
-        <div className="text-right">
-          <p className="font-bold text-on-surface">{full_name}</p>
-          <p className="text-sm text-tertiary">Lead Technician</p>
-        </div>
+        <UserMenu user={data} logoutLoading={logoutMutation.isPending} onLogout={logoutMutation.mutateAsync} />
       </header>
 
       <article className="m-10 overflow-hidden rounded-2xl border border-surface-container-highest bg-surface-container-lowest shadow-sm">
@@ -23,7 +23,7 @@ export default function ProfileHeader() {
         <div className="flex flex-col gap-8 px-10 py-10 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="flex flex-col gap-3">
-              <h2 className="text-4xl font-bold tracking-tight text-on-surface">
+              <h2 className="text-3xl font-bold tracking-tight text-on-surface">
                 {full_name}
               </h2>
 

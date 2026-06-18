@@ -26,7 +26,7 @@ export default function AccountTabs({ activeTab, onTabChange }) {
               type="button"
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`flex items-center gap-3 border-b-3 px-10 py-4 text-xl font-medium transition-colors ${isActive
+              className={`flex items-center gap-3 border-b-3 px-10 py-4 text-xl font-medium transition-colors cursor-pointer ${isActive
                 ? 'border-primary text-primary'
                 : 'border-transparent text-on-surface-variant hover:text-primary'
                 }`}

@@ -1,7 +1,9 @@
 import Input from '../ui/shared/Input.jsx';
-import { useForm } from 'react-hook-form';
 import Button from '../ui/shared/Button.jsx';
+import Error from '../ui/shared/Error.jsx';
+import { useForm } from 'react-hook-form';
 import { useAccount } from '../../hooks/useAccount';
+import { UserIcon, EmailIcon, PhoneIcon } from '../../utils/icons.js';
 
 export default function PersonalDataTab({ fullName, email, phone }) {
   const {
@@ -16,6 +18,8 @@ export default function PersonalDataTab({ fullName, email, phone }) {
     updatedMutation.mutateAsync(data);
   };
 
+  const getMutationError = (field) => updatedMutation?.error?.response?.data?.data.find(({ path }) => path === field)?.msg;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <label className="space-y-3">
@@ -24,13 +28,12 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         </span>
         <Input
           type="text"
-          {...register('full_name')}
+          {...register('full_name', { required: "Este campo es obligatorio.", maxLength: { value: 150, message: "El nombre debe contener 150 caracteres como máximo." }, minLength: { value: 3, message: "El nombre debe contener 3 caracteres como mínimo." } })}
           defaultValue={fullName}
-          className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
+          icon={<UserIcon height='24' />}
         />
-        {errors.fullName && (
-          <p className="text-red-500">{errors.fullName.message}</p>
-        )}
+        {errors.full_name && <Error message={errors.full_name.message} />}
+        {getMutationError('full_name') && <Error message={getMutationError('full_name')} />}
       </label>
 
       <label className="space-y-3">
@@ -40,10 +43,18 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         <Input
           type="email"
           defaultValue={email}
-          {...register('email')}
-          className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
+          autocomplete="on"
+          icon={<EmailIcon height='24' />}
+          {...register('email', {
+            required: "Este campo es obligatorio.",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "El correo electrónico no es válido."
+            }
+          })}
         />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        {errors.email && <Error message={errors.email.message} />}
+        {getMutationError('email') && <Error message={getMutationError('email')} />}
       </label>
 
       <label className="space-y-3">
@@ -52,12 +63,12 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         </span>
         <Input
           type="tel"
-          {...register('phone')}
+          icon={<PhoneIcon height='24' />}
+          {...register('phone', { required: "Este campo es obligatorio.", maxLength: { value: 20, message: "El télefono debe contener 20 digitos como máximo." }, minLength: { value: 7, message: "El télefono debe contener 7 digitos como mínimo." } })}
           defaultValue={phone}
-          className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
         />
-
-        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+        {errors.phone && <Error message={errors.phone.message} />}
+        {getMutationError('phone') && <Error message={getMutationError('phone')} />}
       </label>
       <Button
         variant="primary"
