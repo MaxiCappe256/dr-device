@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router'
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useAuth } from '../../hooks/useAuth';
-import { UserIcon, AngleDownIcon, MenuIcon, ArrowCloseIcon } from '../../utils/icons';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import { useAuth } from '../../../hooks/useAuth';
+import { UserIcon, AngleDownIcon, MenuIcon, ArrowCloseIcon } from '../../../utils/icons';
 import { useState } from 'react';
 import Button from './Button';
 

@@ -23,13 +23,13 @@ importers:
       '@iconify-react/fa6-solid':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/famicons':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
       '@iconify-react/ic':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/line-md':
-        specifier: ^1.0.2
-        version: 1.0.2(react@19.2.6)
-      '@iconify-react/famicons':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/material-symbols':
@@ -37,7 +37,7 @@ importers:
         version: 1.0.16(react@19.2.6)
       '@iconify-react/material-symbols-light':
         specifier: ^1.0.18
-        version: 1.0.18(react@19.2.6)
+        version: 1.0.20(react@19.2.6)
       '@iconify-react/mdi':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
@@ -271,17 +271,17 @@ packages:
   '@iconify-react/fa6-solid@1.0.2':
     resolution: {integrity: sha512-Vv+G/RGv1SWdmo5Pq4jf2tghJQxWeTOsZsEQ+o4mFFdlwC36QDxqU3hX4UxqvFj+We/CH5HO7npCjXRIO1jh7A==}
 
+  '@iconify-react/famicons@1.0.2':
+    resolution: {integrity: sha512-78OAl2yndWaE9UkpAWl4zw/XLvJXYUUrXasbPJY9k1wX+wl9Mhbdk1T3aIUms0KrrzQ+/e8gP8n/8I7HrncSog==}
+
   '@iconify-react/ic@1.0.2':
     resolution: {integrity: sha512-Ofo00y/HAWus5Cm12FW3uqsmilRjCYqoIbOwgU7bnDSv8afRm6sCTj41as+/vc6Y8a5ROB9Mj2YYlH87BFs/SQ==}
 
   '@iconify-react/line-md@1.0.2':
     resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
 
-  '@iconify-react/famicons@1.0.2':
-    resolution: {integrity: sha512-78OAl2yndWaE9UkpAWl4zw/XLvJXYUUrXasbPJY9k1wX+wl9Mhbdk1T3aIUms0KrrzQ+/e8gP8n/8I7HrncSog==}
-
-  '@iconify-react/material-symbols-light@1.0.18':
-    resolution: {integrity: sha512-IvzTFid+O8g0plsPnXXUhfLuGn9DsNa8Ijb1AhUG6QyKRkO5Udebj/64W3LgfJPvStg0kvZi4Co4hHi7ujYWLQ==}
+  '@iconify-react/material-symbols-light@1.0.20':
+    resolution: {integrity: sha512-mVJEJFacX6ZgS32sFvMOyoHpuq0odeqpcXK3sL3UwH0t+kfHneF/X1kNjiGPzK1bryH0lp9RlmhXSaT03kjjOQ==}
 
   '@iconify-react/material-symbols@1.0.16':
     resolution: {integrity: sha512-inyBSaLgwlF20L0AwENF/mjGKIXBRMlIa+o1GElxgTdUUL0ylIAhVmhGS0MmMi0f4n1EstgsgR9zltm9IBHmOQ==}
@@ -438,7 +438,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     libc: [glibc]
-    libc: [glibc]
 
   '@rolldown/binding-linux-s390x-gnu@1.0.0':
     resolution: {integrity: sha512-0wjCFhLrihtAubnT9iA0N++0pSV0z5Hg7tNGdNJ4RFaINceHadoF+kiFGyY1qSSNVIAZtLotG8Ju1bgDPkjnFA==}
@@ -453,14 +452,12 @@ packages:
     cpu: [s390x]
     os: [linux]
     libc: [glibc]
-    libc: [glibc]
 
   '@rolldown/binding-linux-x64-gnu@1.0.0':
     resolution: {integrity: sha512-Dfn7iak9BcMMePxcoJfpSbWqnEyrp/dRF63/8qW/eHBdOZov6x5aShLLEYGYdIeSJ6vMLK/XCVB+lGIxm41bQA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
     libc: [glibc]
 
   '@rolldown/binding-linux-x64-gnu@1.0.2':
@@ -469,7 +466,6 @@ packages:
     cpu: [x64]
     os: [linux]
     libc: [glibc]
-    libc: [glibc]
 
   '@rolldown/binding-linux-x64-musl@1.0.0':
     resolution: {integrity: sha512-5/utzzDmD/pD/bmuaUcbTf/sZYy0aztwIVlfpoW1fTjCZ0BaPOMVWGZL1zvgxyi7ZIVYWlxKONHmSbHuiOh8Jw==}
@@ -477,14 +473,12 @@ packages:
     cpu: [x64]
     os: [linux]
     libc: [musl]
-    libc: [musl]
 
   '@rolldown/binding-linux-x64-musl@1.0.2':
     resolution: {integrity: sha512-mjSkrzZK5Qsl0a9d1JgILOiuZOSDTVdKENcSXBoqbzSrspLR/4/IRVDo5wd2GgZjNss/viBFJdeq+j7qH2nypw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
     libc: [musl]
 
   '@rolldown/binding-openharmony-arm64@1.0.0':
@@ -598,14 +592,12 @@ packages:
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
-    libc: [glibc]
 
   '@tailwindcss/oxide-linux-arm64-musl@4.3.0':
     resolution: {integrity: sha512-Z6sukiQsngnWO+l39X4pPbiWT81IC+PLKF+PHxIlyZbGNb9MODfYlXEVlFvej5BOZInWX01kVyzeLvHsXhfczQ==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
     libc: [musl]
 
   '@tailwindcss/oxide-linux-x64-gnu@4.3.0':
@@ -1571,12 +1563,6 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  '@iconify-react/material-symbols-light@1.0.18(react@19.2.6)':
-    dependencies:
-      '@iconify/css-react': 1.0.2(react@19.2.6)
-    transitivePeerDependencies:
-      - react
-
   '@iconify-react/ic@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
@@ -1584,6 +1570,12 @@ snapshots:
       - react
 
   '@iconify-react/line-md@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/material-symbols-light@1.0.20(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:
