@@ -8,7 +8,7 @@ export default function Account() {
   const {
     user: { data },
   } = useAuthContext();
-  const { full_name, email, phone, createdAt, roles } = data;
+  const { full_name, email, phone } = data;
   const [activeTab, setActiveTab] = useState('personal');
   return (
     <section className={`bg-background `}>

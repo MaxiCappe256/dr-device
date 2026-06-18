@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router'
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { useAuth } from '../../../hooks/useAuth';
-import { UserIcon, AngleDownIcon, MenuIcon, ArrowCloseIcon } from '../../../utils/icons';
+import { MenuIcon, ArrowCloseIcon } from '../../../utils/icons';
 import { useState } from 'react';
 import Button from './Button';
+import UserMenu from './UserMenu';
 
 export default function Navbar() {
-  const [accountMenu, setAccountMenu] = useState(false);
   const [menu, setMenu] = useState(false);
   const { logoutMutation } = useAuth();
   const { user } = useAuthContext()
@@ -16,6 +16,7 @@ export default function Navbar() {
     { label: "Características", to: "#features", isReferencial: true },
     { label: "FAQ", to: "#faq", isReferencial: true }
   ]
+
 
   return (
     <>
@@ -57,37 +58,9 @@ export default function Navbar() {
             ))}
           </div>
           <div className="flex gap-4 items-center relative">
-            {user?.data ? (
-              <>
-                <li onClick={() => setAccountMenu(!accountMenu)}>
-                  <Button
-                    variant="normal"
-                    iconLeft={<UserIcon height={24} />}
-                    iconRight={
-                      <AngleDownIcon
-                        className={`${accountMenu ? 'rotate-180' : 'rotate-0'} transition-all`}
-                        height={24}
-                      />
-                    }
-                  >
-                    {user.data.full_name}
-                  </Button>
-                </li>
-                <ul className={`flex flex-col gap-4 absolute top-16 w-full p-3 rounded-lg bg-background border border-on-tertiary-fixed text-on-background ${accountMenu ? 'opacity-100 translate-y-1.5' : 'opacity-0 pointer-events-none translate-y-0'} transition-all`}>
-                  <li className='font-bold'>{user.data.full_name}</li>
-                  <div className="flex flex-col gap-2">
-                    <li><NavLink className='hover:text-surface-tint' to="/account">Mi cuenta</NavLink></li>
-                    <li><NavLink className='hover:text-surface-tint' to="/account/orders">Órdenes</NavLink></li>
-                  </div>
-                  <li
-                    className='text-error font-semibold cursor-pointer'
-                    onClick={logoutMutation.mutateAsync}
-                  >
-                    {logoutMutation.isPending ? 'Cerrando sesión...' : 'Cerrar sesión'}
-                  </li>
-                </ul>
-              </>
-            ) : (
+            {user?.data ?
+              <UserMenu user={user.data} logoutLoading={logoutMutation.isPending} onLogout={logoutMutation.mutateAsync} />
+              :
               <>
                 <li className="underline hover:text-primary-soft">
                   <NavLink to="/auth/login">Iniciar sesión</NavLink>
@@ -98,7 +71,7 @@ export default function Navbar() {
                   </Button>
                 </li>
               </>
-            )}
+            }
           </div>
         </ul>
 

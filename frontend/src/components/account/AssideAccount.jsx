@@ -40,7 +40,7 @@ export default function AssideAccount() {
   ];
 
   return (
-    <aside className="flex w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
+    <aside className="flex w-80 h-screen sticky top-0   shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
       <Link to="/">
       <div className="flex items-center gap-4 px-5 py-6">
         <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-on-primary shadow-lg shadow-primary/25">
