@@ -12,9 +12,9 @@ export default function Navbar() {
   const { user } = useAuthContext()
 
   const links = [
-    { label: "Inicio", to: "/" },
-    { label: "Características", to: "#features" },
-    { label: "FAQ", to: "#faq" }
+    { label: "Inicio", to: "/", isReferencial: false },
+    { label: "Características", to: "#features", isReferencial: true },
+    { label: "FAQ", to: "#faq", isReferencial: true }
   ]
 
   return (
@@ -47,9 +47,12 @@ export default function Navbar() {
           <div className="flex gap-8 items-center">
             {links.map((link) => (
               <li key={link.label}>
-                <NavLink to={link.to} className="hover:text-primary-soft">
-                  {link.label}
-                </NavLink>
+                {link.isReferencial ?
+                  <a className="hover:text-primary-soft" href={link.to}>
+                    {link.label}</a> :
+                  <NavLink to={link.to} className="hover:text-primary-soft">
+                    {link.label}
+                  </NavLink>}
               </li>
             ))}
           </div>

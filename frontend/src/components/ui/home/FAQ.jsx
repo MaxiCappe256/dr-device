@@ -76,7 +76,7 @@ export default function FAQ() {
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <div className="flex flex-col justify-center items-center px-4 py-12 md:p-12 gap-3 w-full bg-surface-bright mb-10">
+    <div className="flex flex-col justify-center items-center px-4 py-12 md:p-12 gap-3 w-full bg-surface-bright mb-10" id="faq">
       <h1 className="text-4xl font-extralight mb-5">Preguntas Frecuentes</h1>
 
       <div className="flex flex-col gap-2 w-full max-w-2xl">
