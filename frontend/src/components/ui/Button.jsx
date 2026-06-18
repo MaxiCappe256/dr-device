@@ -28,6 +28,11 @@ export default function Button({
         'text-on-background bg-on-primary-container outline outline-on-background';
       break;
 
+    case 'danger':
+      customClassName =
+        'text-on-background bg-error outline outline-on-background';
+      break;
+
     default:
       break;
   }
