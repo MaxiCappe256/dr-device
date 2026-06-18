@@ -46,5 +46,4 @@ export const deleteUserCtrl= async (req, res)=>{
   await addDeletedAtUserSrv(id)
 
   response.ok("Tu cuenta fue eliminada correctamente")
-
 }

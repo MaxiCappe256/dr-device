@@ -2,7 +2,7 @@ import { Permission } from '../models/Permision.js';
 import { Op } from 'sequelize';
 import AppError from '../utils/appError.js';
 
-export const getPermissionsSrv = async (idList, actionsList) => {
+export const getPermissionsSrv = async (actionsList, idList) => {
   let permissions = [];
 
   if (idList && idList.length) {
@@ -14,7 +14,7 @@ export const getPermissionsSrv = async (idList, actionsList) => {
   } else {
     permissions = await Permission.findAll();
   }
-  
+
   if (!permissions || !permissions.length) throw new AppError('No se han encontrado permisos', 404);
 
   return permissions;
@@ -45,6 +45,6 @@ export const createPermissionSrv = async (action) => {
 };
 
 export const checkExistsPermissionSrv = async (action) => {
-  const permission = await Permission.findOne({where: { action }});
+  const permission = await Permission.findOne({ where: { action } });
   return permission ? true : false;
 }

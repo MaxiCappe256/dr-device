@@ -3,7 +3,6 @@ import validate from '../middlewares/validate.middleware.js'
 
 export const specializationsDTO = [
     body('categories')
-        .notEmpty().withMessage('Debe contener al menos una categoria.')
         .isArray().withMessage('Debe ser un array.'),
     body('categories.*')
         .notEmpty().withMessage('Cada categoria debe contener algo.')

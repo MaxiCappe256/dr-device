@@ -26,6 +26,7 @@ const prefix = '/api';
 
 app.use(express.json());
 app.use(cors({
+    origin: config.origin_url,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true // Permite compartir cookies con el frontend
 }));

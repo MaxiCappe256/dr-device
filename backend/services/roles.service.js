@@ -1,18 +1,48 @@
+import { Op } from 'sequelize';
 import sequelize from '../db/index.js';
 import { Permission } from '../models/Permision.js';
 import { Role } from '../models/Role.js';
 import AppError from '../utils/appError.js';
 
-export const getRolesSrv = async () => {
-  const roles = await Role.findAll({
-    include: {
-      model: Permission,
-      as: 'permissions',
-      attributes: ['id'],
-      through: { attributes: [] },
-      required: true // INNER JOIN
-    }
-  });
+export const getRolesSrv = async (idList, titleList) => {
+  let roles;
+
+  if (idList && idList.length) {
+    roles = await Role.findAll({
+      include: {
+        model: Permission,
+        as: 'permissions',
+        attributes: ['id'],
+        through: { attributes: [] },
+        required: true // INNER JOIN
+      },
+      where: { id: { [Op.in]: idList } }
+    })
+    if (roles.length !== idList.length) throw new AppError('Ciertos roles indicados no existen.', 404)
+  } else if (titleList && titleList.length) {
+    roles = await Role.findAll({
+      include: {
+        model: Permission,
+        as: 'permissions',
+        attributes: ['id'],
+        through: { attributes: [] },
+        required: true // INNER JOIN
+      },
+      where: { title: { [Op.in]: titleList } }
+    })
+    if (roles.length !== titleList.length) throw new AppError('Ciertos roles indicados no existen.', 404)
+  } else {
+    roles = await Role.findAll({
+      include: {
+        model: Permission,
+        as: 'permissions',
+        attributes: ['id'],
+        through: { attributes: [] },
+        required: true // INNER JOIN
+      }
+    });
+  }
+
   if (!roles) throw new AppError('No se han encontrado roles', 404);
   return roles;
 };
@@ -39,7 +69,7 @@ export const deleteRoleSrv = async (id) => {
 
 export const updateRoleSrv = async ({ id, title, permissionsList }) => {
   const t = await sequelize.transaction();
-  try {    
+  try {
     const [updatedRows] = await Role.update(
       { title },
       {
@@ -72,14 +102,14 @@ export const updateRoleSrv = async ({ id, title, permissionsList }) => {
   }
 };
 
-export const createRoleSrv = async ({title, permissionsList }) => {
+export const createRoleSrv = async ({ title, permissionsList }) => {
   // action = crear y eliminar = ["offer:create", "offer:delete"] 
   const t = await sequelize.transaction();
-  
+
   try {
     const role = await Role.create({ title }, { transaction: t });
     if (!role) throw new AppError('No se ha podido crear', 400);
- 
+
     await role.addPermissions(permissionsList, { transaction: t });
     await t.commit();
 
@@ -92,6 +122,6 @@ export const createRoleSrv = async ({title, permissionsList }) => {
 };
 
 export const checkExistsRoleSrv = async (title) => {
-  const role = await Role.findOne({where: { title }});
+  const role = await Role.findOne({ where: { title } });
   return role ? true : false;
 }
