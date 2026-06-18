@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function ProfileHeader() {
@@ -32,7 +31,7 @@ export default function ProfileHeader() {
                 {roles.map((rol) => (
                   <span
                     key={rol.id}
-                    className="rounded-full border border-surface-container-highest bg-primary-soft px-4 py-1 text-sm font-bold text-primary"
+                    className="rounded-full border border-surface-container-highest bg-primary-soft px-4 py-1 text-sm font-bold text-primary capitalize"
                   >
                     {rol.title}
                   </span>
@@ -43,13 +42,6 @@ export default function ProfileHeader() {
               {email} • Miembro desde {new Date(createdAt).getFullYear()}
             </p>
           </div>
-
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-8 py-4 text-lg font-bold text-on-primary shadow-lg shadow-primary/25 transition-colors hover:bg-primary-hover"
-          >
-            Guardar cambios
-          </button>
         </div>
       </article>
     </>

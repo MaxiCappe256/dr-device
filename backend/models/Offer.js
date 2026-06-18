@@ -28,6 +28,7 @@ export const Offer = sequelize.define(
     },
     description: {
       type: DataTypes.TEXT,
+      allowNull: false
     },
   },
   {

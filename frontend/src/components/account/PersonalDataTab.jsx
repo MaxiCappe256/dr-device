@@ -1,53 +1,71 @@
+import Input from '../ui/shared/Input.jsx';
+import { useForm } from 'react-hook-form';
+import Button from '../ui/shared/Button.jsx';
+import { useAccount } from '../../hooks/useAccount';
+
 export default function PersonalDataTab({ fullName, email, phone }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { updatedMutation } = useAccount();
+
+  const onSubmit = (data) => {
+    updatedMutation.mutateAsync(data);
+  };
+
   return (
-    <form className="grid gap-8 md:grid-cols-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Nombre completo</span>
-        <input
+        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+          Nombre completo
+        </span>
+        <Input
           type="text"
+          {...register('full_name')}
           defaultValue={fullName}
           className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
         />
+        {errors.fullName && (
+          <p className="text-red-500">{errors.fullName.message}</p>
+        )}
       </label>
 
       <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Correo electrónico</span>
-        <input
+        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+          Correo electrónico
+        </span>
+        <Input
           type="email"
           defaultValue={email}
+          {...register('email')}
           className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
         />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </label>
 
       <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Teléfono</span>
-        <input
+        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+          Teléfono
+        </span>
+        <Input
           type="tel"
+          {...register('phone')}
           defaultValue={phone}
           className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
         />
-      </label>
 
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Zona horaria</span>
-        <select
-          defaultValue="America/Argentina/Buenos_Aires"
-          className="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg text-on-surface outline-none transition-colors focus:border-primary"
-        >
-          <option value="America/Argentina/Buenos_Aires">Buenos Aires (ART)</option>
-          <option value="America/New_York">Eastern Time (ET)</option>
-          <option value="America/Chicago">Central Time (CT)</option>
-        </select>
+        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
       </label>
-
-      <label className="space-y-3 md:col-span-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Bio / notas profesionales</span>
-        <textarea
-          rows="5"
-          defaultValue="Especialista en reparación y diagnóstico de dispositivos médicos de precisión."
-          className="w-full resize-none rounded-xl border border-surface-container-highest bg-surface-container-lowest px-5 py-4 text-lg leading-8 text-on-surface outline-none transition-colors focus:border-primary"
-        />
-      </label>
+      <Button
+        variant="primary"
+        type="submit"
+        loading={updatedMutation.isPending}
+      >
+        Enviar
+      </Button>
     </form>
   );
 }

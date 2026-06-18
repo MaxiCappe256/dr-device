@@ -8,6 +8,7 @@ import Account from './pages/Account/Account.jsx';
 import AccountLayout from './components/layouts/AccountLayout.jsx';
 import MainLayout from './components/layouts/MainLayout.jsx';
 import AccountSpecializations from './pages/Account/AccountSpecializations.jsx';
+import TechnicianGuard from './components/auth/TechnicianGuard.jsx';
 
 const App = () => {
   return (
@@ -26,7 +27,9 @@ const App = () => {
 
         <Route path="/account" element={<AccountLayout />}>
           <Route index element={<Account />} />
-          <Route path="specializations" element={<AccountSpecializations />} />
+          <Route element={<TechnicianGuard />}>
+            <Route path="specializations" element={<AccountSpecializations />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

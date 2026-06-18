@@ -21,6 +21,10 @@ export default function Stepper({ steps, extra }) {
     setActiveStep((step) => Math.min(step + 1, steps.length - 1));
   };
 
+  const goToStep = (stepIndex) => {
+    setActiveStep(stepIndex);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center space-y-3">
@@ -54,6 +58,7 @@ export default function Stepper({ steps, extra }) {
       <Component
         onBack={goBack}
         onNext={goNext}
+        onGoToStep={goToStep}
         extra={extra}
       />
     </>
