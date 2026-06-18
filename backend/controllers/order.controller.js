@@ -4,6 +4,7 @@ import {
   changeStatusOrderSrv,
   createOrderSrv,
   getOrderSrv,
+  getOrdersByUserSrv,
   getOrdersPerUserSrv,
   isOrderOwnerSrv,
   isTechnicianOwnerSrv,
@@ -12,13 +13,14 @@ import AppError from "../utils/appError.js";
 
 export const createOrderCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const { category_id, description } = req.body;
+  const { category_id, description, title } = req.body;
   const user_id = req.user.id;
   try {
     await getCategorySrv(category_id);
     const createdOrder = await createOrderSrv({
       category_id,
       description,
+      title,
       user_id,
     });
     response.ok("Orden creada", createdOrder);
@@ -109,6 +111,20 @@ export const getOrderCtrl = async (req, res) => {
     response.ok("Orden obtenida correctamente", order);
   } catch (error) {
     console.error(error.message);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getOrdersByUserCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const user_id = req.user.id;
+
+  try {
+    const orders = await getOrdersByUserSrv(user_id);
+    response.ok("Ordenes obtenidas correctamente", orders);
+  } catch (error) {
+    console.log(error);
     if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }

@@ -19,6 +19,11 @@ export const Order = sequelize.define(
       defaultValue: 'SEARCHING',
     },
 
+    title: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+
     description: {
       type: DataTypes.STRING(255),
       allowNull: false,

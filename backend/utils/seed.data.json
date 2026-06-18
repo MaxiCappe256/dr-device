@@ -212,6 +212,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000001",
       "status": "SEARCHING",
+      "title": "Celular no carga",
       "description": "Mi celular no carga y la batería se agota muy rápido.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000001",
       "technician_id": null,
@@ -222,6 +223,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000002",
       "status": "SEARCHING",
+      "title": "PC se reinicia sola",
       "description": "La PC se reinicia sola y a veces no da imagen al encender.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000002",
       "technician_id": null,
@@ -232,6 +234,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000003",
       "status": "SEARCHING",
+      "title": "Notebook lenta",
       "description": "Notebook muy lenta; tarda muchísimo en iniciar Windows.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000003",
       "technician_id": null,
@@ -242,6 +245,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000004",
       "status": "IN_PROGRESS",
+      "title": "Pantalla con lineas",
       "description": "La pantalla del celular quedó con líneas verticales después de una caída.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000004",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
@@ -252,6 +256,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000005",
       "status": "IN_PROGRESS",
+      "title": "Notebook se apaga por temperatura",
       "description": "Notebook se apaga por temperatura; necesito limpieza y cambio de pasta térmica.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000005",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
@@ -262,6 +267,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000006",
       "status": "IN_PROGRESS",
+      "title": "PC no reconoce disco",
       "description": "Mi PC no reconoce el disco; creo que se dañó el SSD/HDD.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000001",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000002",
@@ -272,6 +278,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000007",
       "status": "COMPLETED",
+      "title": "Cambio de bateria de celular",
       "description": "Cambio de batería de celular y revisión de puerto de carga.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000002",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000005",
@@ -282,6 +289,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000008",
       "status": "COMPLETED",
+      "title": "Reinstalacion de sistema",
       "description": "Reinstalación de sistema y backup de archivos en notebook.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000003",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000003",
@@ -292,6 +300,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000009",
       "status": "COMPLETED",
+      "title": "Cambio de pantalla",
       "description": "Cambio de monitor/pantalla: display sin imagen y retroiluminación fallando.",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000004",
       "technician_id": "d4e5f6a7-0004-0004-0004-000000000001",
@@ -302,6 +311,7 @@
     {
       "id": "f6a7b8c9-0006-0006-0006-000000000010",
       "status": "CANCELLED",
+      "title": "Diagnostico de PC cancelado",
       "description": "Diagnóstico de PC para upgrade (cancelado por el cliente).",
       "user_id": "c3d4e5f6-0003-0003-0003-000000000005",
       "technician_id": null,
