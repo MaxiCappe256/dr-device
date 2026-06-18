@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form';
-import { ArrowRightIcon } from '../../utils/icons';
+import { ArrowRightIcon, EditIcon } from '../../utils/icons';
 import { usePublicRoles } from '../../hooks/usePublicRoles';
 import Button from '../ui/Button';
 import Error from '../ui/Error';
 
-export default function RegisterSummaryForm({ onBack, extra }) {
+export default function RegisterSummaryForm({ onBack, onGoToStep, extra }) {
     const { getValues } = useFormContext()
     const values = getValues()
     const roles = usePublicRoles();
@@ -13,9 +13,16 @@ export default function RegisterSummaryForm({ onBack, extra }) {
     return (
         <>
             <div className="rounded-2xl border border-surface-container-highest p-6">
-                <h2 className="mb-4 text-2xl font-semibold text-primary">
-                    Confirmá tus datos
-                </h2>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                    <h2 className="text-2xl font-semibold text-primary">
+                        Confirmá tus datos
+                    </h2>
+                    <EditIcon
+                        height='32'
+                        onClick={() => onGoToStep(0)}
+                        className='text-tertiary hover:cursor-pointer hover:text-primary transition-colors'
+                    />
+                </div>
                 <dl className="space-y-2 text-tertiary">
                     <div>
                         <dt className="font-semibold">Nombre completo</dt>
