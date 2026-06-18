@@ -6,6 +6,7 @@ import AuthLayout from './components/layouts/AuthLayout.jsx';
 import ProtectedAuth from './components/auth/ProtectedAuth.jsx';
 import Account from './pages/Account/Account.jsx';
 import AccountLayout from './components/layouts/AccountLayout.jsx';
+import MainLayout from './components/layouts/MainLayout.jsx';
 import AccountSpecializations from './pages/Account/AccountSpecializations.jsx';
 import TechnicianGuard from './components/auth/TechnicianGuard.jsx';
 
@@ -18,8 +19,11 @@ const App = () => {
         <Route path="register" element={<Register />} />
       </Route>
 
+      <Route path="/" element={<MainLayout />}> 
+        <Route index element={<Home />} />
+      </Route>
+
       <Route element={<ProtectedAuth />}>
-        <Route path="/" element={<Home />} />
 
         <Route path="/account" element={<AccountLayout />}>
           <Route index element={<Account />} />

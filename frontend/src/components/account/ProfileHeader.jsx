@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function ProfileHeader() {
@@ -32,7 +31,7 @@ export default function ProfileHeader() {
                 {roles.map((rol) => (
                   <span
                     key={rol.id}
-                    className="rounded-full border border-surface-container-highest bg-primary-soft px-4 py-1 text-sm font-bold text-primary"
+                    className="rounded-full border border-surface-container-highest bg-primary-soft px-4 py-1 text-sm font-bold text-primary capitalize"
                   >
                     {rol.title}
                   </span>

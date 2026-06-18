@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import RegisterForm from "../../components/auth/RegisterForm";
 import RegisterRoleForm from "../../components/auth/RegisterRoleForm";
 import RegisterSummaryForm from "../../components/auth/RegisterSummaryForm";
-import Stepper from "../../components/ui/Stepper";
+import Stepper from "../../components/ui/shared/Stepper";
 
 const Register = () => {
   const methods = useForm()

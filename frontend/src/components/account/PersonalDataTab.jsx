@@ -1,6 +1,6 @@
-import Input from '../ui/Input.jsx';
+import Input from '../ui/shared/Input.jsx';
 import { useForm } from 'react-hook-form';
-import Button from '../ui/Button.jsx';
+import Button from '../ui/shared/Button.jsx';
 import { useAccount } from '../../hooks/useAccount';
 
 export default function PersonalDataTab({ fullName, email, phone }) {

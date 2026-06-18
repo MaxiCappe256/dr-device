@@ -1,8 +1,8 @@
 import { UserIcon, PhoneIcon, EmailIcon, LockIcon, ArrowRightIcon } from "../../utils/icons";
 import { useFormContext, useFormState } from "react-hook-form";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Error from "../ui/Error";
+import Button from "../ui/shared/Button";
+import Input from "../ui/shared/Input";
+import Error from "../ui/shared/Error";
 
 export default function RegisterForm({ onNext, }) {
   const { register, control } = useFormContext();

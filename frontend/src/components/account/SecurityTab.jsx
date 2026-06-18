@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import Button from "../ui/shared/Button";
 
 export default function SecurityTab() {
   return (

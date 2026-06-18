@@ -11,19 +11,46 @@ importers:
       '@iconify-react/boxicons':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/carbon':
+        specifier: ^1.0.6
+        version: 1.0.6(react@19.2.6)
       '@iconify-react/cuida':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/et':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/fa6-solid':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/famicons':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/ic':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/line-md':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/material-symbols':
         specifier: ^1.0.16
         version: 1.0.16(react@19.2.6)
+      '@iconify-react/material-symbols-light':
+        specifier: ^1.0.18
+        version: 1.0.20(react@19.2.6)
       '@iconify-react/mdi':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@iconify-react/mynaui':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/ph':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
       '@iconify-react/si':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
+      '@iconify-react/uit':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
       '@tailwindcss/vite':
@@ -232,8 +259,29 @@ packages:
   '@iconify-react/boxicons@1.0.2':
     resolution: {integrity: sha512-TeqlqtYqVpYVqqHTzUx6TNG4Od6q94vklKwCx/5CWvP5ZG+e7Nn5FCcw3AQnk+UUSB2wzAXtiwYYNfwuQl3EmQ==}
 
+  '@iconify-react/carbon@1.0.6':
+    resolution: {integrity: sha512-vuta/wJ23wXZsxylTWPjyQsikgSOxCFFQwF9AzzjdMnflsumWvgfZCJ5axvGyhelms7Lm1PkNVfoJ8WmSFaWig==}
+
   '@iconify-react/cuida@1.0.2':
     resolution: {integrity: sha512-oz0CGH0wKiQVW0zFuLKNlme0VpECX4lxjfdjumF4Fh9MFV+4boLkHdB8OCLzbE0iJ5sUBNutJRhEpAVsgMKRlg==}
+
+  '@iconify-react/et@1.0.2':
+    resolution: {integrity: sha512-g5+4leLLeoWGumYKWAfhLAjPhE2uOpxPThmK7xIg6SSnYH5gs99/fB1MVH5gND05Hc3g2q2h82VFUYpGRgIuaQ==}
+
+  '@iconify-react/fa6-solid@1.0.2':
+    resolution: {integrity: sha512-Vv+G/RGv1SWdmo5Pq4jf2tghJQxWeTOsZsEQ+o4mFFdlwC36QDxqU3hX4UxqvFj+We/CH5HO7npCjXRIO1jh7A==}
+
+  '@iconify-react/famicons@1.0.2':
+    resolution: {integrity: sha512-78OAl2yndWaE9UkpAWl4zw/XLvJXYUUrXasbPJY9k1wX+wl9Mhbdk1T3aIUms0KrrzQ+/e8gP8n/8I7HrncSog==}
+
+  '@iconify-react/ic@1.0.2':
+    resolution: {integrity: sha512-Ofo00y/HAWus5Cm12FW3uqsmilRjCYqoIbOwgU7bnDSv8afRm6sCTj41as+/vc6Y8a5ROB9Mj2YYlH87BFs/SQ==}
+
+  '@iconify-react/line-md@1.0.2':
+    resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
+
+  '@iconify-react/material-symbols-light@1.0.20':
+    resolution: {integrity: sha512-mVJEJFacX6ZgS32sFvMOyoHpuq0odeqpcXK3sL3UwH0t+kfHneF/X1kNjiGPzK1bryH0lp9RlmhXSaT03kjjOQ==}
 
   '@iconify-react/material-symbols@1.0.16':
     resolution: {integrity: sha512-inyBSaLgwlF20L0AwENF/mjGKIXBRMlIa+o1GElxgTdUUL0ylIAhVmhGS0MmMi0f4n1EstgsgR9zltm9IBHmOQ==}
@@ -244,8 +292,14 @@ packages:
   '@iconify-react/mynaui@1.0.2':
     resolution: {integrity: sha512-yDGEc/MAljI814UIOHTRRLYgojgqhLY5rZc09qiSQkIix62ZCfNDlClHVrqSDNUn+CjjEexNd2aMGTzOhalEZA==}
 
+  '@iconify-react/ph@1.0.2':
+    resolution: {integrity: sha512-b4qD3p3XlFKx/Zzv2RZYJo8nFZbOgMXZ4eW+ic5rTRSa6TShvYxWBD10DWmU9k9TVdMOuqHfz/bOXrAm61qzWQ==}
+
   '@iconify-react/si@1.0.2':
     resolution: {integrity: sha512-MEX3LDlCKKGYvfajRME0dz02xCwuDN3RxmIuoqT0rWtDNeF0HNgj3mtVZzV/o4VdqVW+OXXbB6rj/W7n5bcUPw==}
+
+  '@iconify-react/uit@1.0.2':
+    resolution: {integrity: sha512-QwkvC2BQ5NukiGJVXtpFP+u3khmjM+UI+W1jzRmpRw3z68162UHkfnoI+2MTdunhLc8FheRJSotXB+zAXBAIwA==}
 
   '@iconify/css-react@1.0.2':
     resolution: {integrity: sha512-k33FKG4jGgd8odos+1HdSwCKZOQ5F1heQxwl/zDrA53tLg5IseDPMqsmQbcCEZ6E0Zgcrmfo4ceFSBmbuEvGtw==}
@@ -1479,7 +1533,49 @@ snapshots:
     transitivePeerDependencies:
       - react
 
+  '@iconify-react/carbon@1.0.6(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
   '@iconify-react/cuida@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/et@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/fa6-solid@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/famicons@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/ic@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/line-md@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/material-symbols-light@1.0.20(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:
@@ -1503,7 +1599,19 @@ snapshots:
     transitivePeerDependencies:
       - react
 
+  '@iconify-react/ph@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
   '@iconify-react/si@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/uit@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:

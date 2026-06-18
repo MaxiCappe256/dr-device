@@ -9,5 +9,38 @@ import LoginIcon from '@iconify-react/cuida/login-outline';
 import DeleteIcon from '@iconify-react/material-symbols/delete-outline';
 import SpecializationIcon from '@iconify-react/material-symbols/badge-outline';
 import EditIcon from '@iconify-react/mdi/pencil';
-
-export { UserIcon, PhoneIcon, EmailIcon, LockIcon, CheckIcon, ToolIcon, ArrowRightIcon, LoginIcon, DeleteIcon, SpecializationIcon, EditIcon };
+import AngleDownIcon from '@iconify-react/fa6-solid/angle-down';
+import SmartPhoneIcon from '@iconify-react/et/phone';
+import LaptopIcon from '@iconify-react/et/laptop';
+import GameConsoleIcon from '@iconify-react/material-symbols-light/stadia-controller-outline';
+import DesktopIcon from '@iconify-react/ph/desktop-tower-thin';
+import GithubAltIcon from '@iconify-react/uit/github-alt';
+import WhatsappIcon from '@iconify-react/ic/baseline-whatsapp';
+import ArrowCloseIcon from '@iconify-react/line-md/arrow-close-right';
+import MenuIcon from '@iconify-react/material-symbols/menu-rounded';
+import SecurityIcon from '@iconify-react/carbon/security';
+import NavigateOutlineIcon from '@iconify-react/famicons/navigate-outline';
+export { 
+    UserIcon, 
+    PhoneIcon, 
+    EmailIcon, 
+    LockIcon, 
+    CheckIcon, 
+    ToolIcon, 
+    ArrowRightIcon, 
+    AngleDownIcon, 
+    LoginIcon, 
+    SmartPhoneIcon, 
+    LaptopIcon, 
+    GameConsoleIcon, 
+    DesktopIcon, 
+    GithubAltIcon, 
+    WhatsappIcon, 
+    ArrowCloseIcon, 
+    MenuIcon,  
+    SecurityIcon, 
+    NavigateOutlineIcon, 
+    DeleteIcon, 
+    SpecializationIcon, 
+    EditIcon 
+};

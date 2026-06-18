@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useSpecializations } from '../../hooks/useSpecializations';
-import Button from '../../components/ui/Button';
+import Button from '../../components/ui/shared/Button';
 import { CheckIcon } from '../../utils/icons';
-import Error from '../../components/ui/Error';
+import Error from '../../components/ui/shared/Error';
 
 export default function AccountSpecializations() {
   const {
@@ -14,13 +14,10 @@ export default function AccountSpecializations() {
   const { categoriesQuery, updatedMutation } = useSpecializations();
   const categories = categoriesQuery.data ?? [];
 
-  const [selectedIds, setSelectedIds] = useState(['asd']);
+ const [selectedIds, setSelectedIds] = useState(
+  () => currentSpecializations.map((s) => s.id)
+);
 
-  useEffect(() => {
-    if (currentSpecializations.length > 0) {
-      setSelectedIds(currentSpecializations.map((s) => s.id));
-    }
-  }, [currentSpecializations]);
 
   const toggleCategory = (id) => {
     setSelectedIds((prev) =>

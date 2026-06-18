@@ -1,9 +1,9 @@
-import { NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { useAccount } from '../../hooks/useAccount';
-import Modal from '../ui/Modal';
+import Modal from '../ui/shared/Modal';
 import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import Button from '../ui/Button';
+import Button from '../ui/shared/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { UserIcon, DeleteIcon, SpecializationIcon } from '../../utils/icons';
 
@@ -14,8 +14,7 @@ export default function AssideAccount() {
   const [isModalActive, setIsModalActive] = useState(false);
 
   const {
-    user: { data },
-    logout,
+    user: { data }
   } = useAuthContext();
 
   const { full_name, roles } = data;
@@ -42,6 +41,7 @@ export default function AssideAccount() {
 
   return (
     <aside className="flex w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
+      <Link to="/">
       <div className="flex items-center gap-4 px-5 py-6">
         <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-on-primary shadow-lg shadow-primary/25">
           <svg
@@ -72,7 +72,7 @@ export default function AssideAccount() {
           </p>
         </div>
       </div>
-
+      </Link>
       <nav className="mt-8 flex flex-1 flex-col gap-2 px-4">
         {links.map((link) => {
           const Icon = link.icon;
