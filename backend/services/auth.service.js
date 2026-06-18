@@ -14,7 +14,6 @@ export const registerSrv = async (body) => {
     email,
     password: passwordBody,
     phone,
-    avatar,
     role_id,
   } = body;
 
@@ -37,7 +36,6 @@ export const registerSrv = async (body) => {
       email,
       password: await hashedPassword(passwordBody),
       phone,
-      avatar,
     })
   ).dataValues;
 
