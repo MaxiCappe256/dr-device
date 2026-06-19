@@ -42,7 +42,7 @@ export default function WorksTabs({ activeTab, onTabChange }) {
         </div>
       </div>
 
-      <div className="mt-10 max-w-5xl rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
+      <div className="flex flex-col mt-10 w-full rounded-2xl border-surface-container-highest gap-4">
         {activeTab === 'my-jobs' ? <MyJobs /> : <FindJobs />}
       </div>
     </>
