@@ -9,6 +9,7 @@ import {
   getOrdersPerUserSrv,
   isOrderOwnerSrv,
   isTechnicianOwnerSrv,
+  getOrdersByTechnicianSrv
 } from "../services/order.service.js";
 import AppError from "../utils/appError.js";
 
@@ -136,6 +137,20 @@ export const getOrdersByUserCtrl = async (req, res) => {
 
   try {
     const orders = await getOrdersByUserSrv(user_id);
+    response.ok("Ordenes obtenidas correctamente", orders);
+  } catch (error) {
+    console.log(error);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getOrdersByTechnicianCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const technician_id  = req.user.id;
+
+  try {
+    const orders = await getOrdersByTechnicianSrv(technician_id );
     response.ok("Ordenes obtenidas correctamente", orders);
   } catch (error) {
     console.log(error);

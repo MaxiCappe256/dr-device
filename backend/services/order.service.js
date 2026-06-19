@@ -120,3 +120,12 @@ export const getOrdersByUserSrv = async (user_id) => {
 
   return orders;
 };
+
+export const getOrdersByTechnicianSrv = async (technician_id) => {
+  const orders = await Order.findAll({ where: { technician_id } });
+
+  if (!orders)
+    throw new AppError("No se encontraron ordenes para este tecnico", 404);
+
+  return orders;
+};

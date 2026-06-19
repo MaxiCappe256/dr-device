@@ -9,6 +9,16 @@ export function useOrders() {
     queryFn: orders.getOrdersByUser,
   });
 
+  const availableOrdersQuery = useQuery({
+    queryKey: ["available-orders"],
+    queryFn: orders.getAvailableOrders,
+  });
+
+  const techOrdersQuery= useQuery({
+    queryKey:["tech-orders"],
+    queryFn: orders.getOrdersByTechnician,
+  })
+
   const cancelledMutation = useMutation({
     mutationFn: orders.cancelledOrder,
     onSuccess: () => {
@@ -19,5 +29,6 @@ export function useOrders() {
     },
   });
 
-  return { ordersByUserQuery, cancelledMutation };
+
+  return { ordersByUserQuery, availableOrdersQuery, techOrdersQuery, cancelledMutation };
 }
