@@ -19,6 +19,7 @@ export default function Orders() {
               title={order.title}
               description={order.description}
               status={order.status}
+              category={order.category_id}
             >
               <div className="p-2">
                 <Button variant="outline">Ver detalles</Button>
