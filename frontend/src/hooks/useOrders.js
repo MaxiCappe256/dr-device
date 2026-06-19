@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import orders from "../api/orders.js";
+import { toast } from "react-toastify";
 
 export function useOrders() {
   const queryClient = useQueryClient();
@@ -13,9 +14,12 @@ export function useOrders() {
     mutationFn: orders.createOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success("Orden creada exitosamente");
     },
     onError: (error) => {
-      console.log(error.response?.data?.message);
+      toast.error(
+        createOrderMutation.error?.response?.data?.message ?? "Error al crear la orden"
+      );
     },
   });
 
@@ -24,8 +28,8 @@ export function useOrders() {
     queryFn: orders.getAvailableOrders,
   });
 
-  const techOrdersQuery= useQuery({
-    queryKey:["tech-orders"],
+  const techOrdersQuery = useQuery({
+    queryKey: ["tech-orders"],
     queryFn: orders.getOrdersByTechnician,
   })
 
@@ -33,9 +37,12 @@ export function useOrders() {
     mutationFn: orders.cancelledOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
+      toast.success("Orden cancela exitosamente");
     },
     onError: (error) => {
-      console.log(error.response?.data?.message);
+      toast.error(
+        createOrderMutation.error?.response?.data?.message ?? "Error al cancelar la orden"
+      );
     },
   });
 

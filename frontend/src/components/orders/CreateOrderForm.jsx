@@ -182,11 +182,10 @@ export default function CreateOrderForm({ onSubmit }) {
                     ref={(element) => {
                       labelRefs.current[category.id] = element;
                     }}
-                    className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-5 text-center transition-colors select-none ${
-                      isSelected
-                        ? "border-primary bg-surface-container shadow-sm"
-                        : "border-surface-container-highest bg-surface-container-lowest hover:border-primary/40"
-                    } focus:outline-none`}
+                    className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-5 text-center transition-colors select-none ${isSelected
+                      ? "border-primary bg-surface-container shadow-sm"
+                      : "border-surface-container-highest bg-surface-container-lowest hover:border-primary/40"
+                      } focus:outline-none`}
                   >
                     <input
                       id={category.id}
