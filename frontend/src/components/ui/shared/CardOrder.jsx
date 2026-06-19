@@ -1,3 +1,4 @@
+import {CATEGORY_TELEFONO, CATEGORY_PC, CATEGORY_NOTEBOOK, CATEGORY_PANTALLA}  from "../../../constants/categoryIcons.js"
 import { ToolKitIcon, SmartPhoneIcon, DesktopIcon, LaptopIcon, GameConsoleIcon } from "../../../utils/icons.js";
 import Tag from "./Tag.jsx";
 
@@ -9,17 +10,16 @@ export default function CardOrder({ title, description, children, status, catego
     IN_PROGRESS: { label: "En progreso", color: "#1D4ED8" },
     CANCELLED: { label: "Cancelado", color: "#B91C1C" },
   };
-  
+
   const categoryIcons = {
-    [import.meta.env.VITE_CATEGORY_TELEFONO]: { icon: <SmartPhoneIcon className="text-surface-tint " height="60"/>},
-    [import.meta.env.VITE_CATEGORY_PC]: { icon: <DesktopIcon className="text-surface-tint " height="60"/>},
-    [import.meta.env.VITE_CATEGORY_NOTEBOOK]: { icon: <LaptopIcon className="text-surface-tint " height="60"/>},
-    [import.meta.env.VITE_CATEGORY_PANTALLA]: { icon: <GameConsoleIcon className="text-surface-tint " height="60"/>},
+    [CATEGORY_TELEFONO]: { icon: <SmartPhoneIcon className="text-surface-tint " height="60" /> },
+    [CATEGORY_PC]: { icon: <DesktopIcon className="text-surface-tint " height="60" /> },
+    [CATEGORY_NOTEBOOK]: { icon: <LaptopIcon className="text-surface-tint " height="60" /> },
+    [CATEGORY_PANTALLA]: { icon: <GameConsoleIcon className="text-surface-tint " height="60" /> },
   }
-  const defaultIcon = { icon: <ToolKitIcon className="text-surface-tint " height="60"/>}
-  
+  const defaultIcon = { icon: <ToolKitIcon className="text-surface-tint " height="60" /> }
   const currentCategory = categoryIcons[category] ?? defaultIcon
-  
+
   return (
     <div className="flex  justify-between items-center bg-white p-7 rounded-xl border border-surface-container-highest ">
       <div className="flex items-center gap-4 w-[70%]">
