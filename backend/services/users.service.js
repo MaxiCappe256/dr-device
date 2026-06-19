@@ -4,6 +4,15 @@ import { Op, Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
 import config from '../config/index.js';
 
+export const getUserByIdSrv = async (id) => {
+  const user = await User.findByPk(id);
+
+  if (!user) throw new AppError("Usuario no encontrado.", 404);
+
+  const { password, ...userWithoutPassword } = user.dataValues;
+  return userWithoutPassword;
+};
+
 export const getUsersSrv = async (offset, limit) => {
   const { count: total, rows: usersDB } = await User.findAndCountAll({
     offset,

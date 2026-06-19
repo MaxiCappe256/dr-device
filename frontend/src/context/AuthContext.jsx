@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import apiUser from '../api/user';
+import apiUser from '../api/users';
 import { AuthContext } from './auth';
 
 export const AuthProvider = ({ children }) => {

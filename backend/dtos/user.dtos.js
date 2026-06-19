@@ -1,6 +1,13 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import validate from '../middlewares/validate.middleware.js'
 
+
+export const userByIdDTO = [
+    param('id')
+        .notEmpty().withMessage('El id es requerido.')
+        .matches(/^[0-9a-fA-F-]{36}$/).withMessage('El id del usuario debe ser un UUID válido.'),
+    validate,
+];
 
 export const userDTO = [
     body('full_name')
@@ -23,7 +30,7 @@ export const userDTO = [
 
     body('role_id')
         .optional()
-        .isUUID().withMessage('ID incorrecto'),
+        .matches(/^[0-9a-fA-F-]{36}$/).withMessage('El rol debe ser un UUID válido.'),
 
     validate
 ]

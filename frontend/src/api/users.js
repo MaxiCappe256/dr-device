@@ -5,6 +5,11 @@ class Auth {
         const { data } = await axiosInstance.get('/users/me');
         return data;
     }
+
+    async getUser(user_id) {
+        const { data } = await axiosInstance.get(`/users/${user_id}`);
+        return data.data;
+    }
 }
 
 export default new Auth();

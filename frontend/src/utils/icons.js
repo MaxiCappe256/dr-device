@@ -23,6 +23,7 @@ import NavigateOutlineIcon from "@iconify-react/famicons/navigate-outline";
 import EyeIcon from "@iconify-react/mdi/eye";
 import EyeClosedIcon from "@iconify-react/mdi/eye-closed";
 import ToolKitIcon from "@iconify-react/carbon/tool-kit";
+import CloseIcon from "@iconify-react/carbon/close";
 
 export {
   UserIcon,
@@ -50,4 +51,5 @@ export {
   EyeIcon,
   EyeClosedIcon,
   ToolKitIcon,
+  CloseIcon
 };

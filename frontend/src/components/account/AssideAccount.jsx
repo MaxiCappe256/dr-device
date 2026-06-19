@@ -34,17 +34,17 @@ export default function AssideAccount() {
     },
     ...(isTechnician
       ? [
-          {
-            label: "Especializaciones",
-            to: "/account/specializations",
-            icon: SpecializationIcon,
-          },
-          {
-            label: "Trabajos",
-            to: "/account/works",
-            icon: UserIcon,
-          },
-        ]
+        {
+          label: "Especializaciones",
+          to: "/account/specializations",
+          icon: SpecializationIcon,
+        },
+        {
+          label: "Trabajos",
+          to: "/account/works",
+          icon: UserIcon,
+        },
+      ]
       : []),
     {
       label: "Eliminar",
@@ -120,14 +120,13 @@ export default function AssideAccount() {
         })}
       </nav>
       {isModalActive && (
-        <Modal>
+        <Modal title={full_name} onClose={() => setIsModalActive(false)}>
           <div className="flex flex-col h-full justify-between items-center">
             <div className="space-y-6">
-              <h3 className="text-4xl font-bold">
-                {full_name}, <br />
+              <h3 className="text-2xl font-semibold">
                 ¿Deseas eliminar tu cuenta?
               </h3>
-              <p className="text-xl">
+              <p className="text-lg">
                 Al confirmar tu cuenta quedara suspendida durante 30 días, para
                 volver a activarla deberás volver a iniciar sesión con las
                 mismas credenciales.
@@ -135,10 +134,6 @@ export default function AssideAccount() {
             </div>
 
             <div className="flex gap-10 items-center jusitfy-between w-full">
-              <Button onClick={() => setIsModalActive(false)} variant="outline">
-                Cancelar
-              </Button>
-
               <Button
                 onClick={() => {
                   deletedMutation.mutateAsync();
@@ -146,6 +141,7 @@ export default function AssideAccount() {
                   navigate("/auth/login");
                   logoutMutation.mutateAsync();
                 }}
+                loading={logoutMutation.isPending}
                 variant="danger"
                 className="text-white"
               >
