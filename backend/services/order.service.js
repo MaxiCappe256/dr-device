@@ -104,6 +104,14 @@ export const updateOrderSrv = async (order_id, data, transaction = null) => {
   return updatedOrder;
 };
 
+export const getAvailableOrdersSrv = async (categoryIds) => {
+  const orders = await Order.findAll({
+    where: { status: "SEARCHING", category_id: { [Op.in]: categoryIds } },
+  });
+
+  return orders;
+};
+
 export const getOrdersByUserSrv = async (user_id) => {
   const orders = await Order.findAll({ where: { user_id } });
 

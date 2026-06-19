@@ -3,6 +3,7 @@ import { getCategorySrv } from "../services/categories.service.js";
 import {
   changeStatusOrderSrv,
   createOrderSrv,
+  getAvailableOrdersSrv,
   getOrderSrv,
   getOrdersByUserSrv,
   getOrdersPerUserSrv,
@@ -112,6 +113,19 @@ export const getOrderCtrl = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getAvailableOrdersCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const categoryIds = req.user.specializations.map((s) => s.id);
+
+  try {
+    const orders = await getAvailableOrdersSrv(categoryIds);
+    response.ok("Ordenes disponibles obtenidas", orders);
+  } catch (error) {
+    console.error(error.message);
     return response.error(error.message);
   }
 };

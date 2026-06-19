@@ -1,0 +1,50 @@
+import { ToolKitIcon, NavigateOutlineIcon } from "../../utils/icons";
+import MyJobs from "./MyJobs";
+import FindJobs from "./FindJobs";
+
+const tabs = [
+  {
+    id: 'my-jobs',
+    label: 'Mis trabajos',
+    icon: ToolKitIcon,
+  },
+  {
+    id: 'find-jobs',
+    label: 'Encontrar trabajo',
+    icon: NavigateOutlineIcon,
+  },
+];
+
+export default function WorksTabs({ activeTab, onTabChange }) {
+  return (
+    <>
+      <div className="mt-12 border-b border-surface-container-highest">
+        <div className="flex gap-8">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+
+            return (
+              <button
+                type="button"
+                key={tab.id}
+                onClick={() => onTabChange(tab.id)}
+                className={`flex items-center gap-3 border-b-3 px-10 py-4 text-xl font-medium transition-colors cursor-pointer ${isActive
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-on-surface-variant hover:text-primary'
+                  }`}
+              >
+                <Icon className="size-5" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-10 max-w-5xl rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
+        {activeTab === 'my-jobs' ? <MyJobs /> : <FindJobs />}
+      </div>
+    </>
+  );
+}

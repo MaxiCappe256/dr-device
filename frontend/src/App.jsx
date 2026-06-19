@@ -10,6 +10,7 @@ import MainLayout from "./components/layouts/MainLayout.jsx";
 import AccountSpecializations from "./pages/Account/AccountSpecializations.jsx";
 import TechnicianGuard from "./components/auth/TechnicianGuard.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
+import Works from "./pages/Orders/Works.jsx";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
               path="specializations"
               element={<AccountSpecializations />}
             />
+         <Route path="works" element={<Works />} /> 
           </Route>
           <Route path="orders" element={<Orders />} />
         </Route>
