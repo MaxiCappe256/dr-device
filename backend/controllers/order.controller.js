@@ -28,6 +28,7 @@ export const createOrderCtrl = async (req, res) => {
     response.ok("Orden creada", createdOrder);
   } catch (error) {
     console.error(error.message);
+    if (error.statusCode === 400) return response.badRequest(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }

@@ -10,6 +10,7 @@ import MainLayout from "./components/layouts/MainLayout.jsx";
 import AccountSpecializations from "./pages/Account/AccountSpecializations.jsx";
 import TechnicianGuard from "./components/auth/TechnicianGuard.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
+import CreateOrder from "./pages/Orders/CreateOrder.jsx";
 import Works from "./pages/Orders/Works.jsx";
 
 const App = () => {
@@ -36,6 +37,9 @@ const App = () => {
          <Route path="works" element={<Works />} /> 
           </Route>
           <Route path="orders" element={<Orders />} />
+        </Route>
+        <Route path="/create-order" element={<MainLayout />}>
+          <Route index element={<CreateOrder />} />
         </Route>
       </Route>
     </Routes>

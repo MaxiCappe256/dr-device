@@ -5,7 +5,7 @@ import Button from "../../components/ui/shared/Button";
 import Modal from "../../components/ui/shared/Modal";
 import { Fragment, useState } from "react";
 import { ToolKitIcon, UserIcon } from "../../utils/icons";
-import { useCategory } from "../../hooks/useCategories";
+import { useCategories } from "../../hooks/useCategories";
 
 export default function Orders() {
   const { data: orderData, isPending: orderIsPending } = useOrders().ordersByUserQuery;
@@ -15,7 +15,8 @@ export default function Orders() {
 
   const { data: technicianData, isPending: technicianIsPending } = useUserById(selectedOrder?.technician_id);
 
-  const { data: categoryData, isPending: categoryIsPending } = useCategory(selectedOrder?.category_id);
+  const { getCategory } = useCategories(selectedOrder?.category_id);
+  const { data: categoryData, isPending: categoryIsPending } = getCategory;
 
   const orderDates = [
     { type: "created", label: "Creación", date: selectedOrder?.createdAt },

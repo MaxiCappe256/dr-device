@@ -1,16 +1,18 @@
-import { Fragment, useState } from "react"
-import { useOrders } from "../../hooks/useOrders.js"
+import { Fragment, useState } from "react";
+import { useOrders } from "../../hooks/useOrders.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import { ToolKitIcon } from "../../utils/icons.js";
-import { useCategory } from "../../hooks/useCategories.js";
+import { useCategories } from "../../hooks/useCategories.js";
 
 export default function MyJobs() {
-  const { data, isPending } = useOrders().techOrdersQuery
+  const { data, isPending } = useOrders().techOrdersQuery;
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const { data: categoryData, isPending: categoryIsPending } = useCategory(selectedOrder?.category_id);
+  const { data: categoryData, isPending: categoryIsPending } = useCategories(
+    selectedOrder?.category_id,
+  );
 
   return (
     <>
@@ -25,7 +27,10 @@ export default function MyJobs() {
             <div className="p-2">
               <Button
                 variant="outline"
-                onClick={() => { setSelectedOrder(order); setIsModalActive(true); }}
+                onClick={() => {
+                  setSelectedOrder(order);
+                  setIsModalActive(true);
+                }}
               >
                 Ver detalles
               </Button>
@@ -35,16 +40,17 @@ export default function MyJobs() {
           {selectedOrder?.id === order.id && isModalActive && (
             <Modal
               title={order.title}
-              onClose={() => { setIsModalActive(false); setSelectedOrder(null); }}
+              onClose={() => {
+                setIsModalActive(false);
+                setSelectedOrder(null);
+              }}
             >
               <div className="flex flex-col h-full justify-between items-start gap-5">
                 <div className="space-y-6">
                   <label className="uppercase text-md text-tertiary/60 font-semibold mb-2">
                     Descripción del servicio
                   </label>
-                  <p className="text-lg">
-                    {order.description}
-                  </p>
+                  <p className="text-lg">{order.description}</p>
                 </div>
 
                 <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-full">
@@ -56,18 +62,16 @@ export default function MyJobs() {
                       <ToolKitIcon className="text-surface-tint" height="20" />
                     </div>
                     <p className="text-md">
-                      {categoryIsPending ? 'Cargando...' : categoryData?.name}
+                      {categoryIsPending ? "Cargando..." : categoryData?.name}
                     </p>
                   </div>
                 </div>
-                <Button variant="primary">
-                  Cancelar orden
-                </Button>
+                <Button variant="primary">Cancelar orden</Button>
               </div>
             </Modal>
           )}
         </Fragment>
       ))}
     </>
-  )
+  );
 }

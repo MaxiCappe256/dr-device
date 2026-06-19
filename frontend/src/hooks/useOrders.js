@@ -9,6 +9,16 @@ export function useOrders() {
     queryFn: orders.getOrdersByUser,
   });
 
+  const createOrderMutation = useMutation({
+    mutationFn: orders.createOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    },
+    onError: (error) => {
+      console.log(error.response?.data?.message);
+    },
+  });
+
   const availableOrdersQuery = useQuery({
     queryKey: ["available-orders"],
     queryFn: orders.getAvailableOrders,
@@ -25,10 +35,10 @@ export function useOrders() {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
-      console.log(error.response?.data?.error);
+      console.log(error.response?.data?.message);
     },
   });
 
 
-  return { ordersByUserQuery, availableOrdersQuery, techOrdersQuery, cancelledMutation };
+  return { ordersByUserQuery, createOrderMutation, availableOrdersQuery, techOrdersQuery, cancelledMutation };
 }

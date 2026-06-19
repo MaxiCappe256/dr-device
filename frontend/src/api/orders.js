@@ -6,6 +6,11 @@ class Orders {
     return data.data;
   }
 
+  async createOrder(order) {
+    const { data } = await axiosInstance.post('/orders', order);
+    return data.data;
+  }
+
   async getAvailableOrders() {
     const { data } = await axiosInstance.get('/orders/available');
     return data.data;
