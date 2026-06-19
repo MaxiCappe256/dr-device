@@ -4,7 +4,7 @@ import orders from "../api/orders.js";
 export function useOrders() {
   const queryClient = useQueryClient();
 
-  const categoriesQuery = useQuery({
+  const ordersByUserQuery = useQuery({
     queryKey: ["orders"],
     queryFn: orders.getOrdersByUser,
   });
@@ -19,5 +19,5 @@ export function useOrders() {
     },
   });
 
-  return { categoriesQuery, cancelledMutation };
+  return { ordersByUserQuery, cancelledMutation };
 }

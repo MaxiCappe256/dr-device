@@ -5,14 +5,25 @@ import Button from "../../components/ui/shared/Button";
 import Modal from "../../components/ui/shared/Modal";
 import { Fragment, useState } from "react";
 import { ToolKitIcon, UserIcon } from "../../utils/icons";
+import { useCategory } from "../../hooks/useCategories";
 
 export default function Orders() {
-  const { data: orderData, isPending: orderIsPending } = useOrders().categoriesQuery;
+  const { data: orderData, isPending: orderIsPending } = useOrders().ordersByUserQuery;
   const { cancelledMutation } = useOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
 
-  const { data: technician, isPending: techIsPending } = useUserById(selectedOrder?.technician_id);
+  const { data: technicianData, isPending: technicianIsPending } = useUserById(selectedOrder?.technician_id);
+
+  const { data: categoryData, isPending: categoryIsPending } = useCategory(selectedOrder?.category_id);
+
+  const orderDates = [
+    { type: "created", label: "Creación", date: selectedOrder?.createdAt },
+    { type: "finished", label: "Finalización", date: selectedOrder?.finished_at },
+    { type: "canceled", label: "Cancelación", date: selectedOrder?.canceled_at },
+  ]
+    .filter(item => item.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
     <>
@@ -58,7 +69,7 @@ export default function Orders() {
                             <p className="text-md">
                               {
                                 order.technician_id ? (
-                                  techIsPending ? 'Cargando...' : technician?.full_name
+                                  technicianIsPending ? 'Cargando...' : technicianData?.full_name
                                 ) : 'Sin técnico asignado'
                               }
                             </p>
@@ -70,11 +81,41 @@ export default function Orders() {
                           </label>
                           <div className="flex items-center gap-2">
                             <div className="rounded-full bg-surface-tint/20 p-2 w-fit"><ToolKitIcon className="text-surface-tint" height="20" /></div>
-                            <p className="text-md">Celulares</p>
+                            <p className="text-md">
+                              {categoryIsPending ? 'Cargando...' : categoryData?.name}
+                            </p>
                           </div>
                         </div>
                       </div>
 
+                      <div className="flex flex-col gap-2 p-4 rounded-lg border border-gray-100 w-full">
+                        <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                          Linea de tiempo de la orden
+                        </label>
+                        <div className="flex flex-col gap-2 ml-4 pl-6 border-l-3 border-gray-100">
+                          {orderDates.map(({ type, label, date }) => (
+                            <div>
+                              <div className="relative">
+                                <h4 className="font-semibold">{label}</h4>
+                                <div className={`
+                                    size-3 rounded-full border border-white absolute -left-8 top-1.5
+                                    ${{
+                                    created: "bg-on-background",
+                                    updated: "bg-primary-container",
+                                    finished: "bg-surface-tint",
+                                    canceled: "bg-on-surface-variant",
+                                  }[type]
+                                  }
+                                  
+                                  `}></div>
+
+
+                              </div>
+                              <span className="font-semibold text-tertiary/40">{new Date(date).toLocaleDateString('es-AR')}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                       <Button
                         onClick={() => {
                           cancelledMutation.mutateAsync(order.id);
@@ -84,7 +125,7 @@ export default function Orders() {
                         variant="danger"
                         className="text-white"
                       >
-                        Eliminar Orden
+                        Cancelar orden
                       </Button>
                     </div>
                   </Modal>
