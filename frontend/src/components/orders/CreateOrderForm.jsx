@@ -3,7 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import {
   CheckIcon,
   DesktopIcon,
-  GameConsoleIcon,
+  ScreenIcon,
   LaptopIcon,
   SmartPhoneIcon,
   ToolKitIcon,
@@ -31,9 +31,9 @@ const categoryUiById = {
     icon: LaptopIcon,
   },
   [CATEGORY_PANTALLA]: {
-    label: "Consola",
-    description: "PlayStation, Xbox, controles, puertos o fallas de imagen.",
-    icon: GameConsoleIcon,
+    label: "Pantalla",
+    description: "Pantallas negras, fuente, ",
+    icon: ScreenIcon,
   },
   [CATEGORY_PC]: {
     label: "PC de escritorio",

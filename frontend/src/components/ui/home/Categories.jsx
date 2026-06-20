@@ -1,4 +1,4 @@
-import { SmartPhoneIcon, LaptopIcon, GameConsoleIcon, DesktopIcon } from "../../../utils/icons.js";
+import { SmartPhoneIcon, LaptopIcon, GameConsoleIcon, DesktopIcon, ScreenIcon } from "../../../utils/icons.js";
 import CategoryCard from "../shared/CategoryCard.jsx";
 
 export default function Categories() {
@@ -9,21 +9,25 @@ export default function Categories() {
                 Soluciones integrales para todo tu ecosistema digital
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-10 w-full max-w-5xl px-2">
-                <CategoryCard 
-                    icons={<SmartPhoneIcon height="40" style={{color:'var(--color-primary)'}}/>} 
+                <CategoryCard
+                    icons={<SmartPhoneIcon height="40" style={{ color: 'var(--color-primary)' }} />}
                     text="Smartphone"
                 />
-                <CategoryCard 
-                    icons={<LaptopIcon height="40" style={{color:'var(--color-primary)'}}/>} 
+                <CategoryCard
+                    icons={<LaptopIcon height="40" style={{ color: 'var(--color-primary)' }} />}
                     text="Laptop"
                 />
-                <CategoryCard 
-                    icons={<DesktopIcon height="40" style={{color:'var(--color-primary)'}}/>} 
+                <CategoryCard
+                    icons={<DesktopIcon height="40" style={{ color: 'var(--color-primary)' }} />}
                     text="Desktop"
                 />
-                <CategoryCard 
-                    icons={<GameConsoleIcon height="40" style={{color:'var(--color-primary)'}}/>} 
+                <CategoryCard
+                    icons={<GameConsoleIcon height="40" style={{ color: 'var(--color-primary)' }} />}
                     text="Consola"
+                />
+                <CategoryCard
+                    icons={<ScreenIcon height="40" style={{ color: 'var(--color-primary)' }} />}
+                    text="Pantalla"
                 />
             </div>
         </div>

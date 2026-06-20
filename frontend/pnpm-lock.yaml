@@ -50,6 +50,9 @@ importers:
       '@iconify-react/si':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/teenyicons':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
       '@iconify-react/uit':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
@@ -300,6 +303,9 @@ packages:
 
   '@iconify-react/si@1.0.2':
     resolution: {integrity: sha512-MEX3LDlCKKGYvfajRME0dz02xCwuDN3RxmIuoqT0rWtDNeF0HNgj3mtVZzV/o4VdqVW+OXXbB6rj/W7n5bcUPw==}
+
+  '@iconify-react/teenyicons@1.0.2':
+    resolution: {integrity: sha512-3JNV7IuuN3n/lud0mwA3QvBAuQ8Ho+bfKC3b0X6QElPSm3M3o4oI14Shjjh8mmselq1bine+NoRhLQiO2QRYyg==}
 
   '@iconify-react/uit@1.0.2':
     resolution: {integrity: sha512-QwkvC2BQ5NukiGJVXtpFP+u3khmjM+UI+W1jzRmpRw3z68162UHkfnoI+2MTdunhLc8FheRJSotXB+zAXBAIwA==}
@@ -1619,6 +1625,12 @@ snapshots:
       - react
 
   '@iconify-react/si@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/teenyicons@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:

@@ -3,19 +3,25 @@ import { useOrders } from "../../hooks/useOrders.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
+import {ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
+import {CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
 import { useCategories } from "../../hooks/useCategories.js";
-import { ToolKitIcon } from "../../utils/icons.js";
 
 export default function FindJobs() {
   const { data, isPending } = useOrders().availableOrdersQuery;
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const { data: categoryData, isPending: categoryIsPending } = useCategories(
-    selectedOrder?.category_id,
-  );
+  const { getCategory } = useCategories(selectedOrder?.category_id);
+  const { data: categoryData, isPending: categoryIsPending } = getCategory;
+
   return (
     <>
-      {data?.map((order) => (
+    <h1 className="text-3xl font-bold">Mis ordenes</h1>
+      {!isPending && !data.length && <p className="mt-5">No hay ordenes para trabajar</p>}
+      {isPending ? (
+        <p className="mt-5">Cargando...</p>
+      ) :(
+      data?.map((order) => (
         <Fragment key={order.id}>
           <CardOrder
             title={order.title}
@@ -52,7 +58,7 @@ export default function FindJobs() {
                   <p className="text-lg">{order.description}</p>
                 </div>
 
-                <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-full">
+                <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-1/4">
                   <label className="uppercase text-sm text-tertiary/60 font-semibold mb-2">
                     Categoria
                   </label>
@@ -70,7 +76,8 @@ export default function FindJobs() {
             </Modal>
           )}
         </Fragment>
-      ))}
+      ))
+    )}
     </>
   );
 }
