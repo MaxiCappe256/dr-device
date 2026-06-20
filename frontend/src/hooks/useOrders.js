@@ -18,7 +18,7 @@ export function useOrders() {
     },
     onError: (error) => {
       toast.error(
-        createOrderMutation.error?.response?.data?.message ?? "Error al crear la orden"
+        error?.response?.data?.message ?? "Error al crear la orden"
       );
     },
   });
@@ -41,7 +41,7 @@ export function useOrders() {
     },
     onError: (error) => {
       toast.error(
-        createOrderMutation.error?.response?.data?.message ?? "Error al cancelar la orden"
+        error?.response?.data?.message ?? "Error al cancelar la orden"
       );
     },
   });
