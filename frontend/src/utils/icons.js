@@ -25,6 +25,9 @@ import EyeClosedIcon from "@iconify-react/mdi/eye-closed";
 import ToolKitIcon from "@iconify-react/carbon/tool-kit";
 import CloseIcon from "@iconify-react/carbon/close";
 import ScreenIcon from '@iconify-react/teenyicons/hd-screen-outline';
+import PriceIcon from '@iconify-react/famicons/logo-usd';
+import OfferIcon from '@iconify-react/mdi/offer';
+
 export {
   UserIcon,
   PhoneIcon,
@@ -52,5 +55,7 @@ export {
   EyeClosedIcon,
   ToolKitIcon,
   CloseIcon,
-  ScreenIcon
+  ScreenIcon,
+  PriceIcon,
+  OfferIcon
 };

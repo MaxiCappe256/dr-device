@@ -109,8 +109,6 @@ export default function Orders() {
                                   }
                                   
                                   `}></div>
-
-
                               </div>
                               <span className="font-semibold text-tertiary/40">{new Date(date).toLocaleDateString('es-AR')}</span>
                             </div>

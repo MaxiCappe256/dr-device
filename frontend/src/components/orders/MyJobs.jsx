@@ -16,7 +16,7 @@ export default function MyJobs() {
   const { data: categoryData, isPending: categoryIsPending } = getCategory;
   return (
     <>
-      <h1 className="text-3xl font-bold">Mis ordenes</h1>
+      <h1 className="text-3xl font-bold">Mis trabajos</h1>
       {!isPending && !data.length && <p className="mt-5">No hay trabajos registrados</p>}
       {isPending ? (
         <p className="mt-5">Cargando...</p>
