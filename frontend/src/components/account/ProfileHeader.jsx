@@ -1,12 +1,13 @@
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useAuth } from '../../hooks/useAuth';
-import UserMenu from '../ui/shared/UserMenu';
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuth } from "../../hooks/useAuth";
+import UserMenu from "../ui/shared/UserMenu";
+import Tag from "../ui/shared/Tag";
 
 export default function ProfileHeader() {
   const {
     user: { data },
   } = useAuthContext();
-  const { logoutMutation } = useAuth()
+  const { logoutMutation } = useAuth();
 
   const { roles, full_name, email, createdAt } = data;
   return (
@@ -14,10 +15,14 @@ export default function ProfileHeader() {
       <header className="flex h-20 items-center justify-between border-b border-surface-container-highest bg-surface-container-lowest px-12">
         <h1 className="text-3xl font-bold text-primary">Cuenta</h1>
 
-        <UserMenu user={data} logoutLoading={logoutMutation.isPending} onLogout={logoutMutation.mutateAsync} />
+        <UserMenu
+          user={data}
+          logoutLoading={logoutMutation.isPending}
+          onLogout={logoutMutation.mutateAsync}
+        />
       </header>
 
-      <article className="m-10 overflow-hidden rounded-2xl border border-surface-container-highest bg-surface-container-lowest shadow-sm">
+      <article className="m-10 overflow-hidden rounded-2xl border border-surface-container-highest bg-surface-container-lowest">
         <div className="h-40 auth-brand-panel" />
 
         <div className="flex flex-col gap-8 px-10 py-10 lg:flex-row lg:items-center lg:justify-between">
@@ -29,12 +34,7 @@ export default function ProfileHeader() {
 
               <div className="space-x-4 my-2">
                 {roles.map((rol) => (
-                  <span
-                    key={rol.id}
-                    className="rounded-full border border-surface-container-highest bg-primary-soft px-4 py-1 text-sm font-bold text-primary capitalize"
-                  >
-                    {rol.title}
-                  </span>
+                  <Tag key={rol.id} label={rol.title} color="#0f56d9" />
                 ))}
               </div>
             </div>

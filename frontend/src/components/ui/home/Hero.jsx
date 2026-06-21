@@ -10,7 +10,7 @@ export default function Hero() {
                 <h1 className="text-6xl font-extralight">Tus dispositivos en <strong className="text-primary">manos expertas</strong></h1>
                 <p className="text-gray-600 text-xl">Conectamos usuarios con técnicos especializados para reparaciones rápidas y garantizadas. El software definitivo para la gestión técnica moderna.</p>
                 <div className="flex space-x-3 w-1/2 max-lg:flex-col max-lg:space-y-3 max-lg:w-full">
-                    <Button variant="primary" iconRight={<ArrowRightIcon height="24"/>} ><Link to="/orders">
+                    <Button variant="primary" iconRight={<ArrowRightIcon height="24"/>} ><Link to="/create-order">
                         Solicitar reparacion
                     </Link>
                     </Button>

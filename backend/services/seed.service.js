@@ -101,6 +101,7 @@ export const executeSrv = async () => {
         {
           id: o.id,
           status: o.status,
+          title: o.title,
           description: o.description,
           user_id: o.user_id,
           technician_id: o.technician_id,

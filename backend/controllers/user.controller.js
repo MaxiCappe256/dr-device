@@ -1,10 +1,19 @@
 import ApiResponse from "../handlers/response.js";
-import { getUsersSrv, updateUserSrv, removeDeletedAtUserSrv, addDeletedAtUserSrv } from "../services/users.service.js";
+import { getUsersSrv, getUserByIdSrv, updateUserSrv, removeDeletedAtUserSrv, addDeletedAtUserSrv } from "../services/users.service.js";
 
 export const getMeCtrl = async (req, res) => {
   const response = new ApiResponse(res);
 
   const user = req.user;
+  return response.ok("Usuario obtenido", user);
+};
+
+export const getUserCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+
+  const { id } = req.params;
+  const user = await getUserByIdSrv(id);
+
   return response.ok("Usuario obtenido", user);
 };
 

@@ -11,37 +11,42 @@ const getOrdersByUserAndCount = async ({ category_id, user_id }) => {
   return orderQuantity;
 };
 
-export const createOrderSrv = async ({ category_id, description, user_id }) => {
+export const createOrderSrv = async ({ category_id, description, title, user_id }) => {
   const quanty = await getOrdersByUserAndCount({ category_id, user_id });
   if (quanty >= 5) throw new AppError("Has excedido el limite", 400);
   const createdOrder = await Order.create({
     category_id,
     description,
+    title,
     user_id,
   });
   return createdOrder;
 };
 
-export const changeStatusOrderSrv = async (order_id, new_status, transaction = null) => {
+export const changeStatusOrderSrv = async (
+  order_id,
+  new_status,
+  transaction = null,
+) => {
   let order;
 
   if (new_status === "CANCELLED") {
     order = await Order.update(
       { status: new_status, canceled_at: new Date() },
       { where: { id: order_id } },
-      transaction
+      transaction,
     );
   } else if (new_status === "COMPLETED") {
     order = await Order.update(
       { status: new_status, finished_at: new Date() },
       { where: { id: order_id } },
-      transaction
+      transaction,
     );
   } else {
     order = await Order.update(
       { status: new_status },
       { where: { id: order_id } },
-      transaction
+      transaction,
     );
   }
 
@@ -87,15 +92,40 @@ export const getOrderSrv = async (order_id) => {
 
 export const updateOrderSrv = async (order_id, data, transaction = null) => {
   if (transaction) {
-
   }
   const [updatedOrder] = await Order.update(
     data,
     { where: { id: order_id } },
-    transaction
+    transaction,
   );
 
   if (!updatedOrder) throw new AppError("No se pudo actualizar la orden", 400);
 
   return updatedOrder;
+};
+
+export const getAvailableOrdersSrv = async (categoryIds) => {
+  const orders = await Order.findAll({
+    where: { status: "SEARCHING", category_id: { [Op.in]: categoryIds } },
+  });
+
+  return orders;
+};
+
+export const getOrdersByUserSrv = async (user_id) => {
+  const orders = await Order.findAll({ where: { user_id } });
+
+  if (!orders)
+    throw new AppError("No se encontraron ordenes para ese usuario", 404);
+
+  return orders;
+};
+
+export const getOrdersByTechnicianSrv = async (technician_id) => {
+  const orders = await Order.findAll({ where: { technician_id } });
+
+  if (!orders)
+    throw new AppError("No se encontraron ordenes para este tecnico", 404);
+
+  return orders;
 };

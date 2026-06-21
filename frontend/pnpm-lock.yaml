@@ -50,6 +50,9 @@ importers:
       '@iconify-react/si':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/teenyicons':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
       '@iconify-react/uit':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
@@ -74,6 +77,9 @@ importers:
       react-router:
         specifier: 7.15.1
         version: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react-toastify:
+        specifier: ^11.1.0
+        version: 11.1.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       tailwindcss:
         specifier: 4.3.0
         version: 4.3.0
@@ -297,6 +303,9 @@ packages:
 
   '@iconify-react/si@1.0.2':
     resolution: {integrity: sha512-MEX3LDlCKKGYvfajRME0dz02xCwuDN3RxmIuoqT0rWtDNeF0HNgj3mtVZzV/o4VdqVW+OXXbB6rj/W7n5bcUPw==}
+
+  '@iconify-react/teenyicons@1.0.2':
+    resolution: {integrity: sha512-3JNV7IuuN3n/lud0mwA3QvBAuQ8Ho+bfKC3b0X6QElPSm3M3o4oI14Shjjh8mmselq1bine+NoRhLQiO2QRYyg==}
 
   '@iconify-react/uit@1.0.2':
     resolution: {integrity: sha512-QwkvC2BQ5NukiGJVXtpFP+u3khmjM+UI+W1jzRmpRw3z68162UHkfnoI+2MTdunhLc8FheRJSotXB+zAXBAIwA==}
@@ -738,6 +747,10 @@ packages:
 
   caniuse-lite@1.0.30001793:
     resolution: {integrity: sha512-iwSsYWaCOoh26cV8NwNRViHlrfUvYsHDfRVcbtmw0Kg6PJIZZXwMkj1442FYLBGkeUf1juAsU3DTfxW579mrPA==}
+
+  clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -1199,6 +1212,12 @@ packages:
       react-dom:
         optional: true
 
+  react-toastify@11.1.0:
+    resolution: {integrity: sha512-e9h23x3phN0wbFeB6yovmWp7lobzV4CaCH0LO8nVP6H7Y+3GbcLpIzMm9dJhcp1RXbpyfvjgpfXqO80QAmn7sg==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
+
   react@19.2.6:
     resolution: {integrity: sha512-sfWGGfavi0xr8Pg0sVsyHMAOziVYKgPLNrS7ig+ivMNb3wbCBw3KxtflsGBAwD3gYQlE/AEZsTLgToRrSCjb0Q==}
     engines: {node: '>=0.10.0'}
@@ -1611,6 +1630,12 @@ snapshots:
     transitivePeerDependencies:
       - react
 
+  '@iconify-react/teenyicons@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
   '@iconify-react/uit@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
@@ -1925,6 +1950,8 @@ snapshots:
       function-bind: 1.1.2
 
   caniuse-lite@1.0.30001793: {}
+
+  clsx@2.1.1: {}
 
   combined-stream@1.0.8:
     dependencies:
@@ -2327,6 +2354,12 @@ snapshots:
       react: 19.2.6
       set-cookie-parser: 2.7.2
     optionalDependencies:
+      react-dom: 19.2.6(react@19.2.6)
+
+  react-toastify@11.1.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      clsx: 2.1.1
+      react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
   react@19.2.6: {}
