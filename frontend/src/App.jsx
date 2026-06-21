@@ -8,11 +8,13 @@ import Account from "./pages/Account/Account.jsx";
 import AccountLayout from "./components/layouts/AccountLayout.jsx";
 import MainLayout from "./components/layouts/MainLayout.jsx";
 import AccountSpecializations from "./pages/Account/AccountSpecializations.jsx";
+import AdminGuard from "./components/auth/AdminGuard.jsx";
 import TechnicianGuard from "./components/auth/TechnicianGuard.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
 import CreateOrder from "./pages/Orders/CreateOrder.jsx";
 import Works from "./pages/Orders/Works.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
+import AdminPanel from "./pages/Admin/AdminPanel.jsx";
 
 const App = () => {
   return (
@@ -45,6 +47,7 @@ const App = () => {
             <Route index element={<CreateOrder />} />
           </Route>
         </Route>
+        <Route path="/admin-panel" element={<AdminPanel />} />
       </Routes>
     </>
 

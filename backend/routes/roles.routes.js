@@ -16,8 +16,8 @@ const router = Router();
 
 router.get('/public', getPublicRolesCtrl);
 router.get('/', authMiddleware, getRolesCtrl);
-router.post('/', authMiddleware, validateAccessMiddleware([PERMISSIONS_LIST.ORDER.CREATE]), createRoleDTO, createRoleCtrl);
-router.patch('/:id', authMiddleware, validateAccessMiddleware([PERMISSIONS_LIST.ORDER.UPDATE]), updateRoleDTO, updateRoleCtrl);
+router.post('/', authMiddleware, createRoleDTO, createRoleCtrl);
+router.patch('/:id', authMiddleware, updateRoleDTO, updateRoleCtrl);
 router.delete(
   '/:id', 
   authMiddleware, 

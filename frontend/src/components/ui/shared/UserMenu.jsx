@@ -27,6 +27,9 @@ export default function UserMenu({ user, logoutLoading, onLogout }) {
                 <div className="flex flex-col gap-2">
                     <li><NavLink className='hover:text-surface-tint' to="/account">Mi cuenta</NavLink></li>
                     <li><NavLink className='hover:text-surface-tint' to="/account/orders">Órdenes</NavLink></li>
+                    {user?.roles?.some(r => r.title === 'admin') && (
+                      <li><NavLink className='hover:text-surface-tint' to="/admin-panel">Panel admin</NavLink></li>
+                    )}
                 </div>
                 <li
                     className='text-error font-semibold cursor-pointer'
