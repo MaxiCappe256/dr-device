@@ -42,7 +42,7 @@ export function useCreateOffer() {
     return useMutation({
         mutationFn: offers.createOffer,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["offers"] });
+            queryClient.invalidateQueries({ queryKey: ["available-orders"] });
             toast.success("Oferta realizada exitosamente.");
         },
         onError: (error) => {

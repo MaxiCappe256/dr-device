@@ -4,7 +4,7 @@ import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import OfferForm from '../offers/OfferForm.jsx';
-import { ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
+import { ArrowRightIcon, ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
 import { CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
 import { useCategories } from "../../hooks/useCategories.js";
 
@@ -73,11 +73,14 @@ export default function FindJobs() {
                       </p>
                     </div>
                   </div>
-                  <Button variant="primary" onClick={() => {
+                  <Button 
+                    variant="primary" 
+                    iconRight={<ArrowRightIcon height="24"/>}
+                    onClick={() => {
                     setOrderModal(false);
                     setOfferModal(true);
                   }
-                  }>Ofertar a la orden</Button>
+                  }>¡Quiero oferar esta orden!</Button>
                 </div>
               </Modal>
             )}

@@ -1,6 +1,7 @@
 import AppError from "../utils/appError.js";
 import { Op } from "sequelize";
 import { Order } from "../models/Order.js";
+import { Offer } from "../models/Offer.js";
 
 const STATUS_LIST = ["SEARCHING", "PENDING"];
 
@@ -104,9 +105,28 @@ export const updateOrderSrv = async (order_id, data, transaction = null) => {
   return updatedOrder;
 };
 
-export const getAvailableOrdersSrv = async (categoryIds) => {
+export const getAvailableOrdersSrv = async (categoryIds, userId) => {
+  // obtiene las ordenes que estan en busqueda con las categorias que posee el usuario (tecnico)
+  // y posterior a esto, se verifica que las ordenes a obtener no sean a las que el tecnico ya haya realizado una oferta
+  const offerOrders = await Offer.findAll({
+    where: {
+      technician_id: userId
+    },
+    attributes: ['order_id']
+  });
+
+  const orderIds = offerOrders.map(o => o.order_id);
+
   const orders = await Order.findAll({
-    where: { status: "SEARCHING", category_id: { [Op.in]: categoryIds } },
+    where: {
+      status: 'SEARCHING',
+      category_id: {
+        [Op.in]: categoryIds
+      },
+      id: {
+        [Op.notIn]: orderIds
+      }
+    }
   });
 
   return orders;
