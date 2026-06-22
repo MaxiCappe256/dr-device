@@ -2,8 +2,6 @@ import sequelize from '../db/index.js';
 import { DataTypes } from 'sequelize';
 import { Category } from './Category.js';
 
-// falta terminar las relaciones
-
 export const Order = sequelize.define(
   'Order',
   {
@@ -78,6 +76,10 @@ Order.associate = (models) => {
     through: models.Offer,
     foreignKey: 'order_id',
     as: 'Offers'
+  })
+
+  Order.hasMany(models.Offer, {
+    foreignKey: 'order_id'
   })
 }
 
