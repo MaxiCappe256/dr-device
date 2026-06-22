@@ -122,9 +122,10 @@ export const getOrderCtrl = async (req, res) => {
 export const getAvailableOrdersCtrl = async (req, res) => {
   const response = new ApiResponse(res);
   const categoryIds = req.user.specializations.map((s) => s.id);
+  const userId = req.user.id;
 
   try {
-    const orders = await getAvailableOrdersSrv(categoryIds);
+    const orders = await getAvailableOrdersSrv(categoryIds, userId);
     response.ok("Ordenes disponibles obtenidas", orders);
   } catch (error) {
     console.error(error.message);
