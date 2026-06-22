@@ -5,9 +5,14 @@ import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import Button from "../ui/shared/Button";
 import { useAuth } from "../../hooks/useAuth";
-import { UserIcon, DeleteIcon, SpecializationIcon } from "../../utils/icons";
+import {
+  ArrowCloseIcon,
+  UserIcon,
+  DeleteIcon,
+  SpecializationIcon,
+} from "../../utils/icons";
 
-export default function AssideAccount() {
+export default function AssideAccount({ isOpen = false, onClose }) {
   const { deletedMutation } = useAccount();
   const { logoutMutation } = useAuth();
 
@@ -54,8 +59,21 @@ export default function AssideAccount() {
   ];
 
   return (
-    <aside className="flex w-80 h-screen sticky top-0   shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)]">
-      <Link to="/">
+    <aside
+      className={`fixed left-0 top-0 z-50 flex h-screen w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)] transition-transform duration-300 lg:sticky lg:z-auto lg:translate-x-0 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      <button
+        type="button"
+        className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-primary lg:hidden"
+        onClick={onClose}
+        aria-label="Cerrar menú de cuenta"
+      >
+        <ArrowCloseIcon className="size-6" />
+      </button>
+
+      <Link to="/" onClick={onClose}>
         <div className="flex items-center gap-4 px-5 py-6">
           <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-on-primary shadow-lg shadow-primary/25">
             <svg
@@ -95,7 +113,17 @@ export default function AssideAccount() {
         {links.map((link) => {
           const Icon = link.icon;
 
-          return (
+          return link.danger ? (
+            <button
+              type="button"
+              key={link.label}
+              className="mt-auto flex cursor-pointer items-center gap-4 rounded-xl px-5 py-4 text-left text-xl font-medium text-error transition-colors hover:bg-error-container hover:text-on-error-container"
+              onClick={() => setIsModalActive(true)}
+            >
+              <Icon className="size-6 shrink-0" />
+              <span>{link.label}</span>
+            </button>
+          ) : (
             <NavLink
               to={link.to}
               key={link.label}
@@ -111,7 +139,7 @@ export default function AssideAccount() {
                     : "",
                 ].join(" ")
               }
-              onClick={link.danger ? () => setIsModalActive(true) : undefined}
+              onClick={onClose}
             >
               <Icon className="size-6 shrink-0" />
               <span>{link.label}</span>
