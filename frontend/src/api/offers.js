@@ -8,7 +8,7 @@ class Offers {
   async allOffersTech() {
     const { data } = await axiosInstance.get('/offers/tech');
     return data.data;
-  }
+  }  
   async getOffersByOrder(orderId) {
     const { data } = await axiosInstance.get(`/orders/${orderId}/offers`);
     return data.data;
