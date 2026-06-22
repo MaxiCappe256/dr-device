@@ -21,7 +21,7 @@ const sidebarLinks = [
   { id: 'categories', label: 'Categorías', icon: SpecializationIcon },
 ];
 
-export default function AdminContent() {
+export default function AdminPanel() {
 
   const { logoutMutation } = useAuth();
   const navigate = useNavigate();
