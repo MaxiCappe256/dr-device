@@ -27,6 +27,19 @@ export const createOfferCtrl = async (req, res) => {
   }
 };
 
+export const getOfferCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const { id } = req.params;
+  try {
+    const offer = await getOfferSrv(id);
+    response.ok("Oferta obtenida correctamente.", offer);
+  } catch (error) {
+    console.error(error.message);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
 export const getOffersPerOrderCtrl = async (req, res) => {
   const response = new ApiResponse(res);
   const { id } = req.params;
