@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import orders from "../api/orders.js";
 import { toast } from "react-toastify";
 
-export function useOrders() {
+export function useOrders(order_id) {
   const queryClient = useQueryClient();
 
   const ordersByUserQuery = useQuery({
@@ -21,6 +21,11 @@ export function useOrders() {
         error?.response?.data?.message ?? "Error al crear la orden"
       );
     },
+  });
+
+  const getOrderQuery = useQuery({
+    queryKey: ["orders-get"],
+    queryFn:()=> orders.getOrder(order_id)
   });
 
   const availableOrdersQuery = useQuery({
@@ -47,5 +52,5 @@ export function useOrders() {
   });
 
 
-  return { ordersByUserQuery, createOrderMutation, availableOrdersQuery, techOrdersQuery, cancelledMutation };
+  return { ordersByUserQuery, createOrderMutation, availableOrdersQuery, techOrdersQuery, cancelledMutation, getOrderQuery };
 }

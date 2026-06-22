@@ -16,11 +16,15 @@ class Orders {
     return data.data;
   }
 
-    async getOrdersByTechnician() {
+  async getOrdersByTechnician() {
     const { data } = await axiosInstance.get('/orders/tech');
     return data.data;
   }
 
+  async getOrder(id) {
+    const { data } = await axiosInstance.get(`/orders/${id}`);
+    return data.data
+  }
 
 
   async cancelledOrder(order_id) {

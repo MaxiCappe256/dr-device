@@ -1,6 +1,6 @@
 import ApiResponse from "../handlers/response.js";
 import { changeStatusOrderSrv, getOrderSrv, isOrderOwnerSrv } from "../services/order.service.js";
-import { validateCriteriaOfferSrv, createOfferSrv, getOffersPerOrderSrv, getOfferSrv, isAcceptedOfferSrv, acceptOfferToOrderSrv } from "../services/offers.service.js";
+import { validateCriteriaOfferSrv, createOfferSrv, getOffersPerOrderSrv, getOfferSrv, isAcceptedOfferSrv, acceptOfferToOrderSrv, allOffersTechSrv } from "../services/offers.service.js";
 
 export const createOfferCtrl = async (req, res) => {
   const response = new ApiResponse(res);
@@ -52,6 +52,18 @@ export const getOffersPerOrderCtrl = async (req, res) => {
     return response.error(error.message);
   }
 };
+
+export const allOffersTechCtrl= async (req, res)=>{
+  const response = new ApiResponse(res);
+  const {id}=req.user
+  try {
+    const offers= await allOffersTechSrv(id)
+    response.ok("Ofertas del tecnico obtenidas correctamente", offers)
+  } catch (error) {
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+}
 
 export const acceptOfferCtrl = async (req, res) => {
   const response = new ApiResponse(res);
