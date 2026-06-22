@@ -48,7 +48,7 @@ export const updateRoleCtrl = async (req, res) => {
   const { id } = req.params;
   try {
     await getRoleSrv(id);
-    const permissionsList = await getPermissionsSrv(permissions, [])
+    const permissionsList = await getPermissionsSrv([], permissions)
     const existsRole = await checkExistsRoleSrv(title)
     if (existsRole) return response.conflict('El Rol con ese título ya se encuentra registrado.')
     const updatedRole = await updateRoleSrv({ id, title, permissionsList });
@@ -65,7 +65,7 @@ export const createRoleCtrl = async (req, res) => {
   const response = new ApiResponse(res);
   const { title, permissions } = req.body;
   try {
-    const permissionsList = await getPermissionsSrv(permissions);
+    const permissionsList = await getPermissionsSrv([], permissions);
     const existsRole = await checkExistsRoleSrv(title);
     if (existsRole) return response.conflict('El Rol con ese título ya se encuentra registrado.')
     const data = await createRoleSrv({ title, permissionsList });

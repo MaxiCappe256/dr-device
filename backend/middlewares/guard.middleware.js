@@ -8,7 +8,7 @@ export const validateAccessMiddleware = (requiredPermissions) => {
         try {
             if (!requiredPermissions || !requiredPermissions.length) throw new Error('No se recibieron permisos');
 
-            await getPermissionsSrv([], requiredPermissions);
+            await getPermissionsSrv(requiredPermissions, []);
 
             const user = req.user;
             

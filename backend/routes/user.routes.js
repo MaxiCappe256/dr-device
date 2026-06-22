@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { updateUserCtrl, deleteUserCtrl, getUserCtrl, getMeCtrl, getUsersCtrl } from '../controllers/user.controller.js';
+import { updateUserCtrl, deleteUserCtrl, getUserCtrl, getMeCtrl, getUsersCtrl, deleteUserByIdCtrl, createAdminCtrl } from '../controllers/user.controller.js';
 import { userDTO, userByIdDTO } from "../dtos/user.dtos.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { paginationDTO } from "../dtos/pagination.dto.js";
@@ -11,5 +11,7 @@ router.get('/', authMiddleware, paginationDTO, getUsersCtrl);
 router.get('/:id', authMiddleware, userByIdDTO, getUserCtrl);
 router.patch('/', authMiddleware, userDTO, updateUserCtrl);
 router.delete('/', authMiddleware, deleteUserCtrl);
+router.delete('/:id', authMiddleware, deleteUserByIdCtrl);
+router.post('/admin', authMiddleware, createAdminCtrl);
 
 export default router;

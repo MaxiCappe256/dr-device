@@ -1,4 +1,6 @@
 import { User } from "../models/User.js";
+import { Role } from "../models/Role.js";
+import { RoleUser } from "../models/RoleUser.js";
 import AppError from "../utils/appError.js";
 import { Op, Sequelize } from "sequelize";
 import { comparePassword, hashedPassword } from "../utils/bcrypt.js";
@@ -17,6 +19,8 @@ export const getUsersSrv = async (offset, limit) => {
   const { count: total, rows: usersDB } = await User.findAndCountAll({
     offset,
     limit,
+    where: { deleted_at: { [Op.eq]: null } },
+    include: [{ model: Role, through: { attributes: [] } }],
   });
 
   if (!total || !usersDB)
@@ -84,6 +88,27 @@ export const addDeletedAtUserSrv = async (id) => {
   if (!affectedRows) throw new AppError("El usuario ya se elimino")
   return affectedRows
 
+};
+
+export const createAdminSrv = async ({ full_name, email, password, phone }) => {
+  const userExists = await User.findOne({ where: { email } });
+  if (userExists) throw new AppError("El correo electrónico ya está registrado.", 400);
+
+  const adminRole = await Role.findOne({ where: { title: 'admin' } });
+  if (!adminRole) throw new AppError("El rol admin no existe.", 404);
+
+  const { password: _, ...user } = (
+    await User.create({
+      full_name,
+      email,
+      password: await hashedPassword(password),
+      phone,
+    })
+  ).dataValues;
+
+  await RoleUser.create({ user_id: user.id, role_id: adminRole.id });
+
+  return user;
 };
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
