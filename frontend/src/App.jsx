@@ -9,12 +9,12 @@ import AccountLayout from "./components/layouts/AccountLayout.jsx";
 import MainLayout from "./components/layouts/MainLayout.jsx";
 import AccountSpecializations from "./pages/Account/AccountSpecializations.jsx";
 import AdminGuard from "./components/auth/AdminGuard.jsx";
+import AdminPanel from "./components/admin/AdminPanel.jsx";
 import TechnicianGuard from "./components/auth/TechnicianGuard.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
 import CreateOrder from "./pages/Orders/CreateOrder.jsx";
 import Works from "./pages/Orders/Works.jsx";
 import { ToastContainer, Bounce } from "react-toastify";
-import AdminPanel from "./pages/Admin/AdminPanel.jsx";
 
 const App = () => {
   return (
@@ -46,8 +46,11 @@ const App = () => {
           <Route path="/create-order" element={<MainLayout />}>
             <Route index element={<CreateOrder />} />
           </Route>
+
+          <Route element={<AdminGuard />}>
+            <Route path="/admin-panel" element={<AdminPanel />} />
+          </Route>
         </Route>
-        <Route path="/admin-panel" element={<AdminPanel />} />
       </Routes>
     </>
 
