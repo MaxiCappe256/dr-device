@@ -30,7 +30,7 @@ export default function Button({
 
     case 'danger':
       customClassName =
-        'text-on-background bg-error border border-on-background';
+        'text-error hover:bg-error-container hover:text-on-error-container';
       break;
 
     default:

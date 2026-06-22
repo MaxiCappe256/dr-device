@@ -51,13 +51,16 @@ export default function SecurityTab() {
         )}
       </label>
 
-      <Button
-        variant="primary"
-        type="submit"
-        loading={changePasswordMutation.isPending}
-      >
-        Cambiar contraseña
-      </Button>
+      <div className="flex justify-end md:col-span-2">
+        <Button
+          variant="primary"
+          type="submit"
+          loading={changePasswordMutation.isPending}
+          className="!w-auto px-8"
+        >
+          Cambiar contraseña
+        </Button>
+      </div>
     </form>
   );
 }

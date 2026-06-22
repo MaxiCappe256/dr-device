@@ -8,7 +8,7 @@ export default function Categories() {
             <p className="text-gray-600 text-center text-sm md:text-base">
                 Soluciones integrales para todo tu ecosistema digital
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-10 w-full max-w-5xl px-2">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8 mt-10 w-full max-w-5xl px-2">
                 <CategoryCard
                     icons={<SmartPhoneIcon height="40" style={{ color: 'var(--color-primary)' }} />}
                     text="Smartphone"
