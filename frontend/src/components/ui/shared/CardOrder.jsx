@@ -1,4 +1,4 @@
-import {CATEGORY_TELEFONO, CATEGORY_PC, CATEGORY_NOTEBOOK, CATEGORY_PANTALLA}  from "../../../constants/categoryIcons.js"
+import { CATEGORY_TELEFONO, CATEGORY_PC, CATEGORY_NOTEBOOK, CATEGORY_PANTALLA } from "../../../constants/categoryIcons.js"
 import { ToolKitIcon, SmartPhoneIcon, DesktopIcon, LaptopIcon, GameConsoleIcon } from "../../../utils/icons.js";
 import Tag from "./Tag.jsx";
 
@@ -9,6 +9,8 @@ export default function CardOrder({ title, description, children, status, catego
     COMPLETED: { label: "Completado", color: "#047857" },
     IN_PROGRESS: { label: "En progreso", color: "#1D4ED8" },
     CANCELLED: { label: "Cancelado", color: "#B91C1C" },
+    ACCEPTED: { label: "Aceptado", color: "#047857" },
+    REJECTED: { label: "Rechazado", color: "#B91C1C" },
   };
 
   const categoryIcons = {

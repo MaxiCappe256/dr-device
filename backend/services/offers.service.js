@@ -50,6 +50,15 @@ export const isAcceptedOfferSrv = async (offer_id) => {
     return false;
 };
 
+
+export const allOffersTechSrv= async (tech_id)=>{
+    const offers= await Offer.findAll({
+        where:{technician_id: tech_id}
+    })
+    if(!offers) throw new AppError("No se encontro la oferta para este tecnico", 404)
+    return offers
+}
+
 export const acceptOfferToOrderSrv = async (order_id, offer_id, technician_id) => {
     const t = await sequelize.transaction();
 

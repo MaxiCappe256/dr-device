@@ -1,21 +1,32 @@
-import { ToolKitIcon, NavigateOutlineIcon } from "../../utils/icons";
+import { ToolKitIcon, NavigateOutlineIcon, OfferIcon } from "../../utils/icons";
 import MyJobs from "./MyJobs";
 import FindJobs from "./FindJobs";
+import OffersList from "../offers/OffersList.jsx";
 
 const tabs = [
   {
     id: 'my-jobs',
     label: 'Mis trabajos',
     icon: ToolKitIcon,
+    Component: MyJobs
+  },
+  {
+    id: 'offers',
+    label: "Mis ofertas",
+    icon: OfferIcon,
+    Component: OffersList
   },
   {
     id: 'find-jobs',
     label: 'Encontrar trabajo',
     icon: NavigateOutlineIcon,
-  },
+    Component: FindJobs
+  }
 ];
 
+
 export default function WorksTabs({ activeTab, onTabChange }) {
+  const { Component } = tabs.find(({ id }) => id === activeTab)
   return (
     <>
       <div className="mt-12 border-b border-surface-container-highest">
@@ -43,7 +54,7 @@ export default function WorksTabs({ activeTab, onTabChange }) {
       </div>
 
       <div className="flex flex-col mt-10 w-full rounded-2xl border-surface-container-highest gap-4">
-        {activeTab === 'my-jobs' ? <MyJobs /> : <FindJobs />}
+        <Component />
       </div>
     </>
   );

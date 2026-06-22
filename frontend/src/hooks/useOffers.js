@@ -50,5 +50,12 @@ export function useCreateOffer() {
                 error?.response?.data?.message ?? "Error al realizar la oferta."
             );
         },
-    })
+    });
+}
+
+export function useAllOffers() {
+    return useQuery({
+        queryKey: ["offers"],
+        queryFn: offers.allOffersTech,
+    });
 }
