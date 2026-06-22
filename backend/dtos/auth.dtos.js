@@ -26,6 +26,17 @@ export const registerDTO = [
     validate
 ]
 
+export const changePasswordDTO = [
+    body('current_password')
+        .notEmpty().withMessage('La contraseña actual no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La contraseña actual debe tener mínimo 6 caracteres.'),
+
+    body('new_password')
+        .notEmpty().withMessage('La nueva contraseña no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La nueva contraseña debe tener mínimo 6 caracteres.'),
+    validate
+]
+
 export const loginDTO = [
     body('email')
         .notEmpty().withMessage('El correo elecrónico no puede estar vacío.')

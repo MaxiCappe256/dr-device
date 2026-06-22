@@ -72,6 +72,22 @@ export const registerSrv = async (body) => {
   };
 };
 
+export const changePasswordSrv = async (user_id, current_password, new_password) => {
+  const user = await User.findByPk(user_id);
+  if (!user) throw new AppError("Usuario no encontrado.", 404);
+
+  const isValid = comparePassword(current_password, user.password);
+  if (!isValid) throw new AppError("La contraseña actual no es correcta.", 400);
+
+  const isSame = comparePassword(new_password, user.password);
+  if (isSame) throw new AppError("La nueva contraseña no puede ser igual a la actual.", 400);
+
+  await User.update(
+    { password: await hashedPassword(new_password) },
+    { where: { id: user_id } }
+  );
+};
+
 export const loginSrv = async (body) => {
   const { email, password: originalPassword } = body;
 

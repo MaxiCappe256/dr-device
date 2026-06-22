@@ -1,5 +1,5 @@
 import ApiResponse from '../handlers/response.js';
-import { registerSrv, loginSrv } from '../services/auth.service.js';
+import { registerSrv, loginSrv, changePasswordSrv } from '../services/auth.service.js';
 import config from '../config/index.js';
 
 export const registerCtrl = async (req, res) => {
@@ -43,6 +43,22 @@ export const loginCtrl = async (req, res) => {
         return response.error(error.message)
     }
 }
+
+export const changePasswordCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const { current_password, new_password } = req.body;
+  const user_id = req.user.id;
+
+  try {
+    await changePasswordSrv(user_id, current_password, new_password);
+    response.ok("Contraseña actualizada exitosamente.");
+  } catch (error) {
+    console.error(error.message);
+    if (error.statusCode === 400) return response.badRequest(error.message);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
 
 export const logoutCtrl = (req, res) => {
     const response = new ApiResponse(res);

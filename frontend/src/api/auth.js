@@ -14,6 +14,11 @@ class Auth {
     async logout() {
         await axiosInstance.post('/auth/logout');
     }
+
+    async changePassword(payload) {
+        const { data } = await axiosInstance.patch('/auth/change-password', payload);
+        return data;
+    }
 }
 
 export default new Auth();
