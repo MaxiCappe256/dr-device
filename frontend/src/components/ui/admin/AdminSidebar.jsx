@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router';
+import { NavLink } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { LoginIcon, UserIcon, SecurityIcon, SpecializationIcon, EmailIcon, LockIcon, PhoneIcon } from '../../utils/icons';
-import Modal from '../ui/shared/Modal';
-import Button from '../ui/shared/Button';
-import Input from '../ui/shared/Input';
-import Error from '../ui/shared/Error';
-import { useCreateAdmin } from '../../hooks/useUsers';
-import { useLogout } from '../../hooks/useAuth';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { LoginIcon, UserIcon, SecurityIcon, SpecializationIcon, EmailIcon, LockIcon, PhoneIcon } from '../../../utils/icons';
+import Modal from '../shared/Modal';
+import Button from '../shared/Button';
+import Input from '../shared/Input';
+import Error from '../shared/Error';
+import Logo from '../shared/Logo';
+import { useCreateAdmin } from '../../../hooks/useUsers';
+import { useLogout } from '../../../hooks/useAuth';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 const sidebarLinks = [
   { id: 'users', label: 'Usuarios', icon: UserIcon, to: '/admin-panel/users' },
@@ -34,27 +35,7 @@ export default function AdminSidebar() {
   return (
     <>
       <aside className="fixed left-0 top-0 z-50 flex h-screen w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)] rounded-r-xl transition-transform duration-300 lg:sticky lg:z-auto lg:translate-x-0 ">
-        <Link to="/">
-          <div className="flex items-center gap-4 px-5 py-6">
-            <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-on-primary shadow-lg shadow-primary/25">
-              <svg
-                aria-hidden="true"
-                className="size-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.4"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6V4h6v2" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 6h14v14H5z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m-3-3h6" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-2xl font-bold leading-6 text-primary">Dr. Device</p>
-            </div>
-          </div>
-        </Link>
+        <Logo to="/" className="px-5 py-6" />
 
         <nav className="mt-8 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 pb-4">
           {sidebarLinks.map((link) => {

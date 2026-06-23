@@ -1,11 +1,15 @@
 import { Fragment, useState } from "react";
-import { useTechOrders } from "../../hooks/useOrders.js";
-import CardOrder from "../ui/shared/CardOrder.jsx";
-import Button from "../ui/shared/Button.jsx";
-import Modal from "../ui/shared/Modal.jsx";
-import { ToolKitIcon } from "../../utils/icons.js";
-import { useGetCategory } from "../../hooks/useCategories.js";
-import { useCancelTechOffer } from "../../hooks/useOffers.js";
+
+import Modal from "../shared/Modal.jsx";
+import Button from "../shared/Button.jsx";
+import CardOrder from "../shared/CardOrder.jsx";
+
+import OrderDetails from "./OrderDetails.jsx";
+
+import { useUserById } from "../../../hooks/useUsers.js";
+import { useFinishOrder, useTechOrders } from "../../../hooks/useOrders.js";
+import { useGetCategory } from "../../../hooks/useCategories.js";
+import { useCancelTechOffer } from "../../../hooks/useOffers.js";
 
 export default function MyJobs() {
   const [isModalActive, setIsModalActive] = useState(false);
@@ -15,7 +19,30 @@ export default function MyJobs() {
   const { data: categoryData, isPending: categoryIsPending } = useGetCategory(
     selectedOrder?.category_id,
   );
+
   const cancelMutation = useCancelTechOffer();
+  const finishMutation = useFinishOrder();
+
+  const { data: technicianData, isPending: technicianIsPending } = useUserById(
+    selectedOrder?.technician_id,
+  );
+
+  const orderDates = [
+    { type: "created", label: "Creación", date: selectedOrder?.createdAt },
+    {
+      type: "finished",
+      label: "Finalización",
+      date: selectedOrder?.finished_at,
+    },
+    {
+      type: "canceled",
+      label: "Cancelación",
+      date: selectedOrder?.canceled_at,
+    },
+  ]
+    .filter((item) => item.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
   return (
     <>
       <h1 className="text-3xl font-bold">Mis trabajos</h1>
@@ -48,29 +75,12 @@ export default function MyJobs() {
                 }}
               >
                 <div className="flex flex-col h-full justify-between items-start gap-5">
-                  <div className="space-y-6">
-                    <label className="uppercase text-md text-tertiary/60 font-semibold mb-2">
-                      Descripción del servicio
-                    </label>
-                    <p className="text-lg">{order.description}</p>
-                  </div>
 
-                  <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-1/4">
-                    <label className="uppercase text-sm text-tertiary/60 font-semibold mb-2">
-                      Categoria
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                        <ToolKitIcon
-                          className="text-surface-tint"
-                          height="20"
-                        />
-                      </div>
-                      <p className="text-md">
-                        {categoryIsPending ? "Cargando..." : categoryData?.name}
-                      </p>
-                    </div>
-                  </div>
+                  <OrderDetails
+                    orderDates={orderDates}
+                    description={order.description}
+                    categoryName={categoryIsPending ? "Cargando..." : categoryData?.name}
+                    techFullName={technicianIsPending ? "Cargando..." : technicianData.full_name} />
                   <div className="flex flex-col md:flex-row w-full gap-4 justify-between items-center">
                     <Button
                       variant="danger"
@@ -85,7 +95,17 @@ export default function MyJobs() {
                     >
                       Cancelar oferta
                     </Button>
-                    <Button variant="primary">Completar orden</Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        finishMutation.mutateAsync(order.id);
+                        setIsModalActive(false);
+                      }}
+                      disabled={
+                        order.status === "COMPLETED" ||
+                        order.status === "CANCELLED"
+                      }
+                    >Completar orden</Button>
                   </div>
                 </div>
               </Modal>

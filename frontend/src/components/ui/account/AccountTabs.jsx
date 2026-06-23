@@ -1,4 +1,4 @@
-import { UserIcon, LockIcon } from "../../utils/icons";
+import { UserIcon, LockIcon } from "../../../utils/icons";
 
 const tabs = [
   {

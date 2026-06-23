@@ -11,8 +11,7 @@ export const validateAccessMiddleware = (requiredPermissions) => {
             await getPermissionsSrv(requiredPermissions, []);
 
             const user = req.user;
-            
-            const contain = requiredPermissions.every(reqPer => user.permissions.includes(reqPer));
+            const contain = requiredPermissions.every(reqPer => user.permissions.some(({ action }) => reqPer === action));
 
             if (!contain) response.unauthorized('Acceso denegado')
 

@@ -1,5 +1,5 @@
 import { useRoles } from '../../hooks/useRoles';
-import RolesList from '../../components/admin/RolesList';
+import RolesList from '../../components/ui/admin/RolesList';
 
 export default function AdminRolesPage() {
   const { data: rolesData, isLoading } = useRoles();

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import WorksTabs from "../../components/orders/WorksTabs";
+import WorksTabs from "../../components/ui/orders/WorksTabs";
 
 export default function Works() {
   const [activeTab, setActiveTab] = useState('my-jobs');

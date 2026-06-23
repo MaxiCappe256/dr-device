@@ -1,11 +1,11 @@
-import { EmailIcon, LockIcon } from "../../utils/icons";
+import { EmailIcon, LockIcon } from "../../../utils/icons";
 import { useForm } from "react-hook-form";
-import { LoginIcon } from "../../utils/icons";
-import { useLogin } from "../../hooks/useAuth";
+import { LoginIcon } from "../../../utils/icons";
+import { useLogin } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router";
-import Button from "../ui/shared/Button";
-import Input from "../ui/shared/Input";
-import Error from "../ui/shared/Error";
+import Button from "../shared/Button";
+import Input from "../shared/Input";
+import Error from "../shared/Error";
 
 export default function LoginForm() {
   const { register, formState: { errors }, handleSubmit } = useForm();

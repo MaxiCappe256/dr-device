@@ -96,7 +96,7 @@ export const loginSrv = async (body) => {
   if (!userExists) throw new AppError("Las crendenciales no coinciden.", 401);
 
   if (userExists.dataValues.deleted_at !== null) await removeDeletedAtUserSrv(userExists.dataValues.id);
- 
+
   // verificar que la contraseña es valida, comparando la encriptada con la ingresada
   const isValidPassword = comparePassword(
     originalPassword,

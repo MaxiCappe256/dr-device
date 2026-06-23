@@ -1,8 +1,9 @@
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import { useLogout } from "../../../hooks/useAuth";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { ArrowCloseIcon, LoginIcon, UserIcon } from "../../../utils/icons";
 import Button from "./Button";
+import Logo from "./Logo";
 
 export default function Sidebar({ isOpen = false, onClose, links, children }) {
   const logoutMutation = useLogout();
@@ -24,42 +25,7 @@ export default function Sidebar({ isOpen = false, onClose, links, children }) {
         <ArrowCloseIcon className="size-6" />
       </button>
 
-      <Link to="/" onClick={onClose}>
-        <div className="flex items-center gap-4 px-5 py-6">
-          <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-on-primary shadow-lg shadow-primary/25">
-            <svg
-              aria-hidden="true"
-              className="size-7"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2.4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 6V4h6v2"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 6h14v14H5z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 10v6m-3-3h6"
-              />
-            </svg>
-          </div>
-
-          <div>
-            <p className="text-2xl font-bold leading-6 text-primary">
-              Dr. Device
-            </p>
-          </div>
-        </div>
-      </Link>
+      <Logo to="/" className="px-5 py-6 text-primary" onClick={onClose} />
 
       <nav className="mt-8 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 pb-4">
         {links.map((link) => {

@@ -1,9 +1,9 @@
-import { useCreateOffer } from "../../hooks/useOffers"
+import { useCreateOffer } from "../../../hooks/useOffers"
 import { useForm } from "react-hook-form";
-import { PriceIcon, OfferIcon } from "../../utils/icons";
-import Button from "../ui/shared/Button";
-import Input from "../ui/shared/Input";
-import Error from "../ui/shared/Error";
+import { PriceIcon, OfferIcon } from "../../../utils/icons";
+import Button from "../shared/Button";
+import Input from "../shared/Input";
+import Error from "../shared/Error";
 
 function OfferForm({ orderId, onSuccess }) {
     const createOffer = useCreateOffer();

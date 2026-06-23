@@ -1,21 +1,32 @@
 import { useForm } from "react-hook-form";
-import { useChangePassword } from "../../hooks/useAuth";
-import Button from "../ui/shared/Button";
-import Input from "../ui/shared/Input";
-import { LockIcon, SaveIcon } from "../../utils/icons";
+import { useChangePassword } from "../../../hooks/useAuth";
+import Button from "../shared/Button";
+import Input from "../shared/Input";
+import { LockIcon, SaveIcon } from "../../../utils/icons";
 
 export default function SecurityTab() {
   const changePasswordMutation = useChangePassword();
   const {
+    control,
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      current_password: '',
+      new_password: ''
+    }
+  });
 
   const onSubmit = (data) => {
-    changePasswordMutation.mutate(data, { onSuccess: () => reset() });
+    changePasswordMutation.mutate(data, {
+      onSuccess: () => reset()
+    });
   };
+
+  watch();
 
   return (
     <form className="grid gap-8 md:grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
@@ -24,7 +35,8 @@ export default function SecurityTab() {
         <Input
           type="password"
           placeholder="••••••••"
-          icon={<LockIcon height='24'/>}
+          // name="current_password"
+          icon={<LockIcon height='24' />}
           {...register("current_password", {
             required: "La contraseña actual es requerida",
             minLength: { value: 6, message: "Mínimo 6 caracteres" },
@@ -40,7 +52,8 @@ export default function SecurityTab() {
         <Input
           type="password"
           placeholder="••••••••"
-          icon={<LockIcon height='24'/>}
+          // name="new_password"
+          icon={<LockIcon height='24' />}
           {...register("new_password", {
             required: "La nueva contraseña es requerida",
             minLength: { value: 6, message: "Mínimo 6 caracteres" },
@@ -56,7 +69,7 @@ export default function SecurityTab() {
           variant="primary"
           type="submit"
           loading={changePasswordMutation.isPending}
-          iconRight={<SaveIcon height="24"/>}
+          iconRight={<SaveIcon height="24" />}
           className="w-auto! px-8"
         >
           Cambiar contraseña

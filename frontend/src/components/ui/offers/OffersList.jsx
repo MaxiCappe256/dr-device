@@ -1,10 +1,12 @@
 import { Fragment, useState } from "react";
-import { useAllOffers } from "../../hooks/useOffers.js";
-import { useGetOrder } from "../../hooks/useOrders.js";
-import { useGetCategory } from "../../hooks/useCategories.js";
-import CardOrder from "../ui/shared/CardOrder.jsx";
-import Modal from "../ui/shared/Modal.jsx";
-import { ToolKitIcon } from "../../utils/icons.js";
+import { useAllOffers } from "../../../hooks/useOffers.js";
+import { useGetOrder } from "../../../hooks/useOrders.js";
+import { useGetCategory } from "../../../hooks/useCategories.js";
+import CardOrder from "../shared/CardOrder.jsx";
+import Modal from "../shared/Modal.jsx";
+import { ToolKitIcon } from "../../../utils/icons.js";
+import { useUserById } from "../../../hooks/useUsers.js";
+import OrderDetails from "../orders/OrderDetails.jsx";
 
 const formatPrice = (price, locale = 'es-AR', currency = 'ARS') => {
     return new Intl.NumberFormat(locale, {
@@ -20,6 +22,9 @@ export default function OffersList() {
 
     const { data: dataOrder, isPending: isPendingOrder } = useGetOrder(selectedOffer?.order_id);
     const { data: categoryData, isPending: categoryIsPending } = useGetCategory(dataOrder?.category_id);
+    const { data: technicianData, isPending: technicianIsPending } = useUserById(
+        dataOrder?.technician_id,
+    );
 
     const handleViewOrder = (offer) => {
         setSelectedOffer(offer);
@@ -30,6 +35,22 @@ export default function OffersList() {
         setIsModalActive(false);
         setSelectedOffer(null);
     };
+
+    const orderDates = [
+        { type: "created", label: "Creación", date: dataOrder?.createdAt },
+        {
+            type: "finished",
+            label: "Finalización",
+            date: dataOrder?.finished_at,
+        },
+        {
+            type: "canceled",
+            label: "Cancelación",
+            date: dataOrder?.canceled_at,
+        },
+    ]
+        .filter((item) => item.date)
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
 
     return (
         <>
@@ -59,28 +80,11 @@ export default function OffersList() {
                     {isPendingOrder ? (
                         <p className="text-center py-8">Cargando orden...</p>
                     ) : (
-                        <div className="flex flex-col h-full justify-between items-start gap-5">
-                            <div className="space-y-6">
-                                <label className="uppercase text-md text-tertiary/60 font-semibold mb-2">
-                                    Descripción del servicio
-                                </label>
-                                <p className="text-lg">{dataOrder?.description}</p>
-                            </div>
-
-                            <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-1/4">
-                                <label className="uppercase text-sm text-tertiary/60 font-semibold mb-2">
-                                    Categoria
-                                </label>
-                                <div className="flex items-center gap-2">
-                                    <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                                        <ToolKitIcon className="text-surface-tint" height="20" />
-                                    </div>
-                                    <p className="text-md">
-                                        {categoryIsPending ? "Cargando..." : categoryData?.name}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        <OrderDetails
+                            orderDates={orderDates}
+                            description={dataOrder.description}
+                            categoryName={categoryIsPending ? "Cargando..." : categoryData?.name}
+                            techFullName={!technicianData?.full_name ? "Sin técnico asignado" : technicianIsPending ? "Cargando..." : technicianData?.full_name} />
                     )}
                 </Modal>
             )}

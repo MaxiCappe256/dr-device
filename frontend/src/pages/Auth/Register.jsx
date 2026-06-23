@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRegister } from "../../hooks/useAuth";
-import RegisterForm from "../../components/auth/RegisterForm";
-import RegisterRoleForm from "../../components/auth/RegisterRoleForm";
-import RegisterSummaryForm from "../../components/auth/RegisterSummaryForm";
+import RegisterForm from "../../components/ui/auth/RegisterForm";
+import RegisterRoleForm from "../../components/ui/auth/RegisterRoleForm";
+import RegisterSummaryForm from "../../components/ui/auth/RegisterSummaryForm";
 import Stepper from "../../components/ui/shared/Stepper";
 
 const Register = () => {

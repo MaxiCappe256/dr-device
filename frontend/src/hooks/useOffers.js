@@ -67,7 +67,6 @@ export function useCancelTechOffer() {
     mutationFn: (id) => offers.cancelOffer(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["offers"] });
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["tech-orders"] });
       toast.success("Oferta cancelada exitosamente.");
     },

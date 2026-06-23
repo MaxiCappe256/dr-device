@@ -1,5 +1,5 @@
 import { useGetCategories } from '../../hooks/useCategories';
-import CategoriesList from '../../components/admin/CategoriesList';
+import CategoriesList from '../../components/ui/admin/CategoriesList';
 
 export default function AdminCategoriesPage() {
   const getCategories = useGetCategories();

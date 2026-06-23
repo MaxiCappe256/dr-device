@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from '../ui/shared/Modal';
-import Button from '../ui/shared/Button';
-import Input from '../ui/shared/Input';
-import Error from '../ui/shared/Error';
-import { useCreateRole, useUpdateRole } from '../../hooks/useRoles';
-import { usePermissions } from '../../hooks/usePermissions';
+import Modal from '../shared/Modal';
+import Button from '../shared/Button';
+import Input from '../shared/Input';
+import Error from '../shared/Error';
+import { useCreateRole, useUpdateRole } from '../../../hooks/useRoles';
+import { usePermissions } from '../../../hooks/usePermissions';
 
 export default function RolesList({ roles, isLoading }) {
   const [editingRole, setEditingRole] = useState(null);
@@ -22,6 +22,7 @@ export default function RolesList({ roles, isLoading }) {
 
   const permissions = permissionsData ?? [];
   const selectedPermissions = watch('permissions') ?? [];
+  const title = editingRole?.title;
 
   useEffect(() => {
     if (editingRole) {
@@ -35,9 +36,13 @@ export default function RolesList({ roles, isLoading }) {
   }, [editingRole, reset]);
 
   const onSubmit = async (data) => {
-    if (isEdit) {
+    if (isEdit && (data.title === title)) {
+      await mutateAsync({ id: editingRole.id, permissions: data.permissions ?? [] });
+    }
+    else if (isEdit) {
       await mutateAsync({ id: editingRole.id, title: data.title, permissions: data.permissions ?? [] });
-    } else {
+    }
+    else {
       await mutateAsync({ title: data.title, permissions: data.permissions ?? [] });
     }
     setEditingRole(null);

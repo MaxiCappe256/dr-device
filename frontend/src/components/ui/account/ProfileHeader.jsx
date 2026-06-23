@@ -1,5 +1,5 @@
-import { useAuthContext } from "../../hooks/useAuthContext";
-import Tag from "../ui/shared/Tag";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import Tag from "../shared/Tag";
 
 export default function ProfileHeader() {
   const {

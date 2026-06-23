@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router';
 import { useForm } from 'react-hook-form';
-import Sidebar from '../ui/shared/Sidebar';
+
 import { UserIcon, SecurityIcon, SpecializationIcon, EmailIcon, LockIcon, PhoneIcon, MenuIcon } from '../../utils/icons';
-import Button from '../ui/shared/Button';
+
+import Logo from '../ui/shared/Logo';
 import Input from '../ui/shared/Input';
-import Modal from '../ui/shared/Modal';
 import Error from '../ui/shared/Error';
+import Modal from '../ui/shared/Modal';
+import Button from '../ui/shared/Button';
+import Sidebar from '../ui/shared/Sidebar';
+
 import { useCreateAdmin } from '../../hooks/useUsers';
 
 const sidebarLinks = [
@@ -44,41 +48,8 @@ export default function AdminLayout() {
       </Sidebar>
 
       <main className="min-w-0 flex-1 overflow-y-auto">
-        <header className='flex items-center justify-between mx-6 lg:hidden'>
-          <div className="flex items-center gap-4 py-6">
-            <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-on-primary shadow-lg shadow-primary/25">
-              <svg
-                aria-hidden="true"
-                className="size-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 6V4h6v2"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 6h14v14H5z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 10v6m-3-3h6"
-                />
-              </svg>
-            </div>
-
-            <div>
-              <p className="text-2xl font-bold leading-6 text-primary">
-                Dr. Device
-              </p>
-            </div>
-          </div>
+        <header className='flex items-center justify-between mx-6 my-4 lg:hidden'>
+          <Logo to="/" iconClassName="size-6" textClassName="text-lg text-primary" />
           <div className='w-fit' onClick={() => setIsAccountMenuOpen(true)}>
             <Button
               type="button"

@@ -62,3 +62,20 @@ export function useCancelOrder() {
     },
   });
 }
+
+export function useFinishOrder() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: orders.finishedOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tech-orders"] });
+      toast.success("Orden finalizada exitosamente");
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message ?? "Error al finalizar la orden",
+      );
+    },
+  });
+}

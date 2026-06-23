@@ -1,11 +1,17 @@
 import { Fragment, useState } from "react";
-import { useAvailableOrders } from "../../hooks/useOrders.js";
-import CardOrder from "../ui/shared/CardOrder.jsx";
-import Button from "../ui/shared/Button.jsx";
-import Modal from "../ui/shared/Modal.jsx";
+
+import { ArrowRightIcon } from "../../../utils/icons.js";
+
+import OrderDetails from "./OrderDetails.jsx";
 import OfferForm from '../offers/OfferForm.jsx';
-import { ArrowRightIcon, ToolKitIcon } from "../../utils/icons.js";
-import { useGetCategory } from "../../hooks/useCategories.js";
+
+import Modal from "../shared/Modal.jsx";
+import Button from "../shared/Button.jsx";
+import CardOrder from "../shared/CardOrder.jsx";
+
+import { useUserById } from "../../../hooks/useUsers.js";
+import { useAvailableOrders } from "../../../hooks/useOrders.js";
+import { useGetCategory } from "../../../hooks/useCategories.js";
 
 export default function FindJobs() {
   const { data, isPending } = useAvailableOrders();
@@ -13,6 +19,26 @@ export default function FindJobs() {
   const [orderModal, setOrderModal] = useState(false);
   const [offerModal, setOfferModal] = useState(false);
   const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
+
+  const { data: technicianData, isPending: technicianIsPending } = useUserById(
+    selectedOrder?.technician_id,
+  );
+
+  const orderDates = [
+    { type: "created", label: "Creación", date: selectedOrder?.createdAt },
+    {
+      type: "finished",
+      label: "Finalización",
+      date: selectedOrder?.finished_at,
+    },
+    {
+      type: "canceled",
+      label: "Cancelación",
+      date: selectedOrder?.canceled_at,
+    },
+  ]
+    .filter((item) => item.date)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
     <>
@@ -34,7 +60,7 @@ export default function FindJobs() {
                 setOrderModal(true);
               }}
             />
-  
+
             {selectedOrder?.id === order.id && orderModal && (
               <Modal
                 title={order.title}
@@ -44,26 +70,9 @@ export default function FindJobs() {
                 }}
               >
                 <div className="flex flex-col h-full justify-between items-start gap-5">
-                  <div className="space-y-6">
-                    <label className="uppercase text-md text-tertiary/60 font-semibold mb-2">
-                      Descripción del servicio
-                    </label>
-                    <p className="text-lg">{order.description}</p>
-                  </div>
-
-                  <div className="py-3 px-5 rounded-lg bg-surface-tint/10 w-1/4">
-                    <label className="uppercase text-sm text-tertiary/60 font-semibold mb-2">
-                      Categoria
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                        <ToolKitIcon className="text-surface-tint" height="20" />
-                      </div>
-                      <p className="text-md">
-                        {categoryIsPending ? "Cargando..." : categoryData?.name}
-                      </p>
-                    </div>
-                  </div>
+                  <OrderDetails
+                    description={order.description}
+                    categoryName={categoryIsPending ? "Cargando..." : categoryData?.name} />
                   <Button
                     variant="primary"
                     iconRight={<ArrowRightIcon height="24" />}

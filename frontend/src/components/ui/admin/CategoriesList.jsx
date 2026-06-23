@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from '../ui/shared/Modal';
-import Button from '../ui/shared/Button';
-import Input from '../ui/shared/Input';
-import Error from '../ui/shared/Error';
-import { useCreateCategory, useUpdateCategory } from '../../hooks/useCategories';
+import Modal from '../shared/Modal';
+import Button from '../shared/Button';
+import Input from '../shared/Input';
+import Error from '../shared/Error';
+import { useCreateCategory, useUpdateCategory } from '../../../hooks/useCategories';
 
 export default function CategoriesList({ categories, isLoading }) {
   const [editingCategory, setEditingCategory] = useState(null);

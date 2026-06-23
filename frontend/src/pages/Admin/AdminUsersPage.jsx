@@ -2,7 +2,7 @@ import { useParams, useNavigate, NavLink } from 'react-router';
 import { useRoles } from '../../hooks/useRoles';
 import { useUsersList } from '../../hooks/useUsers';
 import { UserIcon, ToolKitIcon, ArrowRightIcon } from '../../utils/icons';
-import UsersByRole from '../../components/admin/UsersByRole';
+import UsersByRole from '../../components/ui/admin/UsersByRole';
 
 const roleIconMap = {
   user: UserIcon,

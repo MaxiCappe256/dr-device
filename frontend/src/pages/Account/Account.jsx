@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import AccountTabs from '../../components/account/AccountTabs';
-import SecurityTab from '../../components/account/SecurityTab';
-import PersonalDataTab from '../../components/account/PersonalDataTab';
+import AccountTabs from '../../components/ui/account/AccountTabs';
+import SecurityTab from '../../components/ui/account/SecurityTab';
+import PersonalDataTab from '../../components/ui/account/PersonalDataTab';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function Account() {

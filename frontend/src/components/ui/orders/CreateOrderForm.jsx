@@ -9,18 +9,18 @@ import {
   SmartPhoneIcon,
   EditIcon,
   ToolKitIcon,
-} from "../../utils/icons";
+} from "../../../utils/icons";
 import {
   CATEGORY_NOTEBOOK,
   CATEGORY_PANTALLA,
   CATEGORY_PC,
   CATEGORY_TELEFONO,
-} from "../../constants/categoryIcons";
-import Button from "../ui/shared/Button";
-import Error from "../ui/shared/Error";
-import Input from "../ui/shared/Input";
-import { useGetCategories } from "../../hooks/useCategories";
-import { useCreateOrder } from "../../hooks/useOrders";
+} from "../../../constants/categoryIcons";
+import Button from "../shared/Button";
+import Error from "../shared/Error";
+import Input from "../shared/Input";
+import { useGetCategories } from "../../../hooks/useCategories";
+import { useCreateOrder } from "../../../hooks/useOrders";
 
 const categoryUiById = {
   [CATEGORY_TELEFONO]: {

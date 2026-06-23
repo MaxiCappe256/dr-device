@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Modal from '../ui/shared/Modal';
-import Button from '../ui/shared/Button';
-import { useDeleteUser } from '../../hooks/useUsers';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import Modal from '../shared/Modal';
+import Button from '../shared/Button';
+import { useDeleteUser } from '../../../hooks/useUsers';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 export default function UsersByRole({ role, users, isLoading }) {
   const [selectedUser, setSelectedUser] = useState(null);

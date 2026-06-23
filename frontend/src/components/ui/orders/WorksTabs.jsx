@@ -1,4 +1,4 @@
-import { ToolKitIcon, NavigateOutlineIcon, OfferIcon } from "../../utils/icons";
+import { ToolKitIcon, NavigateOutlineIcon, OfferIcon } from "../../../utils/icons";
 import MyJobs from "./MyJobs";
 import FindJobs from "./FindJobs";
 import OffersList from "../offers/OffersList.jsx";

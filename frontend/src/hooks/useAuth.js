@@ -36,9 +36,12 @@ export function useLogout() {
 }
 
 export function useChangePassword() {
+  const queryClient = useQueryClient();
+  
   return useMutation({
     mutationFn: auth.changePassword,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user-me'] });
       toast.success('Contraseña actualizada exitosamente.');
     },
     onError: (error) => {

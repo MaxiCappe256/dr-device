@@ -5,6 +5,7 @@ import { MenuIcon, ArrowCloseIcon } from '../../../utils/icons';
 import { useState } from 'react';
 import Button from './Button';
 import UserMenu from './UserMenu';
+import Logo from './Logo';
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
@@ -20,29 +21,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="w-11/12 flex items-center justify-between auth-brand-panel rounded-xl text-white mx-auto my-2">
-        <div className="flex items-center gap-4 p-3">
-          <div className="flex items-center justify-center rounded-sm border-3 border-on-primary">
-            <svg
-              aria-hidden="true"
-              className="size-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="3"
-            >
-              <path d="M8 6V4h8v2" />
-              <path d="M4 6h16v14H4z" />
-              <path d="M12 10v6" />
-              <path d="M9 13h6" />
-            </svg>
-          </div>
-          <span className="text-2xl font-bold tracking-[-0.02em] max-md:text-xs">
-            Dr. Device
-          </span>
-        </div>
+      <nav className="w-11/12 flex items-center justify-between auth-brand-panel rounded-xl text-white mx-auto my-2 pl-5">
+        <Logo to="/" iconClassName="size-6 brightness-0 invert" textClassName="max-md:text-xs" />
 
         <ul className="flex justify-end gap-8 items-center text-xl bg-linear-to-l from-primary via-primary/80 to-transparent rounded-lg px-5 py-2 max-lg:hidden">
           <div className="flex gap-8 items-center">
@@ -116,6 +96,9 @@ export default function Navbar() {
               <span className="font-bold">{user.data.full_name}</span>
               <NavLink className='hover:text-primary-soft' to="/account" onClick={() => setMenu(false)}>Mi cuenta</NavLink>
               <NavLink className='hover:text-primary-soft' to="/account/orders" onClick={() => setMenu(false)}>Órdenes</NavLink>
+              {user.data.roles?.some((role) => role.title === "admin") && (
+                <NavLink className='hover:text-primary-soft' to="/admin-panel" onClick={() => setMenu(false)}>Panel admin</NavLink>
+              )}
               <span
                 className='text-error font-semibold cursor-pointer'
                 onClick={logoutMutation.mutateAsync}

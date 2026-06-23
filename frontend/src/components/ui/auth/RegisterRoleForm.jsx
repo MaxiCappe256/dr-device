@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router';
-import { CheckIcon, ToolIcon, UserIcon, ArrowRightIcon } from "../../utils/icons.js";
+import { CheckIcon, ToolIcon, UserIcon, ArrowRightIcon } from "../../../utils/icons.js";
 import { useFormContext, useFormState, useWatch } from 'react-hook-form';
-import { usePublicRoles } from '../../hooks/usePublicRoles.js';
-import Button from '../ui/shared/Button.jsx';
-import Error from '../ui/shared/Error.jsx';
+import { usePublicRoles } from '../../../hooks/usePublicRoles.js';
+import Button from '../shared/Button.jsx';
+import Error from '../shared/Error.jsx';
 
 export default function RegisterRoleForm({ onBack, onNext }) {
     const {

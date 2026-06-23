@@ -1,12 +1,16 @@
-import CardOrder from "../../components/ui/shared/CardOrder";
-import { useOrdersByUser, useCancelOrder } from "../../hooks/useOrders";
-import { useUserById } from "../../hooks/useUsers";
-import { useGetOffersByOrder, useAcceptOffer } from "../../hooks/useOffers";
-import Button from "../../components/ui/shared/Button";
-import Modal from "../../components/ui/shared/Modal";
 import { Fragment, useState } from "react";
-import { ToolKitIcon, UserIcon } from "../../utils/icons";
+import { Link } from "react-router";
+
+import { UserIcon, ToolKitIcon, ArrowRightIcon } from "../../utils/icons";
+
+import Modal from "../../components/ui/shared/Modal";
+import Button from "../../components/ui/shared/Button";
+import CardOrder from "../../components/ui/shared/CardOrder";
+
+import { useUserById } from "../../hooks/useUsers";
 import { useGetCategory } from "../../hooks/useCategories";
+import { useOrdersByUser, useCancelOrder } from "../../hooks/useOrders";
+import { useGetOffersByOrder, useAcceptOffer } from "../../hooks/useOffers";
 
 export default function Orders() {
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -15,7 +19,7 @@ export default function Orders() {
   const [isOffersModalActive, setIsOffersModalActive] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [isOfferDetailActive, setIsOfferDetailActive] = useState(false);
-  
+
   const cancelledMutation = useCancelOrder();
   const acceptOfferMutation = useAcceptOffer();
 
@@ -54,7 +58,17 @@ export default function Orders() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold">Mis ordenes</h1>
+
+      <div className="flex justify-between w-full">
+        <h1 className="text-3xl font-bold">Mis ordenes</h1>
+        <div>
+          <Button variant="primary" iconRight={<ArrowRightIcon height="24" />} >
+            <Link to="/create-order">
+              Crear orden
+            </Link>
+          </Button>
+        </div>
+      </div>
       {!orderIsPending && !orderData.length && (
         <p className="mt-5">Sin ordenes registradas</p>
       )}
@@ -142,20 +156,19 @@ export default function Orders() {
                       </label>
                       <div className="flex flex-col gap-2 ml-4 pl-6 border-l-3 border-gray-100">
                         {orderDates.map(({ type, label, date }) => (
-                          <div>
+                          <div key={type}>
                             <div className="relative">
                               <h4 className="font-semibold">{label}</h4>
                               <div
                                 className={`
                                     size-3 rounded-full border border-white absolute -left-8 top-1.5
-                                    ${
-                                      {
-                                        created: "bg-on-background",
-                                        updated: "bg-primary-container",
-                                        finished: "bg-surface-tint",
-                                        canceled: "bg-on-surface-variant",
-                                      }[type]
-                                    }
+                                    ${{
+                                    created: "bg-on-background",
+                                    updated: "bg-primary-container",
+                                    finished: "bg-surface-tint",
+                                    canceled: "bg-on-surface-variant",
+                                  }[type]
+                                  }
                                   
                                   `}
                               ></div>
@@ -212,13 +225,12 @@ export default function Orders() {
                               ${offer.price}
                             </span>
                             <span
-                              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                offer.status === "ACCEPTED"
-                                  ? "bg-green-100 text-green-800"
-                                  : offer.status === "REJECTED"
-                                    ? "bg-red-100 text-red-800"
-                                    : "bg-yellow-100 text-yellow-800"
-                              }`}
+                              className={`px-3 py-1 rounded-full text-sm font-medium ${offer.status === "ACCEPTED"
+                                ? "bg-green-100 text-green-800"
+                                : offer.status === "REJECTED"
+                                  ? "bg-red-100 text-red-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                                }`}
                             >
                               {offer.status === "ACCEPTED"
                                 ? "Aceptada"
@@ -263,13 +275,12 @@ export default function Orders() {
             <div className="flex items-center justify-between">
               <span className="text-3xl font-bold">${selectedOffer.price}</span>
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  selectedOffer.status === "ACCEPTED"
-                    ? "bg-green-100 text-green-800"
-                    : selectedOffer.status === "REJECTED"
-                      ? "bg-red-100 text-red-800"
-                      : "bg-yellow-100 text-yellow-800"
-                }`}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${selectedOffer.status === "ACCEPTED"
+                  ? "bg-green-100 text-green-800"
+                  : selectedOffer.status === "REJECTED"
+                    ? "bg-red-100 text-red-800"
+                    : "bg-yellow-100 text-yellow-800"
+                  }`}
               >
                 {selectedOffer.status === "ACCEPTED"
                   ? "Aceptada"

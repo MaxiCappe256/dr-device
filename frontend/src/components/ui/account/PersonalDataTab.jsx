@@ -1,9 +1,9 @@
-import Input from "../ui/shared/Input.jsx";
-import Button from "../ui/shared/Button.jsx";
-import Error from "../ui/shared/Error.jsx";
+import Input from "../shared/Input.jsx";
+import Button from "../shared/Button.jsx";
+import Error from "../shared/Error.jsx";
 import { useForm } from "react-hook-form";
-import { useUpdateAccount } from "../../hooks/useAccount";
-import { UserIcon, EmailIcon, PhoneIcon, SaveIcon } from "../../utils/icons.js";
+import { useUpdateAccount } from "../../../hooks/useAccount";
+import { UserIcon, EmailIcon, PhoneIcon, SaveIcon } from "../../../utils/icons.js";
 
 export default function PersonalDataTab({ fullName, email, phone }) {
   const {
@@ -19,7 +19,7 @@ export default function PersonalDataTab({ fullName, email, phone }) {
   };
 
   const getMutationError = (field) =>
-    updatedMutation?.error?.response?.data?.data.find(
+    updatedMutation?.error?.response?.data?.data?.find(
       ({ path }) => path === field,
     )?.msg;
 
