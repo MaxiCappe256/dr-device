@@ -2,7 +2,7 @@ import { CATEGORY_TELEFONO, CATEGORY_PC, CATEGORY_NOTEBOOK, CATEGORY_PANTALLA } 
 import { ToolKitIcon, SmartPhoneIcon, DesktopIcon, LaptopIcon, GameConsoleIcon } from "../../../utils/icons.js";
 import Tag from "./Tag.jsx";
 
-export default function CardOrder({ title, description, children, status, category }) {
+export default function CardOrder({ id, title, description, children, status, category }) {
   const normalizeStatus = {
     SEARCHING: { label: "En búsqueda", color: "#7C3AED" },
     PENDING: { label: "Pendiente", color: "#B45309" },
@@ -23,13 +23,14 @@ export default function CardOrder({ title, description, children, status, catego
   const currentCategory = categoryIcons[category] ?? defaultIcon
 
   return (
-    <div className="flex  justify-between items-center bg-white p-7 rounded-xl border border-surface-container-highest ">
+    <div className="flex  justify-between items-center bg-white p-7 rounded-lg border border-surface-container-highest ">
       <div className="flex items-center gap-4 w-[70%]">
-        <div className="bg-surface-tint/20 p-4 rounded-xl">
+        <div className="bg-surface-tint/20 p-4 rounded-lg">
           {currentCategory.icon}
         </div>
 
         <div className="p-2 flex flex-col gap-2 pr-5 ">
+          {id && <small className="font-semibold text-on-surface-variant/80">ID: {id}</small>}
           <div className="flex items-center gap-5">
             <h2 className="text-xl font-semibold">{title}</h2>
             {status && (
