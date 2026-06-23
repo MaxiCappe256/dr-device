@@ -75,7 +75,7 @@ Order.associate = (models) => {
   Order.belongsToMany(models.User, {
     through: models.Offer,
     foreignKey: 'order_id',
-    as: 'Offers'
+    as: 'offers'
   })
 
   Order.hasMany(models.Offer, {

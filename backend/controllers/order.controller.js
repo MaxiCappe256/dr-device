@@ -9,7 +9,7 @@ import {
   getOrdersPerUserSrv,
   isOrderOwnerSrv,
   isTechnicianOwnerSrv,
-  getOrdersByTechnicianSrv
+  getOrdersByTechnicianSrv,
 } from "../services/order.service.js";
 import AppError from "../utils/appError.js";
 
@@ -149,13 +149,41 @@ export const getOrdersByUserCtrl = async (req, res) => {
 
 export const getOrdersByTechnicianCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const technician_id  = req.user.id;
+  const technician_id = req.user.id;
 
   try {
-    const orders = await getOrdersByTechnicianSrv(technician_id );
+    const orders = await getOrdersByTechnicianSrv(technician_id);
     response.ok("Ordenes obtenidas correctamente", orders);
   } catch (error) {
     console.log(error);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const techCancelOrderCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const { id: order_id } = req.params;
+  const user_id = req.user.id;
+
+  try {
+    // ademas de verificar si existe esa orden tambien verifica que le pertenezca a ese usuario.
+    const order = await isTechnicianOwnerSrv(user_id, order_id);
+    // verificar que no este en el estado que no este cancelada.
+
+    if (order.status === "CANCELLED")
+      throw new AppError("La orden ya se encuentra cancelada", 400);
+
+    // verificar que no este en el estado que no este cancelada.
+    if (order.status === "COMPLETED")
+      throw new AppError("La orden ya se encuentra terminada", 400);
+
+    await changeStatusOrderSrv(order_id, "SEARCHING");
+    response.ok("Orden cancelada correctamente");
+  } catch (error) {
+    console.error(error.message);
+    if (error.statusCode === 401) return response.unauthorized(error.message);
+    if (error.statusCode === 400) return response.badRequest(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }

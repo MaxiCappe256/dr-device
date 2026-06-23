@@ -13,7 +13,12 @@ const getOrdersByUserAndCount = async ({ category_id, user_id }) => {
   return orderQuantity;
 };
 
-export const createOrderSrv = async ({ category_id, description, title, user_id }) => {
+export const createOrderSrv = async ({
+  category_id,
+  description,
+  title,
+  user_id,
+}) => {
   const quanty = await getOrdersByUserAndCount({ category_id, user_id });
   if (quanty >= 5) throw new AppError("Has excedido el limite", 400);
   const createdOrder = await Order.create({
@@ -106,10 +111,13 @@ export const updateOrderSrv = async (order_id, data, transaction = null) => {
   return updatedOrder;
 };
 
-
 export const isAvailableAcceptOfferToOrderSrv = async (order_id) => {
   const getOrder = await getOrderSrv(order_id);
-  if(getOrder.status !== "SEARCHING") throw new AppError("No podes aceptar la oferta de una orden cancelada", 409)
+  if (getOrder.status !== "SEARCHING")
+    throw new AppError(
+      "No podes aceptar la oferta de una orden en el estado actual",
+      409,
+    );
 
   return true;
 };
@@ -119,30 +127,32 @@ export const getAvailableOrdersSrv = async (categoryIds, userId) => {
   // y posterior a esto, se verifica que las ordenes a obtener no sean a las que el tecnico ya haya realizado una oferta
   const offerOrders = await Offer.findAll({
     where: {
-      technician_id: userId
+      technician_id: userId,
     },
-    attributes: ['order_id']
+    attributes: ["order_id"],
   });
 
-  const orderIds = offerOrders.map(o => o.order_id);
+  const orderIds = offerOrders.map((o) => o.order_id);
 
   const orders = await Order.findAll({
     where: {
-      status: 'SEARCHING',
+      status: "SEARCHING",
       category_id: {
-        [Op.in]: categoryIds
+        [Op.in]: categoryIds,
       },
       id: {
-        [Op.notIn]: orderIds
+        [Op.notIn]: orderIds,
       },
-      user_id: { [Op.ne]: userId }
+      user_id: { [Op.ne]: userId },
     },
-    include: [{
-      model: User,
-      required: false,
-      as: "user",
-      attributes: ['id', 'full_name']
-    }]
+    include: [
+      {
+        model: User,
+        required: false,
+        as: "user",
+        attributes: ["id", "full_name"],
+      },
+    ],
   });
 
   return orders;
@@ -158,10 +168,31 @@ export const getOrdersByUserSrv = async (user_id) => {
 };
 
 export const getOrdersByTechnicianSrv = async (technician_id) => {
-  const orders = await Order.findAll({ where: { technician_id } });
+  const orders = await Order.findAll({
+    where: { technician_id },
+    include: {
+      model: Offer,
+      required: true,
+      attributes: ["id"],
+      where: { status: "ACCEPTED" },
+    },
+  });
 
   if (!orders)
     throw new AppError("No se encontraron ordenes para este tecnico", 404);
 
-  return orders;
+  const ordersResult = orders.map((order) => {
+    const orderJson = order.toJSON();
+
+    const offer_id = orderJson.Offers[0].id;
+
+    delete orderJson.Offers;
+
+    return {
+      ...orderJson,
+      offer_id,
+    };
+  });
+
+  return ordersResult;
 };

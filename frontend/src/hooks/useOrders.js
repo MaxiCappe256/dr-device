@@ -41,9 +41,7 @@ export function useCreateOrder() {
       toast.success("Orden creada exitosamente");
     },
     onError: (error) => {
-      toast.error(
-        error?.response?.data?.message ?? "Error al crear la orden"
-      );
+      toast.error(error?.response?.data?.message ?? "Error al crear la orden");
     },
   });
 }
@@ -54,12 +52,12 @@ export function useCancelOrder() {
   return useMutation({
     mutationFn: orders.cancelledOrder,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       toast.success("Orden cancelada exitosamente");
     },
     onError: (error) => {
       toast.error(
-        error?.response?.data?.message ?? "Error al cancelar la orden"
+        error?.response?.data?.message ?? "Error al cancelar la orden",
       );
     },
   });

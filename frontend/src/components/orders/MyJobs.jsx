@@ -5,17 +5,23 @@ import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import { ToolKitIcon } from "../../utils/icons.js";
 import { useGetCategory } from "../../hooks/useCategories.js";
-
+import { useCancelTechOffer } from "../../hooks/useOffers.js";
 
 export default function MyJobs() {
-  const { data, isPending } = useTechOrders();
-  const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const { data, isPending } = useTechOrders();
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(
+    selectedOrder?.category_id,
+  );
+  const cancelMutation = useCancelTechOffer();
   return (
     <>
       <h1 className="text-3xl font-bold">Mis trabajos</h1>
-      {!isPending && !data.length && <p className="mt-5">No hay trabajos registrados</p>}
+      {!isPending && !data.length && (
+        <p className="mt-5">No hay trabajos registrados</p>
+      )}
       {isPending ? (
         <p className="mt-5">Cargando...</p>
       ) : (
@@ -55,18 +61,32 @@ export default function MyJobs() {
                     </label>
                     <div className="flex items-center gap-2">
                       <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                        <ToolKitIcon className="text-surface-tint" height="20" />
+                        <ToolKitIcon
+                          className="text-surface-tint"
+                          height="20"
+                        />
                       </div>
                       <p className="text-md">
                         {categoryIsPending ? "Cargando..." : categoryData?.name}
                       </p>
                     </div>
                   </div>
-                  <Button
-                    variant="danger"
-                    className="text-white"
-                    disabled={order.status === "COMPLETED" || order.status === "CANCELLED"}
-                  >Cancelar orden</Button>
+                  <div className="flex flex-col md:flex-row w-full gap-4 justify-between items-center">
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        cancelMutation.mutateAsync(order.offer_id);
+                        setIsModalActive(false);
+                      }}
+                      disabled={
+                        order.status === "COMPLETED" ||
+                        order.status === "CANCELLED"
+                      }
+                    >
+                      Cancelar oferta
+                    </Button>
+                    <Button variant="primary">Completar orden</Button>
+                  </div>
                 </div>
               </Modal>
             )}

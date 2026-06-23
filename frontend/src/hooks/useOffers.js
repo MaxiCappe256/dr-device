@@ -37,25 +37,44 @@ export function useAcceptOffer() {
 }
 
 export function useCreateOffer() {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    return useMutation({
-        mutationFn: offers.createOffer,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["available-orders"] });
-            toast.success("Oferta realizada exitosamente.");
-        },
-        onError: (error) => {
-            toast.error(
-                error?.response?.data?.message ?? "Error al realizar la oferta."
-            );
-        },
-    });
+  return useMutation({
+    mutationFn: offers.createOffer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["available-orders"] });
+      toast.success("Oferta realizada exitosamente.");
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message ?? "Error al realizar la oferta.",
+      );
+    },
+  });
 }
 
 export function useAllOffers() {
-    return useQuery({
-        queryKey: ["offers"],
-        queryFn: offers.allOffersTech,
-    });
+  return useQuery({
+    queryKey: ["offers"],
+    queryFn: offers.allOffersTech,
+  });
+}
+
+export function useCancelTechOffer() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id) => offers.cancelOffer(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["offers"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["tech-orders"] });
+      toast.success("Oferta cancelada exitosamente.");
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message ?? "Error al cancelar la oferta.",
+      );
+    },
+  });
 }

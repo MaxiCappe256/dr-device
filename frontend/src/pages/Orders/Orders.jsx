@@ -9,16 +9,17 @@ import { ToolKitIcon, UserIcon } from "../../utils/icons";
 import { useGetCategory } from "../../hooks/useCategories";
 
 export default function Orders() {
-  const { data: orderData, isPending: orderIsPending } = useOrdersByUser();
-  const cancelledMutation = useCancelOrder();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [offersOrder, setOffersOrder] = useState(null);
   const [isOffersModalActive, setIsOffersModalActive] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [isOfferDetailActive, setIsOfferDetailActive] = useState(false);
-
+  
+  const cancelledMutation = useCancelOrder();
   const acceptOfferMutation = useAcceptOffer();
+
+  const { data: orderData, isPending: orderIsPending } = useOrdersByUser();
 
   const { data: offerTechnicianData, isPending: offerTechnicianIsPending } =
     useUserById(selectedOffer?.technician_id);
@@ -31,7 +32,9 @@ export default function Orders() {
     selectedOrder?.technician_id,
   );
 
-  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(
+    selectedOrder?.category_id,
+  );
 
   const orderDates = [
     { type: "created", label: "Creación", date: selectedOrder?.createdAt },
@@ -145,13 +148,14 @@ export default function Orders() {
                               <div
                                 className={`
                                     size-3 rounded-full border border-white absolute -left-8 top-1.5
-                                    ${{
-                                    created: "bg-on-background",
-                                    updated: "bg-primary-container",
-                                    finished: "bg-surface-tint",
-                                    canceled: "bg-on-surface-variant",
-                                  }[type]
-                                  }
+                                    ${
+                                      {
+                                        created: "bg-on-background",
+                                        updated: "bg-primary-container",
+                                        finished: "bg-surface-tint",
+                                        canceled: "bg-on-surface-variant",
+                                      }[type]
+                                    }
                                   
                                   `}
                               ></div>
@@ -208,12 +212,13 @@ export default function Orders() {
                               ${offer.price}
                             </span>
                             <span
-                              className={`px-3 py-1 rounded-full text-sm font-medium ${offer.status === "ACCEPTED"
-                                ? "bg-green-100 text-green-800"
-                                : offer.status === "REJECTED"
-                                  ? "bg-red-100 text-red-800"
-                                  : "bg-yellow-100 text-yellow-800"
-                                }`}
+                              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                offer.status === "ACCEPTED"
+                                  ? "bg-green-100 text-green-800"
+                                  : offer.status === "REJECTED"
+                                    ? "bg-red-100 text-red-800"
+                                    : "bg-yellow-100 text-yellow-800"
+                              }`}
                             >
                               {offer.status === "ACCEPTED"
                                 ? "Aceptada"
@@ -258,12 +263,13 @@ export default function Orders() {
             <div className="flex items-center justify-between">
               <span className="text-3xl font-bold">${selectedOffer.price}</span>
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${selectedOffer.status === "ACCEPTED"
-                  ? "bg-green-100 text-green-800"
-                  : selectedOffer.status === "REJECTED"
-                    ? "bg-red-100 text-red-800"
-                    : "bg-yellow-100 text-yellow-800"
-                  }`}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  selectedOffer.status === "ACCEPTED"
+                    ? "bg-green-100 text-green-800"
+                    : selectedOffer.status === "REJECTED"
+                      ? "bg-red-100 text-red-800"
+                      : "bg-yellow-100 text-yellow-800"
+                }`}
               >
                 {selectedOffer.status === "ACCEPTED"
                   ? "Aceptada"
@@ -317,13 +323,16 @@ export default function Orders() {
                   Última actualización
                 </label>
                 <p className="text-lg mt-1">
-                  {new Date(selectedOffer.updatedAt).toLocaleDateString("es-AR", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  {new Date(selectedOffer.updatedAt).toLocaleDateString(
+                    "es-AR",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
                 </p>
               </div>
             )}
