@@ -66,30 +66,16 @@ export default function Orders() {
                 description={order.description}
                 status={order.status}
                 category={order.category_id}
-              >
-                <div className="p-2 flex gap-2">
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      setOffersOrder(order);
-                      setIsOffersModalActive(true);
-                    }}
-                  >
-                    Ver ofertas
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSelectedOrder(order);
-                      setIsModalActive(true);
-                    }}
-                  >
-                    Ver detalles
-                  </Button>
-                </div>
-              </CardOrder>
-
+                createdAt={order.createdAt}
+                onDetails={() => {
+                  setSelectedOrder(order);
+                  setIsModalActive(true);
+                }}
+                onViewOffers={() => {
+                  setOffersOrder(order);
+                  setIsOffersModalActive(true);
+                }}
+              />
               {selectedOrder?.id === order.id && isModalActive && (
                 <Modal
                   title={order.title}
@@ -159,14 +145,13 @@ export default function Orders() {
                               <div
                                 className={`
                                     size-3 rounded-full border border-white absolute -left-8 top-1.5
-                                    ${
-                                      {
-                                        created: "bg-on-background",
-                                        updated: "bg-primary-container",
-                                        finished: "bg-surface-tint",
-                                        canceled: "bg-on-surface-variant",
-                                      }[type]
-                                    }
+                                    ${{
+                                    created: "bg-on-background",
+                                    updated: "bg-primary-container",
+                                    finished: "bg-surface-tint",
+                                    canceled: "bg-on-surface-variant",
+                                  }[type]
+                                  }
                                   
                                   `}
                               ></div>
@@ -185,7 +170,6 @@ export default function Orders() {
                       }}
                       loading={cancelledMutation.isPending}
                       variant="danger"
-                      className="text-white"
                     >
                       Cancelar orden
                     </Button>
@@ -224,13 +208,12 @@ export default function Orders() {
                               ${offer.price}
                             </span>
                             <span
-                              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                offer.status === "ACCEPTED"
-                                  ? "bg-green-100 text-green-800"
-                                  : offer.status === "REJECTED"
-                                    ? "bg-red-100 text-red-800"
-                                    : "bg-yellow-100 text-yellow-800"
-                              }`}
+                              className={`px-3 py-1 rounded-full text-sm font-medium ${offer.status === "ACCEPTED"
+                                ? "bg-green-100 text-green-800"
+                                : offer.status === "REJECTED"
+                                  ? "bg-red-100 text-red-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                                }`}
                             >
                               {offer.status === "ACCEPTED"
                                 ? "Aceptada"
@@ -262,80 +245,63 @@ export default function Orders() {
           ))}
         </div>
       )}
-    {selectedOffer && isOfferDetailActive && (
-      <Modal
-        title="Detalle de la oferta"
-        onClose={() => {
-          setIsOfferDetailActive(false);
-          setSelectedOffer(null);
-          setIsOffersModalActive(true);
-        }}
-      >
-        <div className="flex flex-col gap-5">
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold">${selectedOffer.price}</span>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                selectedOffer.status === "ACCEPTED"
+      {selectedOffer && isOfferDetailActive && (
+        <Modal
+          title="Detalle de la oferta"
+          onClose={() => {
+            setIsOfferDetailActive(false);
+            setSelectedOffer(null);
+            setIsOffersModalActive(true);
+          }}
+        >
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center justify-between">
+              <span className="text-3xl font-bold">${selectedOffer.price}</span>
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${selectedOffer.status === "ACCEPTED"
                   ? "bg-green-100 text-green-800"
                   : selectedOffer.status === "REJECTED"
                     ? "bg-red-100 text-red-800"
                     : "bg-yellow-100 text-yellow-800"
-              }`}
-            >
-              {selectedOffer.status === "ACCEPTED"
-                ? "Aceptada"
-                : selectedOffer.status === "REJECTED"
-                  ? "Rechazada"
-                  : "Pendiente"}
-            </span>
-          </div>
-
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Técnico
-            </label>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                <UserIcon className="text-surface-tint" height="20" />
-              </div>
-              <p className="text-lg">
-                {offerTechnicianIsPending
-                  ? "Cargando..."
-                  : offerTechnicianData?.full_name}
-              </p>
+                  }`}
+              >
+                {selectedOffer.status === "ACCEPTED"
+                  ? "Aceptada"
+                  : selectedOffer.status === "REJECTED"
+                    ? "Rechazada"
+                    : "Pendiente"}
+              </span>
             </div>
-          </div>
 
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Descripción
-            </label>
-            <p className="text-lg mt-1">{selectedOffer.description}</p>
-          </div>
-
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Fecha de oferta
-            </label>
-            <p className="text-lg mt-1">
-              {new Date(selectedOffer.createdAt).toLocaleDateString("es-AR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
-          </div>
-
-          {selectedOffer.updatedAt !== selectedOffer.createdAt && (
             <div>
               <label className="uppercase text-sm text-tertiary/60 font-semibold">
-                Última actualización
+                Técnico
+              </label>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
+                  <UserIcon className="text-surface-tint" height="20" />
+                </div>
+                <p className="text-lg">
+                  {offerTechnicianIsPending
+                    ? "Cargando..."
+                    : offerTechnicianData?.full_name}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                Descripción
+              </label>
+              <p className="text-lg mt-1">{selectedOffer.description}</p>
+            </div>
+
+            <div>
+              <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                Fecha de oferta
               </label>
               <p className="text-lg mt-1">
-                {new Date(selectedOffer.updatedAt).toLocaleDateString("es-AR", {
+                {new Date(selectedOffer.createdAt).toLocaleDateString("es-AR", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -344,24 +310,40 @@ export default function Orders() {
                 })}
               </p>
             </div>
-          )}
 
-          {selectedOffer.status === "PENDING" && (
-            <Button
-              variant="primary"
-              onClick={() => {
-                acceptOfferMutation.mutateAsync(selectedOffer.id);
-                setIsOfferDetailActive(false);
-                setSelectedOffer(null);
-              }}
-              loading={acceptOfferMutation.isPending}
-            >
-              Aceptar oferta
-            </Button>
-          )}
-        </div>
-      </Modal>
-    )}
-  </>
+            {selectedOffer.updatedAt !== selectedOffer.createdAt && (
+              <div>
+                <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                  Última actualización
+                </label>
+                <p className="text-lg mt-1">
+                  {new Date(selectedOffer.updatedAt).toLocaleDateString("es-AR", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </div>
+            )}
+
+            {selectedOffer.status === "PENDING" && (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  acceptOfferMutation.mutateAsync(selectedOffer.id);
+                  setIsOfferDetailActive(false);
+                  setSelectedOffer(null);
+                }}
+                loading={acceptOfferMutation.isPending}
+              >
+                Aceptar oferta
+              </Button>
+            )}
+          </div>
+        </Modal>
+      )}
+    </>
   );
 }

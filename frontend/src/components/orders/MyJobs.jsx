@@ -3,9 +3,8 @@ import { useTechOrders } from "../../hooks/useOrders.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
-import {ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
+import { ToolKitIcon } from "../../utils/icons.js";
 import { useGetCategory } from "../../hooks/useCategories.js";
-import {CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
 
 
 export default function MyJobs() {
@@ -24,22 +23,15 @@ export default function MyJobs() {
           <Fragment key={order.id}>
             <CardOrder
               title={order.title}
+              createdAt={order.createdAt}
               description={order.description}
               status={order.status}
               category={order.category_id}
-            >
-              <div className="p-2">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setSelectedOrder(order);
-                    setIsModalActive(true);
-                  }}
-                >
-                  Ver detalles
-                </Button>
-              </div>
-            </CardOrder>
+              onDetails={() => {
+                setSelectedOrder(order);
+                setIsModalActive(true);
+              }}
+            />
 
             {selectedOrder?.id === order.id && isModalActive && (
               <Modal

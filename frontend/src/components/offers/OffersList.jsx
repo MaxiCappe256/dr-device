@@ -3,7 +3,6 @@ import { useAllOffers } from "../../hooks/useOffers.js";
 import { useGetOrder } from "../../hooks/useOrders.js";
 import { useGetCategory } from "../../hooks/useCategories.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
-import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import { ToolKitIcon } from "../../utils/icons.js";
 
@@ -46,16 +45,8 @@ export default function OffersList() {
                             title={formatPrice(offer.price)}
                             description={offer.description}
                             status={offer.status}
-                        >
-                            <div className="p-2">
-                                <Button
-                                    variant="outline"
-                                    onClick={() => handleViewOrder(offer)}
-                                >
-                                    Ver orden
-                                </Button>
-                            </div>
-                        </CardOrder>
+                            onDetails={() => handleViewOrder(offer)}
+                        />
                     </Fragment>
                 ))
             )}

@@ -5,8 +5,6 @@ import AppError from "../utils/appError.js";
 import sequelize from "../db/index.js";
 import { changeStatusOrderSrv, getOrderSrv, updateOrderSrv } from "./order.service.js";
 
-const STATUS_LIST = ["CANCELLED", "IN_PROGRESS", "COMPLETED"];
-
 export const createOfferSrv = async ({ user_id, order_id, description, price }) => {
     const offer = await Offer.create({ technician_id: user_id, order_id, description, price })
     if (!offer) throw new AppError("No se ha podido crear la oferta.", 400)
@@ -15,8 +13,10 @@ export const createOfferSrv = async ({ user_id, order_id, description, price }) 
 }
 
 export const validateCriteriaOfferSrv = async (order_id, user_id) => {
-    const order = await Order.findOne({ where: { id: order_id, status: { [Op.in]: STATUS_LIST } } })
-    if (order) throw new AppError("Solo se puede ofertar si la orden está en búsqueda o pendiente.", 409)
+    const order = await Order.findOne({ where: { id: order_id, status: "SEARCHING" } })
+  
+    if(order.dataValues.user_id === user_id) throw new AppError("No podes ofertar a tu propia orden.", 409);
+    if (!order) throw new AppError("Solo se puede ofertar si la orden está en búsqueda.", 409)
 
     const offer = await Offer.findOne({ where: { order_id, status: 'ACCEPTED' } })
     if (offer) throw new AppError("La orden ya fue aceptada.", 409);
@@ -28,7 +28,11 @@ export const validateCriteriaOfferSrv = async (order_id, user_id) => {
 }
 
 export const getOffersPerOrderSrv = async (order_id) => {
-    const orders = await Offer.findAll({ where: { order_id } });
+    const orders = await Offer.findAll({ where: { order_id }, include: {
+        model: Order,
+        required: true,
+        where: { status: { [Op.ne]: "CANCELLED" } }
+    } });
 
     if (!orders) throw new AppError("No se encontraron ofertas para esta orden.", 404);
 
@@ -49,7 +53,6 @@ export const isAcceptedOfferSrv = async (offer_id) => {
 
     return false;
 };
-
 
 export const allOffersTechSrv= async (tech_id)=>{
     const offers= await Offer.findAll({

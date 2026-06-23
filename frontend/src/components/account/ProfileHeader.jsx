@@ -11,7 +11,7 @@ export default function ProfileHeader() {
     <article className="mx-4 my-6 overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest sm:mx-6 lg:m-10">
         <div className="relative">
           <div className="h-28 auth-brand-panel sm:h-40" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-surface-container-lowest to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-surface-container-lowest to-transparent" />
         </div>
 
         <div className="flex flex-col gap-8 px-5 py-8 sm:px-10 sm:py-10 lg:flex-row lg:items-center lg:justify-between">

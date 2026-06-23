@@ -4,8 +4,7 @@ import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import OfferForm from '../offers/OfferForm.jsx';
-import { ArrowRightIcon, ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
-import { CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
+import { ArrowRightIcon, ToolKitIcon } from "../../utils/icons.js";
 import { useGetCategory } from "../../hooks/useCategories.js";
 
 export default function FindJobs() {
@@ -15,8 +14,6 @@ export default function FindJobs() {
   const [offerModal, setOfferModal] = useState(false);
   const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
 
-
-  console.log(data)
   return (
     <>
       <h1 className="text-3xl font-bold">Trabajos disponibles</h1>
@@ -32,20 +29,12 @@ export default function FindJobs() {
               description={order.description}
               status={order.status}
               category={order.category_id}
-            >
-              <div className="p-2">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setSelectedOrder(order);
-                    setOrderModal(true);
-                  }}
-                >
-                  Ver detalles
-                </Button>
-              </div>
-            </CardOrder>
-
+              onDetails={() => {
+                setSelectedOrder(order);
+                setOrderModal(true);
+              }}
+            />
+  
             {selectedOrder?.id === order.id && orderModal && (
               <Modal
                 title={order.title}
@@ -75,14 +64,14 @@ export default function FindJobs() {
                       </p>
                     </div>
                   </div>
-                  <Button 
-                    variant="primary" 
-                    iconRight={<ArrowRightIcon height="24"/>}
+                  <Button
+                    variant="primary"
+                    iconRight={<ArrowRightIcon height="24" />}
                     onClick={() => {
-                    setOrderModal(false);
-                    setOfferModal(true);
-                  }
-                  }>¡Quiero oferar esta orden!</Button>
+                      setOrderModal(false);
+                      setOfferModal(true);
+                    }
+                    }>¡Quiero oferar esta orden!</Button>
                 </div>
               </Modal>
             )}
@@ -93,7 +82,7 @@ export default function FindJobs() {
                 setOfferModal(false);
               }}
             >
-              <OfferForm orderId={order.id} onSuccess={() => setOfferModal(false)}/>
+              <OfferForm orderId={order.id} onSuccess={() => setOfferModal(false)} />
             </Modal>}
           </Fragment>
         ))

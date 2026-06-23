@@ -1,5 +1,5 @@
 import ApiResponse from "../handlers/response.js";
-import { changeStatusOrderSrv, getOrderSrv, isOrderOwnerSrv } from "../services/order.service.js";
+import { changeStatusOrderSrv, getOrderSrv, isOrderOwnerSrv, isAvailableAcceptOfferToOrderSrv } from "../services/order.service.js";
 import { validateCriteriaOfferSrv, createOfferSrv, getOffersPerOrderSrv, getOfferSrv, isAcceptedOfferSrv, acceptOfferToOrderSrv, allOffersTechSrv } from "../services/offers.service.js";
 
 export const createOfferCtrl = async (req, res) => {
@@ -74,6 +74,7 @@ export const acceptOfferCtrl = async (req, res) => {
     const { order_id, technician_id } = await getOfferSrv(id);
 
     await isOrderOwnerSrv(user_id, order_id);
+    await isAvailableAcceptOfferToOrderSrv(order_id);
     await isAcceptedOfferSrv(id);
     const acceptedOffer = await acceptOfferToOrderSrv(order_id, id, technician_id);
 

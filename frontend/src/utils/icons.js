@@ -29,6 +29,8 @@ import PriceIcon from '@iconify-react/famicons/logo-usd';
 import OfferIcon from '@iconify-react/mdi/offer';
 import SaveIcon from '@iconify-react/material-symbols/save';
 import OrderIcon from '@iconify-react/lets-icons/order';
+import DateIcon from '@iconify-react/lets-icons/date-range-fill';
+import MoreIcon from '@iconify-react/ri/more-fill';
 
 export {
   UserIcon,
@@ -61,5 +63,7 @@ export {
   PriceIcon,
   OfferIcon,
   SaveIcon,
-  OrderIcon
+  OrderIcon,
+  DateIcon,
+  MoreIcon
 };

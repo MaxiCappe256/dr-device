@@ -106,6 +106,14 @@ export const updateOrderSrv = async (order_id, data, transaction = null) => {
   return updatedOrder;
 };
 
+
+export const isAvailableAcceptOfferToOrderSrv = async (order_id) => {
+  const getOrder = await getOrderSrv(order_id);
+  if(getOrder.status !== "SEARCHING") throw new AppError("No podes aceptar la oferta de una orden cancelada", 409)
+
+  return true;
+};
+
 export const getAvailableOrdersSrv = async (categoryIds, userId) => {
   // obtiene las ordenes que estan en busqueda con las categorias que posee el usuario (tecnico)
   // y posterior a esto, se verifica que las ordenes a obtener no sean a las que el tecnico ya haya realizado una oferta
@@ -126,14 +134,14 @@ export const getAvailableOrdersSrv = async (categoryIds, userId) => {
       },
       id: {
         [Op.notIn]: orderIds
-      }
+      },
+      user_id: { [Op.ne]: userId }
     },
     include: [{
       model: User,
       required: false,
       as: "user",
-      attributes: ['id', 'full_name'],
-      where: { deleted_at: null }
+      attributes: ['id', 'full_name']
     }]
   });
 
