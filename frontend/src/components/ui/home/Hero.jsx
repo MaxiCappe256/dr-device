@@ -17,7 +17,7 @@ export default function Hero() {
                     <Button variant="outline" >Ver servicios</Button>
                 </div>
             </div>
-            <img src={imageHeader} alt="Dr. Device tecnico reparando" className="w-1/2 rounded-2xl object-cover h-full max-h-full max-lg:hidden"/>
+            <img src={imageHeader} alt="Dr. Device tecnico reparando" className="w-1/2 rounded-xl object-cover h-full max-h-full max-lg:hidden"/>
         </header>
     )
 }

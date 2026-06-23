@@ -1,11 +1,13 @@
 ﻿import { useRef } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { useNavigate } from "react-router";
 import {
   CheckIcon,
   DesktopIcon,
   ScreenIcon,
   LaptopIcon,
   SmartPhoneIcon,
+  EditIcon,
   ToolKitIcon,
 } from "../../utils/icons";
 import {
@@ -16,8 +18,9 @@ import {
 } from "../../constants/categoryIcons";
 import Button from "../ui/shared/Button";
 import Error from "../ui/shared/Error";
-import { useCategories } from "../../hooks/useCategories";
-import { useOrders } from "../../hooks/useOrders";
+import Input from "../ui/shared/Input";
+import { useGetCategories } from "../../hooks/useCategories";
+import { useCreateOrder } from "../../hooks/useOrders";
 
 const categoryUiById = {
   [CATEGORY_TELEFONO]: {
@@ -43,10 +46,10 @@ const categoryUiById = {
 };
 
 export default function CreateOrderForm({ onSubmit }) {
-  const { createOrderMutation } = useOrders();
-  const { getCategories } = useCategories();
+  const navigate = useNavigate();
+  const createOrderMutation = useCreateOrder();
   const { data: categoriesData = [], isPending: categoriesIsPending } =
-    getCategories;
+    useGetCategories();
 
   const categories = categoriesData.map((category) => {
     const categoryUi = categoryUiById[category.id] ?? {};
@@ -79,20 +82,20 @@ export default function CreateOrderForm({ onSubmit }) {
     required: "Seleccioná una categoría para crear la orden",
   });
 
-  const submitOrder = async (formData) => {
-    try {
-      await createOrderMutation.mutateAsync(formData);
-      onSubmit?.(formData);
-      reset();
-    } catch {
-      // React Query conserva el error en createOrderMutation.error.
-    }
+  const submitOrder = (formData) => {
+    createOrderMutation.mutate(formData, {
+      onSuccess: () => {
+        onSubmit?.(formData);
+        reset();
+        navigate("/account/orders");
+      },
+    });
   };
 
   return (
     <form
       onSubmit={handleSubmit(submitOrder)}
-      className="grid gap-8 rounded-2xl border border-surface-container-highest bg-white p-6 shadow-sm md:p-8"
+      className="grid gap-8 rounded-xl border border-surface-container-highest bg-white p-6 shadow-sm md:p-8"
     >
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
@@ -103,12 +106,11 @@ export default function CreateOrderForm({ onSubmit }) {
             >
               Título
             </label>
-            <input
-              id="title"
+            <Input
               type="text"
+              id="title"
               placeholder="Cambio de pantalla"
-              aria-invalid={Boolean(errors.title)}
-              className="w-full rounded-lg border border-tertiary-container p-3 outline-none transition-colors focus:border-primary"
+              icon={<EditIcon height="24" />}
               {...register("title", {
                 required: "El título es obligatorio",
                 minLength: {
@@ -131,12 +133,10 @@ export default function CreateOrderForm({ onSubmit }) {
             >
               Descripción
             </label>
-            <textarea
+            <Input
+              type="textarea"
               id="description"
-              rows="5"
               placeholder="Describí el problema, cuándo empezó y cualquier detalle útil para el técnico."
-              aria-invalid={Boolean(errors.description)}
-              className="w-full resize-none rounded-lg border border-tertiary-container p-3 outline-none transition-colors focus:border-primary"
               {...register("description", {
                 required: "La descripción es obligatoria",
                 minLength: {
@@ -166,7 +166,7 @@ export default function CreateOrderForm({ onSubmit }) {
           </div>
 
           {categoriesIsPending ? (
-            <p className="rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-5 text-center text-tertiary">
+            <p className="rounded-xl border border-surface-container-highest bg-surface-container-lowest p-5 text-center text-tertiary">
               Cargando categorías...
             </p>
           ) : (
@@ -182,7 +182,7 @@ export default function CreateOrderForm({ onSubmit }) {
                     ref={(element) => {
                       labelRefs.current[category.id] = element;
                     }}
-                    className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-5 text-center transition-colors select-none ${isSelected
+                    className={`relative flex cursor-pointer flex-col items-center rounded-xl border p-5 text-center transition-colors select-none ${isSelected
                       ? "border-primary bg-surface-container shadow-sm"
                       : "border-surface-container-highest bg-surface-container-lowest hover:border-primary/40"
                       } focus:outline-none`}
@@ -208,7 +208,7 @@ export default function CreateOrderForm({ onSubmit }) {
                       </span>
                     )}
 
-                    <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container-high text-primary">
+                    <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-surface-container-high text-primary">
                       <CategoryIcon height="30" />
                     </span>
 

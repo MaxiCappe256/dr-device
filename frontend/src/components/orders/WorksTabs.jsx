@@ -53,7 +53,7 @@ export default function WorksTabs({ activeTab, onTabChange }) {
         </div>
       </div>
 
-      <div className="flex flex-col mt-10 w-full rounded-2xl border-surface-container-highest gap-4">
+      <div className="flex flex-col mt-10 w-full rounded-xl border-surface-container-highest gap-4">
         <Component />
       </div>
     </>
