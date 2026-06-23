@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "¿Cuanto tiempo tarda una reparacion promedio?",
     answer:
-      "Depende de la gravedad del daño pero nuestros tecnicos se comprometen al 100% para que la reperacion sea lo mas rapida posible. En cualquier caso el tecnico puede cominicar con el cliente por nuestos sistema de mensajeria",
+      "Depende de la gravedad del daño pero nuestros tecnicos se comprometen al 100% para que la reperacion sea lo mas rapida posible. En cualquier caso el tecnico puede comunicar con el cliente por nuestos sistema de mensajeria",
   },
   {
     question: "¿Los repuestos son originales?",
