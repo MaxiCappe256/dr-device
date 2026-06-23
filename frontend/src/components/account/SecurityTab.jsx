@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../hooks/useAuth";
+import { useChangePassword } from "../../hooks/useAuth";
 import Button from "../ui/shared/Button";
 import Input from "../ui/shared/Input";
-import { LockIcon } from "../../utils/icons";
+import { LockIcon, SaveIcon } from "../../utils/icons";
 
 export default function SecurityTab() {
-  const { changePasswordMutation } = useAuth();
+  const changePasswordMutation = useChangePassword();
   const {
     register,
     handleSubmit,
@@ -56,7 +56,8 @@ export default function SecurityTab() {
           variant="primary"
           type="submit"
           loading={changePasswordMutation.isPending}
-          className="!w-auto px-8"
+          iconRight={<SaveIcon height="24"/>}
+          className="w-auto! px-8"
         >
           Cambiar contraseña
         </Button>

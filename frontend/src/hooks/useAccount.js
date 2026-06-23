@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import account from '../api/account';
 import { toast } from "react-toastify";
 
-export function useAccount() {
+export function useUpdateAccount() {
   const queryClient = useQueryClient();
 
-  const updatedMutation = useMutation({
+  return useMutation({
     mutationFn: account.updated,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-me'] });
@@ -13,13 +13,16 @@ export function useAccount() {
     },
     onError: (error) => {
       toast.error(
-        createOrderMutation.error?.response?.data?.message ?? "Error al actualizar los datos"
+        error?.response?.data?.message ?? "Error al actualizar los datos"
       );
     },
   });
+}
 
+export function useDeleteAccount() {
+  const queryClient = useQueryClient();
 
-  const deletedMutation = useMutation({
+  return useMutation({
     mutationFn: account.deleted,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-me'] });
@@ -27,10 +30,8 @@ export function useAccount() {
     },
     onError: (error) => {
       toast.error(
-        createOrderMutation.error?.response?.data?.message ?? "Error al eliminar la cuenta"
+        error?.response?.data?.message ?? "Error al eliminar la cuenta"
       );
     },
   });
-
-  return { updatedMutation, deletedMutation };
 }

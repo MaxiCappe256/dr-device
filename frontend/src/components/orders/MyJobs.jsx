@@ -1,19 +1,18 @@
 import { Fragment, useState } from "react";
-import { useOrders } from "../../hooks/useOrders.js";
+import { useTechOrders } from "../../hooks/useOrders.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import {ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
-import { useCategories } from "../../hooks/useCategories.js";
+import { useGetCategory } from "../../hooks/useCategories.js";
 import {CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
 
 
 export default function MyJobs() {
-  const { data, isPending } = useOrders().techOrdersQuery;
+  const { data, isPending } = useTechOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
-  const { getCategory } = useCategories(selectedOrder?.category_id);
-  const { data: categoryData, isPending: categoryIsPending } = getCategory;
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
   return (
     <>
       <h1 className="text-3xl font-bold">Mis trabajos</h1>

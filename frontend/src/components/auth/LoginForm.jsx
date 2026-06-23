@@ -1,7 +1,7 @@
 import { EmailIcon, LockIcon } from "../../utils/icons";
 import { useForm } from "react-hook-form";
 import { LoginIcon } from "../../utils/icons";
-import { useAuth } from "../../hooks/useAuth";
+import { useLogin } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import Button from "../ui/shared/Button";
 import Input from "../ui/shared/Input";
@@ -9,7 +9,7 @@ import Error from "../ui/shared/Error";
 
 export default function LoginForm() {
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const { loginMutation } = useAuth()
+  const loginMutation = useLogin()
   const navigate = useNavigate();
 
   const onSubmit = (credentials) => {

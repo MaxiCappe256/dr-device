@@ -9,7 +9,10 @@ import AccountLayout from "./components/layouts/AccountLayout.jsx";
 import MainLayout from "./components/layouts/MainLayout.jsx";
 import AccountSpecializations from "./pages/Account/AccountSpecializations.jsx";
 import AdminGuard from "./components/auth/AdminGuard.jsx";
-import AdminPanel from "./components/admin/AdminPanel.jsx";
+import AdminLayout from "./components/layouts/AdminLayout.jsx";
+import AdminUsersPage from "./pages/Admin/AdminUsersPage.jsx";
+import AdminRolesPage from "./pages/Admin/AdminRolesPage.jsx";
+import AdminCategoriesPage from "./pages/Admin/AdminCategoriesPage.jsx";
 import TechnicianGuard from "./components/auth/TechnicianGuard.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
 import CreateOrder from "./pages/Orders/CreateOrder.jsx";
@@ -43,12 +46,19 @@ const App = () => {
             </Route>
             <Route path="orders" element={<Orders />} />
           </Route>
+          
           <Route path="/create-order" element={<MainLayout />}>
             <Route index element={<CreateOrder />} />
           </Route>
 
           <Route element={<AdminGuard />}>
-            <Route path="/admin-panel" element={<AdminPanel />} />
+            <Route path="/admin-panel" element={<AdminLayout />}>
+              <Route index element={<Navigate to="users" replace />} />
+              <Route path="users" element={<AdminUsersPage />} />
+              <Route path="users/:roleName" element={<AdminUsersPage />} />
+              <Route path="roles" element={<AdminRolesPage />} />
+              <Route path="categories" element={<AdminCategoriesPage />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

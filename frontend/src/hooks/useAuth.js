@@ -2,31 +2,41 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import auth from '../api/auth';
 
-export function useAuth() {
+export function useRegister() {
   const queryClient = useQueryClient();
 
-  const registerMutation = useMutation({
+  return useMutation({
     mutationFn: auth.register,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-me'] });
     },
   });
+}
 
-  const loginMutation = useMutation({
+export function useLogin() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: auth.login,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-me'] });
     },
   });
+}
 
-  const logoutMutation = useMutation({
+export function useLogout() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: auth.logout,
     onSuccess: () => {
       queryClient.setQueryData(['user-me'], null);
     },
   });
+}
 
-  const changePasswordMutation = useMutation({
+export function useChangePassword() {
+  return useMutation({
     mutationFn: auth.changePassword,
     onSuccess: () => {
       toast.success('Contraseña actualizada exitosamente.');
@@ -37,11 +47,4 @@ export function useAuth() {
       );
     },
   });
-
-  return {
-    registerMutation,
-    loginMutation,
-    logoutMutation,
-    changePasswordMutation,
-  };
 }

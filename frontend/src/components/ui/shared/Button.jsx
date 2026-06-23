@@ -29,8 +29,7 @@ export default function Button({
       break;
 
     case 'danger':
-      customClassName =
-        'text-error hover:bg-error-container hover:text-on-error-container';
+      customClassName = 'text-error transition-colors bg-error-container hover:bg-on-error-container hover:text-white';
       break;
 
     default:

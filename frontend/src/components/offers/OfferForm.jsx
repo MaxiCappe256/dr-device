@@ -19,8 +19,6 @@ function OfferForm({ orderId, onSuccess }) {
         })
     }
 
-    console.log(createOffer?.error?.response?.data)
-
     return (
         <form className="flex flex-col space-y-2" onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="description" className="text-lg font-medium text-tertiary">

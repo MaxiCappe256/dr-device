@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   /* ===== Brand ===== */
@@ -68,7 +68,6 @@
 
   --color-on-tertiary-fixed: #121d25;
   --color-on-tertiary-fixed-variant: #3d4851;
-
 }
 
 @layer components {
@@ -78,7 +77,11 @@
       linear-gradient(135deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
       linear-gradient(225deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
       linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
-      linear-gradient(315deg, rgba(255, 255, 255, 0.08) 25%, var(--color-primary-container) 25%);
+      linear-gradient(
+        315deg,
+        rgba(255, 255, 255, 0.08) 25%,
+        var(--color-primary-container) 25%
+      );
     background-position:
       28px 0,
       28px 0,
@@ -88,12 +91,43 @@
   }
 }
 
+/* modificar los estilos por defecto de react-toastify */
+.Toastify__toast {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  font-size: 0.95rem !important;
+  padding: 14px 20px !important;
+}
+
+.Toastify__toast-icon {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.Toastify__toast--success {
+  background: var(--color-on-primary-fixed-variant) !important;
+  color: var(--color-on-primary) !important;
+}
+
+.Toastify__toast--error {
+  background: var(--color-error) !important;
+  color: var(--color-on-error) !important;
+}
+
+.Toastify__progress-bar--success {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+.Toastify__progress-bar--error {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
 /* Deshabilitar incremento y decremento de los input numericos */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router'
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { useAuth } from '../../../hooks/useAuth';
+import { useLogout } from '../../../hooks/useAuth';
 import { MenuIcon, ArrowCloseIcon } from '../../../utils/icons';
 import { useState } from 'react';
 import Button from './Button';
@@ -8,7 +8,7 @@ import UserMenu from './UserMenu';
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
-  const { logoutMutation } = useAuth();
+  const logoutMutation = useLogout();
   const { user } = useAuthContext()
 
   const links = [

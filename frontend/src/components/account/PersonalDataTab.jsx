@@ -2,8 +2,8 @@ import Input from "../ui/shared/Input.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Error from "../ui/shared/Error.jsx";
 import { useForm } from "react-hook-form";
-import { useAccount } from "../../hooks/useAccount";
-import { UserIcon, EmailIcon, PhoneIcon } from "../../utils/icons.js";
+import { useUpdateAccount } from "../../hooks/useAccount";
+import { UserIcon, EmailIcon, PhoneIcon, SaveIcon } from "../../utils/icons.js";
 
 export default function PersonalDataTab({ fullName, email, phone }) {
   const {
@@ -12,7 +12,7 @@ export default function PersonalDataTab({ fullName, email, phone }) {
     formState: { errors },
   } = useForm();
 
-  const { updatedMutation } = useAccount();
+  const updatedMutation = useUpdateAccount();
 
   const onSubmit = (data) => {
     updatedMutation.mutateAsync(data);
@@ -106,10 +106,11 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         <Button
           variant="primary"
           type="submit"
+          iconRight={ <SaveIcon height="24"/> }
           loading={updatedMutation.isPending}
-          className="!w-auto px-8"
+          className="w-auto! px-8"
         >
-          Enviar
+          Guardar cambios
         </Button>
       </div>
     </form>

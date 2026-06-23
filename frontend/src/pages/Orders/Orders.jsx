@@ -1,17 +1,16 @@
 import CardOrder from "../../components/ui/shared/CardOrder";
-import { useOrders } from "../../hooks/useOrders";
+import { useOrdersByUser, useCancelOrder } from "../../hooks/useOrders";
 import { useUserById } from "../../hooks/useUsers";
 import { useGetOffersByOrder, useAcceptOffer } from "../../hooks/useOffers";
 import Button from "../../components/ui/shared/Button";
 import Modal from "../../components/ui/shared/Modal";
 import { Fragment, useState } from "react";
 import { ToolKitIcon, UserIcon } from "../../utils/icons";
-import { useCategories } from "../../hooks/useCategories";
+import { useGetCategory } from "../../hooks/useCategories";
 
 export default function Orders() {
-  const { data: orderData, isPending: orderIsPending } =
-    useOrders().ordersByUserQuery;
-  const { cancelledMutation } = useOrders();
+  const { data: orderData, isPending: orderIsPending } = useOrdersByUser();
+  const cancelledMutation = useCancelOrder();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [offersOrder, setOffersOrder] = useState(null);
@@ -32,8 +31,7 @@ export default function Orders() {
     selectedOrder?.technician_id,
   );
 
-  const { getCategory } = useCategories(selectedOrder?.category_id);
-  const { data: categoryData, isPending: categoryIsPending } = getCategory;
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
 
   const orderDates = [
     { type: "created", label: "Creación", date: selectedOrder?.createdAt },

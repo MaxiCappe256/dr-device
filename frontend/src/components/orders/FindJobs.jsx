@@ -1,20 +1,19 @@
 import { Fragment, useState } from "react";
-import { useOrders } from "../../hooks/useOrders.js";
+import { useAvailableOrders } from "../../hooks/useOrders.js";
 import CardOrder from "../ui/shared/CardOrder.jsx";
 import Button from "../ui/shared/Button.jsx";
 import Modal from "../ui/shared/Modal.jsx";
 import OfferForm from '../offers/OfferForm.jsx';
 import { ArrowRightIcon, ToolKitIcon, DesktopIcon, ScreenIcon, LaptopIcon, SmartPhoneIcon } from "../../utils/icons.js";
 import { CATEGORY_NOTEBOOK, CATEGORY_PANTALLA, CATEGORY_PC, CATEGORY_TELEFONO } from "../../constants/categoryIcons";
-import { useCategories } from "../../hooks/useCategories.js";
+import { useGetCategory } from "../../hooks/useCategories.js";
 
 export default function FindJobs() {
-  const { data, isPending } = useOrders().availableOrdersQuery;
+  const { data, isPending } = useAvailableOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderModal, setOrderModal] = useState(false);
   const [offerModal, setOfferModal] = useState(false);
-  const { getCategory } = useCategories(selectedOrder?.category_id);
-  const { data: categoryData, isPending: categoryIsPending } = getCategory;
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
 
   return (
     <>

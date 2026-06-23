@@ -16,7 +16,7 @@ export default function Stepper({ steps, extra }) {
     const fields = steps[activeStep].fields ?? [];
     const isStepValid = fields.length === 0 || await trigger(fields, { shouldFocus: true });
 
-    if (!isStepValid) return; 
+    if (!isStepValid) return;
 
     setActiveStep((step) => Math.min(step + 1, steps.length - 1));
   };
@@ -27,19 +27,24 @@ export default function Stepper({ steps, extra }) {
 
   return (
     <>
-      <div className="flex justify-between items-center space-y-3">
+      <div className="flex justify-between items-center my-2">
         {steps.map((step, i) => (
           <Fragment key={step.id}>
             <div
               className="flex flex-col justify-center items-center gap-2 select-none w-fit"
-              >
+            >
               <div
-                className={`rounded-full size-12 text-center flex justify-center items-center ${activeStep === i ? "bg-primary text-white" : i < activeStep ? 'border-2 border-primary text-white' : 'bg-surface-container text-tertiary'}`}
+                className={`rounded-full size-12 text-center flex justify-center items-center ${activeStep === i ? "bg-primary max-md:w-fit max-md:p-1 text-white" : i < activeStep ? 'border-2 border-primary text-white' : 'bg-surface-container text-tertiary'}`}
               >
-                {i < activeStep ? <CheckIcon className="text-primary" height="24" /> : i + 1}
+                <span className="md:hidden truncate max-w-full px-1">
+                  {i === activeStep ? step.label : (i < activeStep ? <CheckIcon className="text-primary" height="24" /> : i + 1)}
+                </span>
+                <span className="hidden md:inline">
+                  {i < activeStep ? <CheckIcon className="text-primary" height="24" /> : i + 1}
+                </span>
               </div>
               <span
-                className={`truncate ${activeStep === i ? "text-primary font-semibold" : "text-tertiary"}`}
+                className={`hidden md:inline lg:truncate ${activeStep === i ? "text-primary font-semibold" : "text-tertiary"}`}
               >
                 {step.label}
               </span>

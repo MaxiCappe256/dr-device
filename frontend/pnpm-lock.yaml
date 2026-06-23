@@ -29,6 +29,9 @@ importers:
       '@iconify-react/ic':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
+      '@iconify-react/lets-icons':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.2.6)
       '@iconify-react/line-md':
         specifier: ^1.0.2
         version: 1.0.2(react@19.2.6)
@@ -282,6 +285,9 @@ packages:
 
   '@iconify-react/ic@1.0.2':
     resolution: {integrity: sha512-Ofo00y/HAWus5Cm12FW3uqsmilRjCYqoIbOwgU7bnDSv8afRm6sCTj41as+/vc6Y8a5ROB9Mj2YYlH87BFs/SQ==}
+
+  '@iconify-react/lets-icons@1.0.2':
+    resolution: {integrity: sha512-+5P345W1DN9QsFYjEBGR12VmhSfiG3+2NcnorI+pNRuiIpY9NBuC47zyEAVL8W0Tj95VsgzgXV5CrOwCGn2+vg==}
 
   '@iconify-react/line-md@1.0.2':
     resolution: {integrity: sha512-Fu5dx1teViDkXImYmDKjvwzwHQY9Rt1vDpC0FopTA6OrANRc9hs1lzC0N5xPdF01uvagZulG90IYnTAKY+WHRg==}
@@ -1583,6 +1589,12 @@ snapshots:
       - react
 
   '@iconify-react/ic@1.0.2(react@19.2.6)':
+    dependencies:
+      '@iconify/css-react': 1.0.2(react@19.2.6)
+    transitivePeerDependencies:
+      - react
+
+  '@iconify-react/lets-icons@1.0.2(react@19.2.6)':
     dependencies:
       '@iconify/css-react': 1.0.2(react@19.2.6)
     transitivePeerDependencies:
