@@ -1,41 +1,51 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Outlet } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { LoginIcon, UserIcon, SecurityIcon, SpecializationIcon, EmailIcon, LockIcon, PhoneIcon } from '../../utils/icons';
-import Modal from '../ui/shared/Modal';
+import Sidebar from '../ui/shared/Sidebar';
+import { UserIcon, SecurityIcon, SpecializationIcon, EmailIcon, LockIcon, PhoneIcon, MenuIcon } from '../../utils/icons';
 import Button from '../ui/shared/Button';
 import Input from '../ui/shared/Input';
+import Modal from '../ui/shared/Modal';
 import Error from '../ui/shared/Error';
 import { useCreateAdmin } from '../../hooks/useUsers';
-import { useLogout } from '../../hooks/useAuth';
-import { useAuthContext } from '../../hooks/useAuthContext';
 
 const sidebarLinks = [
-  { id: 'users', label: 'Usuarios', icon: UserIcon, to: '/admin-panel/users' },
-  { id: 'roles', label: 'Roles', icon: SecurityIcon, to: '/admin-panel/roles' },
-  { id: 'categories', label: 'Categorías', icon: SpecializationIcon, to: '/admin-panel/categories' },
+  { label: 'Usuarios', icon: UserIcon, to: '/admin-panel/users', end: true },
+  { label: 'Roles', icon: SecurityIcon, to: '/admin-panel/roles' },
+  { label: 'Categorías', icon: SpecializationIcon, to: '/admin-panel/categories' },
 ];
 
-export default function AdminSidebar() {
+export default function AdminLayout() {
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [showCreateAdmin, setShowCreateAdmin] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { mutateAsync, isPending, error: mutationError } = useCreateAdmin();
-  const logoutMutation = useLogout();
-  const {
-    user: { data },
-  } = useAuthContext();
+
+  const closeAccountMenu = () => setIsAccountMenuOpen(false);
 
   const handleCreateAdmin = async (data) => {
     await mutateAsync(data);
     setShowCreateAdmin(false);
   };
 
-
   return (
-    <>
-      <aside className="fixed left-0 top-0 z-50 flex h-screen w-80 shrink-0 flex-col border-r border-surface-container-highest bg-surface-container-lowest text-on-surface shadow-[4px_0_18px_rgba(11,28,48,0.06)] rounded-r-xl transition-transform duration-300 lg:sticky lg:z-auto lg:translate-x-0 ">
-        <Link to="/">
-          <div className="flex items-center gap-4 px-5 py-6">
+    <div className="flex min-h-screen bg-surface text-on-surface">
+      <Sidebar isOpen={isAccountMenuOpen} onClose={closeAccountMenu} links={sidebarLinks}>
+        <div className="mt-auto justify-start space-y-2">
+          <button
+            type="button"
+            onClick={() => setShowCreateAdmin(true)}
+            className="flex w-full items-center gap-4 rounded-md p-3 text-xl font-medium transition-colors text-on-surface-variant hover:bg-surface-container-low hover:text-primary cursor-pointer"
+          >
+            <UserIcon className="size-6 shrink-0" />
+            <span>Crear administrador</span>
+          </button>
+        </div>
+      </Sidebar>
+
+      <main className="min-w-0 flex-1 overflow-y-auto">
+        <header className='flex items-center justify-between mx-6 lg:hidden'>
+          <div className="flex items-center gap-4 py-6">
             <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-on-primary shadow-lg shadow-primary/25">
               <svg
                 aria-hidden="true"
@@ -45,65 +55,41 @@ export default function AdminSidebar() {
                 stroke="currentColor"
                 strokeWidth="2.4"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6V4h6v2" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 6h14v14H5z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m-3-3h6" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 6V4h6v2"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 6h14v14H5z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 10v6m-3-3h6"
+                />
               </svg>
             </div>
+
             <div>
-              <p className="text-2xl font-bold leading-6 text-primary">Dr. Device</p>
+              <p className="text-2xl font-bold leading-6 text-primary">
+                Dr. Device
+              </p>
             </div>
           </div>
-        </Link>
-
-        <nav className="mt-8 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 pb-4">
-          {sidebarLinks.map((link) => {
-            const Icon = link.icon;
-
-            return (
-              <NavLink
-                to={link.to}
-                key={link.id}
-                end={link.to === '/admin-panel/users'}
-                className={({ isActive }) =>
-                  `flex items-center gap-4 rounded-md p-3 text-xl font-medium transition-colors ${isActive
-                    ? 'bg-primary-soft text-primary'
-                    : 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary'
-                  }`
-                }
-              >
-                <Icon className="size-6 shrink-0" />
-                <span className="capitalize">{link.label}</span>
-              </NavLink>
-            );
-          })}
-          <div className="mt-auto justify-start space-y-2">
-            <button
+          <div className='w-fit' onClick={() => setIsAccountMenuOpen(true)}>
+            <Button
               type="button"
-              onClick={() => setShowCreateAdmin(true)}
-              className="flex w-full items-center gap-4 rounded-md p-3 text-xl font-medium transition-colors text-on-surface-variant hover:bg-surface-container-low hover:text-primary cursor-pointer"
-            >
-              <UserIcon className="size-6 shrink-0" />
-              <span>Crear administrador</span>
-            </button>
+              variant="primary"
+              iconRight={<MenuIcon height='24' />}
+            />
           </div>
-          <div className="flex items-center justify-between rounded-lg border border-surface-container-highest px-5 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-on-primary">
-                <UserIcon height="28" />
-              </div>
-              <div className="min-w-0 flex flex-col">
-                <span className="truncate text-md font-semibold text-on-surface">
-                  {data?.full_name}
-                </span>
-                <small className="truncate text-sm text-tertiary">{data?.email}</small>
-              </div>
-            </div>
-            <LoginIcon height="24" className="cursor-pointer transition-colors hover:text-error" onClick={() => logoutMutation.mutateAsync()} />
-          </div>
-        </nav>
 
-      </aside>
+        </header>
+        <Outlet />
+      </main>
 
       {showCreateAdmin && (
         <Modal title="Crear administrador" onClose={() => setShowCreateAdmin(false)}>
@@ -111,7 +97,6 @@ export default function AdminSidebar() {
             {mutationError?.response?.data && (
               <Error message={mutationError.response.data.message} />
             )}
-
             <label className="space-y-2">
               <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Nombre completo</span>
               <Input
@@ -122,7 +107,6 @@ export default function AdminSidebar() {
               />
               {errors.full_name && <Error message={errors.full_name.message} />}
             </label>
-
             <label className="space-y-2">
               <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Correo electrónico</span>
               <Input
@@ -133,7 +117,6 @@ export default function AdminSidebar() {
               />
               {errors.email && <Error message={errors.email.message} />}
             </label>
-
             <label className="space-y-2">
               <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Contraseña</span>
               <Input
@@ -144,7 +127,6 @@ export default function AdminSidebar() {
               />
               {errors.password && <Error message={errors.password.message} />}
             </label>
-
             <label className="space-y-2">
               <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Teléfono</span>
               <Input
@@ -154,7 +136,6 @@ export default function AdminSidebar() {
                 {...register('phone')}
               />
             </label>
-
             <div className="flex gap-4">
               <Button variant="outline" type="button" onClick={() => setShowCreateAdmin(false)}>
                 Cancelar
@@ -166,6 +147,6 @@ export default function AdminSidebar() {
           </form>
         </Modal>
       )}
-    </>
+    </div>
   );
 }

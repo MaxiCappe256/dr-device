@@ -65,7 +65,7 @@ export default function RolesList({ roles, isLoading }) {
       ) : !roles?.length ? (
         <p className="text-lg text-tertiary">No hay roles registrados.</p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-surface-container-highest">
+        <div className="overflow-x-auto rounded-lg border border-surface-container-highest">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-surface-container-highest bg-surface-container">
@@ -116,7 +116,7 @@ export default function RolesList({ roles, isLoading }) {
               {permissionsLoading ? (
                 <p className="text-lg text-tertiary">Cargando permisos...</p>
               ) : (
-                <div className="max-h-60 overflow-y-auto rounded-xl border border-surface-container-highest p-4 space-y-2">
+                <div className="max-h-60 overflow-y-auto rounded-lg border border-surface-container-highest p-4 space-y-2">
                   {permissions.map((perm) => {
                     const isChecked = selectedPermissions?.includes(perm.id);
 

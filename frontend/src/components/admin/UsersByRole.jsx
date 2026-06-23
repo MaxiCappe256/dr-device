@@ -34,7 +34,7 @@ export default function UsersByRole({ role, users, isLoading }) {
       ) : !filtered?.length ? (
         <p className="text-lg text-tertiary">No hay usuarios con este rol.</p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-surface-container-highest">
+        <div className="overflow-x-auto rounded-lg border border-surface-container-highest">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-surface-container-highest bg-surface-container">
