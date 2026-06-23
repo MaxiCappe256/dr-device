@@ -59,7 +59,7 @@ export const Order = sequelize.define(
 Order.associate = (models) => {
   Order.belongsTo(models.User, {
     foreignKey: 'user_id',
-    as: 'Client'
+    as: 'user'
   })
 
   Order.belongsTo(models.User, {

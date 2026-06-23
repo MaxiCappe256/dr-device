@@ -15,6 +15,8 @@ export default function FindJobs() {
   const [offerModal, setOfferModal] = useState(false);
   const { data: categoryData, isPending: categoryIsPending } = useGetCategory(selectedOrder?.category_id);
 
+
+  console.log(data)
   return (
     <>
       <h1 className="text-3xl font-bold">Trabajos disponibles</h1>
@@ -25,6 +27,7 @@ export default function FindJobs() {
         data?.map((order) => (
           <Fragment key={order.id}>
             <CardOrder
+              user={order.user.full_name}
               title={order.title}
               description={order.description}
               status={order.status}

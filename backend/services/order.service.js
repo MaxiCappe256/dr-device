@@ -2,6 +2,7 @@ import AppError from "../utils/appError.js";
 import { Op } from "sequelize";
 import { Order } from "../models/Order.js";
 import { Offer } from "../models/Offer.js";
+import { User } from "../models/User.js";
 
 const STATUS_LIST = ["SEARCHING", "PENDING"];
 
@@ -126,7 +127,14 @@ export const getAvailableOrdersSrv = async (categoryIds, userId) => {
       id: {
         [Op.notIn]: orderIds
       }
-    }
+    },
+    include: [{
+      model: User,
+      required: false,
+      as: "user",
+      attributes: ['id', 'full_name'],
+      where: { deleted_at: null }
+    }]
   });
 
   return orders;

@@ -2,7 +2,7 @@ import { CATEGORY_TELEFONO, CATEGORY_PC, CATEGORY_NOTEBOOK, CATEGORY_PANTALLA } 
 import { ToolKitIcon, SmartPhoneIcon, DesktopIcon, LaptopIcon, GameConsoleIcon } from "../../../utils/icons.js";
 import Tag from "./Tag.jsx";
 
-export default function CardOrder({ id, title, description, children, status, category }) {
+export default function CardOrder({ id, title, description, children, status, category, user }) {
   const normalizeStatus = {
     SEARCHING: { label: "En búsqueda", color: "#7C3AED" },
     PENDING: { label: "Pendiente", color: "#B45309" },
@@ -41,6 +41,7 @@ export default function CardOrder({ id, title, description, children, status, ca
             )}
           </div>
           <p className="line-clamp-2 text-on-surface-variant">{description}</p>
+          {user && <span className="text-sm">Publicada por <strong className="text-primary">{user}</strong></span>}
         </div>
       </div>
 
