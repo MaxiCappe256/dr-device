@@ -50,7 +50,7 @@ export default function RegisterRoleForm({ onBack, onNext }) {
                             ref={(element) => {
                                 labelRefs.current[mock.id] = element;
                             }}
-                            className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors select-none ${isSelected
+                            className={`relative flex cursor-pointer flex-col items-center rounded-xl border p-6 text-center transition-colors select-none ${isSelected
                                 ? "border-primary bg-surface-container shadow-sm"
                                 : "border-surface-container-highest bg-surface-container-lowest hover:border-primary/40"
                                 } focus:outline-none`}
@@ -79,7 +79,7 @@ export default function RegisterRoleForm({ onBack, onNext }) {
                                 </span>
                             )}
 
-                            <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container-high text-primary">
+                            <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-surface-container-high text-primary">
                                 <RoleIcon height="28" />
                             </span>
 

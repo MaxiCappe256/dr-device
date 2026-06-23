@@ -12,7 +12,7 @@ export default function RegisterSummaryForm({ onBack, onGoToStep, extra }) {
 
     return (
         <>
-            <div className="rounded-2xl border border-surface-container-highest p-6">
+            <div className="rounded-xl border border-surface-container-highest p-6">
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <h2 className="text-2xl font-semibold text-primary">
                         Confirmá tus datos
