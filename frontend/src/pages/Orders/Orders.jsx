@@ -1,17 +1,18 @@
-import CardOrder from "../../components/ui/shared/CardOrder";
-import { useOrders } from "../../hooks/useOrders";
-import { useUserById } from "../../hooks/useUsers";
-import { useGetOffersByOrder, useAcceptOffer } from "../../hooks/useOffers";
-import Button from "../../components/ui/shared/Button";
-import Modal from "../../components/ui/shared/Modal";
 import { Fragment, useState } from "react";
-import { ToolKitIcon, UserIcon } from "../../utils/icons";
-import { useCategories } from "../../hooks/useCategories";
+import { Link } from "react-router";
+
+import { UserIcon, ToolKitIcon, ArrowRightIcon } from "../../utils/icons";
+
+import Modal from "../../components/ui/shared/Modal";
+import Button from "../../components/ui/shared/Button";
+import CardOrder from "../../components/ui/shared/CardOrder";
+
+import { useUserById } from "../../hooks/useUsers";
+import { useGetCategory } from "../../hooks/useCategories";
+import { useOrdersByUser, useCancelOrder } from "../../hooks/useOrders";
+import { useGetOffersByOrder, useAcceptOffer } from "../../hooks/useOffers";
 
 export default function Orders() {
-  const { data: orderData, isPending: orderIsPending } =
-    useOrders().ordersByUserQuery;
-  const { cancelledMutation } = useOrders();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalActive, setIsModalActive] = useState(false);
   const [offersOrder, setOffersOrder] = useState(null);
@@ -19,7 +20,10 @@ export default function Orders() {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [isOfferDetailActive, setIsOfferDetailActive] = useState(false);
 
+  const cancelledMutation = useCancelOrder();
   const acceptOfferMutation = useAcceptOffer();
+
+  const { data: orderData, isPending: orderIsPending } = useOrdersByUser();
 
   const { data: offerTechnicianData, isPending: offerTechnicianIsPending } =
     useUserById(selectedOffer?.technician_id);
@@ -32,8 +36,9 @@ export default function Orders() {
     selectedOrder?.technician_id,
   );
 
-  const { getCategory } = useCategories(selectedOrder?.category_id);
-  const { data: categoryData, isPending: categoryIsPending } = getCategory;
+  const { data: categoryData, isPending: categoryIsPending } = useGetCategory(
+    selectedOrder?.category_id,
+  );
 
   const orderDates = [
     { type: "created", label: "Creación", date: selectedOrder?.createdAt },
@@ -53,7 +58,17 @@ export default function Orders() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold">Mis ordenes</h1>
+
+      <div className="flex justify-between w-full">
+        <h1 className="text-3xl font-bold">Mis ordenes</h1>
+        <div>
+          <Button variant="primary" iconRight={<ArrowRightIcon height="24" />} >
+            <Link to="/create-order">
+              Crear orden
+            </Link>
+          </Button>
+        </div>
+      </div>
       {!orderIsPending && !orderData.length && (
         <p className="mt-5">Sin ordenes registradas</p>
       )}
@@ -68,30 +83,16 @@ export default function Orders() {
                 description={order.description}
                 status={order.status}
                 category={order.category_id}
-              >
-                <div className="p-2 flex gap-2">
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      setOffersOrder(order);
-                      setIsOffersModalActive(true);
-                    }}
-                  >
-                    Ver ofertas
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSelectedOrder(order);
-                      setIsModalActive(true);
-                    }}
-                  >
-                    Ver detalles
-                  </Button>
-                </div>
-              </CardOrder>
-
+                createdAt={order.createdAt}
+                onDetails={() => {
+                  setSelectedOrder(order);
+                  setIsModalActive(true);
+                }}
+                onViewOffers={() => {
+                  setOffersOrder(order);
+                  setIsOffersModalActive(true);
+                }}
+              />
               {selectedOrder?.id === order.id && isModalActive && (
                 <Modal
                   title={order.title}
@@ -155,20 +156,19 @@ export default function Orders() {
                       </label>
                       <div className="flex flex-col gap-2 ml-4 pl-6 border-l-3 border-gray-100">
                         {orderDates.map(({ type, label, date }) => (
-                          <div>
+                          <div key={type}>
                             <div className="relative">
                               <h4 className="font-semibold">{label}</h4>
                               <div
                                 className={`
                                     size-3 rounded-full border border-white absolute -left-8 top-1.5
-                                    ${
-                                      {
-                                        created: "bg-on-background",
-                                        updated: "bg-primary-container",
-                                        finished: "bg-surface-tint",
-                                        canceled: "bg-on-surface-variant",
-                                      }[type]
-                                    }
+                                    ${{
+                                    created: "bg-on-background",
+                                    updated: "bg-primary-container",
+                                    finished: "bg-surface-tint",
+                                    canceled: "bg-on-surface-variant",
+                                  }[type]
+                                  }
                                   
                                   `}
                               ></div>
@@ -187,7 +187,6 @@ export default function Orders() {
                       }}
                       loading={cancelledMutation.isPending}
                       variant="danger"
-                      className="text-white"
                     >
                       Cancelar orden
                     </Button>
@@ -226,13 +225,12 @@ export default function Orders() {
                               ${offer.price}
                             </span>
                             <span
-                              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                offer.status === "ACCEPTED"
-                                  ? "bg-green-100 text-green-800"
-                                  : offer.status === "REJECTED"
-                                    ? "bg-red-100 text-red-800"
-                                    : "bg-yellow-100 text-yellow-800"
-                              }`}
+                              className={`px-3 py-1 rounded-full text-sm font-medium ${offer.status === "ACCEPTED"
+                                ? "bg-green-100 text-green-800"
+                                : offer.status === "REJECTED"
+                                  ? "bg-red-100 text-red-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                                }`}
                             >
                               {offer.status === "ACCEPTED"
                                 ? "Aceptada"
@@ -264,80 +262,63 @@ export default function Orders() {
           ))}
         </div>
       )}
-    {selectedOffer && isOfferDetailActive && (
-      <Modal
-        title="Detalle de la oferta"
-        onClose={() => {
-          setIsOfferDetailActive(false);
-          setSelectedOffer(null);
-          setIsOffersModalActive(true);
-        }}
-      >
-        <div className="flex flex-col gap-5">
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold">${selectedOffer.price}</span>
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
-                selectedOffer.status === "ACCEPTED"
+      {selectedOffer && isOfferDetailActive && (
+        <Modal
+          title="Detalle de la oferta"
+          onClose={() => {
+            setIsOfferDetailActive(false);
+            setSelectedOffer(null);
+            setIsOffersModalActive(true);
+          }}
+        >
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center justify-between">
+              <span className="text-3xl font-bold">${selectedOffer.price}</span>
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${selectedOffer.status === "ACCEPTED"
                   ? "bg-green-100 text-green-800"
                   : selectedOffer.status === "REJECTED"
                     ? "bg-red-100 text-red-800"
                     : "bg-yellow-100 text-yellow-800"
-              }`}
-            >
-              {selectedOffer.status === "ACCEPTED"
-                ? "Aceptada"
-                : selectedOffer.status === "REJECTED"
-                  ? "Rechazada"
-                  : "Pendiente"}
-            </span>
-          </div>
-
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Técnico
-            </label>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
-                <UserIcon className="text-surface-tint" height="20" />
-              </div>
-              <p className="text-lg">
-                {offerTechnicianIsPending
-                  ? "Cargando..."
-                  : offerTechnicianData?.full_name}
-              </p>
+                  }`}
+              >
+                {selectedOffer.status === "ACCEPTED"
+                  ? "Aceptada"
+                  : selectedOffer.status === "REJECTED"
+                    ? "Rechazada"
+                    : "Pendiente"}
+              </span>
             </div>
-          </div>
 
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Descripción
-            </label>
-            <p className="text-lg mt-1">{selectedOffer.description}</p>
-          </div>
-
-          <div>
-            <label className="uppercase text-sm text-tertiary/60 font-semibold">
-              Fecha de oferta
-            </label>
-            <p className="text-lg mt-1">
-              {new Date(selectedOffer.createdAt).toLocaleDateString("es-AR", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
-          </div>
-
-          {selectedOffer.updatedAt !== selectedOffer.createdAt && (
             <div>
               <label className="uppercase text-sm text-tertiary/60 font-semibold">
-                Última actualización
+                Técnico
+              </label>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="rounded-full bg-surface-tint/20 p-2 w-fit">
+                  <UserIcon className="text-surface-tint" height="20" />
+                </div>
+                <p className="text-lg">
+                  {offerTechnicianIsPending
+                    ? "Cargando..."
+                    : offerTechnicianData?.full_name}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                Descripción
+              </label>
+              <p className="text-lg mt-1">{selectedOffer.description}</p>
+            </div>
+
+            <div>
+              <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                Fecha de oferta
               </label>
               <p className="text-lg mt-1">
-                {new Date(selectedOffer.updatedAt).toLocaleDateString("es-AR", {
+                {new Date(selectedOffer.createdAt).toLocaleDateString("es-AR", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -346,24 +327,43 @@ export default function Orders() {
                 })}
               </p>
             </div>
-          )}
 
-          {selectedOffer.status === "PENDING" && (
-            <Button
-              variant="primary"
-              onClick={() => {
-                acceptOfferMutation.mutateAsync(selectedOffer.id);
-                setIsOfferDetailActive(false);
-                setSelectedOffer(null);
-              }}
-              loading={acceptOfferMutation.isPending}
-            >
-              Aceptar oferta
-            </Button>
-          )}
-        </div>
-      </Modal>
-    )}
-  </>
+            {selectedOffer.updatedAt !== selectedOffer.createdAt && (
+              <div>
+                <label className="uppercase text-sm text-tertiary/60 font-semibold">
+                  Última actualización
+                </label>
+                <p className="text-lg mt-1">
+                  {new Date(selectedOffer.updatedAt).toLocaleDateString(
+                    "es-AR",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
+                </p>
+              </div>
+            )}
+
+            {selectedOffer.status === "PENDING" && (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  acceptOfferMutation.mutateAsync(selectedOffer.id);
+                  setIsOfferDetailActive(false);
+                  setSelectedOffer(null);
+                }}
+                loading={acceptOfferMutation.isPending}
+              >
+                Aceptar oferta
+              </Button>
+            )}
+          </div>
+        </Modal>
+      )}
+    </>
   );
 }

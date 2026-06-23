@@ -26,7 +26,7 @@ const faqs = [
 function AccordionItem({ question, answer, isOpen, onClick }) {
   return (
     <div
-      className={`bg-white border rounded-xl overflow-hidden transition-shadow ${
+      className={`bg-white border rounded-lg overflow-hidden transition-shadow ${
         isOpen ? "shadow-md border-gray-200" : "border-gray-200 hover:shadow-sm"
       }`}
     >

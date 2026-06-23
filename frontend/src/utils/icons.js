@@ -27,6 +27,10 @@ import CloseIcon from "@iconify-react/carbon/close";
 import ScreenIcon from '@iconify-react/teenyicons/hd-screen-outline';
 import PriceIcon from '@iconify-react/famicons/logo-usd';
 import OfferIcon from '@iconify-react/mdi/offer';
+import SaveIcon from '@iconify-react/material-symbols/save';
+import OrderIcon from '@iconify-react/lets-icons/order';
+import DateIcon from '@iconify-react/lets-icons/date-range-fill';
+import MoreIcon from '@iconify-react/ri/more-fill';
 
 export {
   UserIcon,
@@ -57,5 +61,9 @@ export {
   CloseIcon,
   ScreenIcon,
   PriceIcon,
-  OfferIcon
+  OfferIcon,
+  SaveIcon,
+  OrderIcon,
+  DateIcon,
+  MoreIcon
 };

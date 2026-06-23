@@ -1,4 +1,5 @@
 import { GithubAltIcon, WhatsappIcon } from "../../../utils/icons.js";
+import Logo from "./Logo";
 
 export default function Footer() {
     const columns = [
@@ -17,24 +18,7 @@ export default function Footer() {
         <footer className="border-t border-gray-200 bg-white px-6 py-10 md:px-8">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 justify-between items-center lg:items-start text-center lg:text-left">
                 <div className="flex flex-col gap-4 max-w-xs items-center lg:items-start">
-                    <div className="flex items-center gap-2 text-primary font-bold text-lg">
-                        <svg
-                            aria-hidden="true"
-                            className="size-6"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                        >
-                            <path d="M8 6V4h8v2" />
-                            <path d="M4 6h16v14H4z" />
-                            <path d="M12 10v6" />
-                            <path d="M9 13h6" />
-                        </svg>
-                        Dr. Device
-                    </div>
+                    <Logo iconClassName="size-6" textClassName="text-lg text-primary" />
                     <p className="text-sm text-gray-500 leading-relaxed">
                         La plataforma de soluciones inteligente para la reparación de tus dispositivos.
                     </p>

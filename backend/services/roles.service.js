@@ -70,21 +70,23 @@ export const deleteRoleSrv = async (id) => {
 export const updateRoleSrv = async ({ id, title, permissionsList }) => {
   const t = await sequelize.transaction();
   try {
-    const [updatedRows] = await Role.update(
-      { title },
-      {
-        where: { id },
-        transaction: t,
-      },
-    );
+    if (title !== undefined) {
+      const [updatedRows] = await Role.update(
+        { title },
+        { where: { id }, transaction: t }
+      );
 
-    if (!updatedRows) throw new AppError('No se ha podido actualizar el rol', 400);
+      if (!updatedRows) throw new AppError('No se ha podido actualizar el rol', 400);
+    }
 
     const role = await Role.findByPk(id, { transaction: t });
 
-    if (!role) throw new AppError('No se ha podido actualizar el rol', 400);
+    if (!role) throw new AppError('Rol no encontrado', 404);
 
-    await role.setPermissions(permissionsList, { transaction: t });
+    if (permissionsList !== undefined) {
+      await role.setPermissions(permissionsList, { transaction: t });
+    }
+
     await t.commit();
 
     return await Role.findByPk(id, {
@@ -96,7 +98,6 @@ export const updateRoleSrv = async ({ id, title, permissionsList }) => {
       },
     });
   } catch (error) {
-    console.error(error);
     await t.rollback();
     throw error;
   }
@@ -122,6 +123,9 @@ export const createRoleSrv = async ({ title, permissionsList }) => {
 };
 
 export const checkExistsRoleSrv = async (title) => {
+  if (!title) {
+    return false;
+  }
   const role = await Role.findOne({ where: { title } });
   return role ? true : false;
 }

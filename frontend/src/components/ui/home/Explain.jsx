@@ -84,7 +84,7 @@ export default function Explain() {
           <img 
             src={imgAssert} 
             alt="Dr. Device en acción"
-            className="rounded-3xl w-full h-[350px] lg:h-[450px] object-cover shadow-md" 
+            className="rounded-2xl w-full h-[350px] lg:h-[450px] object-cover shadow-md" 
           />
         </div>
 

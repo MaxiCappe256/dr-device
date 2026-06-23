@@ -3,6 +3,11 @@ import { Op } from 'sequelize';
 import AppError from '../utils/appError.js';
 
 export const getPermissionsSrv = async (actionsList, idList) => {
+  
+  if (Array.isArray(idList) && idList.length === 0) {
+    return [];
+  }
+  
   let permissions = [];
 
   if (idList && idList.length) {

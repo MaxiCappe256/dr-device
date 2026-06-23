@@ -2,19 +2,19 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import categories from "../api/categories.js";
 import { toast } from "react-toastify";
 
-export function useCategories(categoryId) {
-  const getCategory = useQuery({
+export function useGetCategory(categoryId) {
+  return useQuery({
     queryKey: ["category", categoryId],
     queryFn: () => categories.getCategory(categoryId),
     enabled: !!categoryId,
   });
+}
 
-  const getCategories = useQuery({
+export function useGetCategories() {
+  return useQuery({
     queryKey: ["categories"],
     queryFn: () => categories.getCategories(),
   });
-
-  return { getCategory, getCategories };
 }
 
 export function useCreateCategory() {

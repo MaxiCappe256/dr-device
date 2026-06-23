@@ -24,6 +24,10 @@ class Offers {
     return data.data;
   }
 
+  async cancelOffer(id) {
+    const { data } = await axiosInstance.put(`/offers/${id}/tech-cancel`);
+    return data.data;
+  }
 }
 
 export default new Offers();

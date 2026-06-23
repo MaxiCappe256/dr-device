@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { useSpecializations } from '../../hooks/useSpecializations';
+import { useSpecializationsCategories, useUpdateSpecialization } from '../../hooks/useSpecializations';
 import Button from '../../components/ui/shared/Button';
-import { CheckIcon } from '../../utils/icons';
+import { CheckIcon, SaveIcon } from '../../utils/icons';
 import Error from '../../components/ui/shared/Error';
 
 export default function AccountSpecializations() {
@@ -11,7 +11,8 @@ export default function AccountSpecializations() {
   } = useAuthContext();
 
   const currentSpecializations = data?.specializations ?? [];
-  const { categoriesQuery, updatedMutation } = useSpecializations();
+  const categoriesQuery = useSpecializationsCategories();
+  const updatedMutation = useUpdateSpecialization();
   const categories = categoriesQuery.data ?? [];
 
   const [selectedIds, setSelectedIds] = useState(
@@ -34,7 +35,7 @@ export default function AccountSpecializations() {
 
   return (
     <section className="bg-background">
-      <div className="mt-10 max-w-5xl rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
+      <div className="mt-10 w-full rounded-2xl border border-surface-container-highest bg-surface-container-lowest p-10 shadow-sm">
         <h2 className="mb-2 text-2xl font-bold text-primary">
           Mis especializaciones
         </h2>
@@ -52,7 +53,7 @@ export default function AccountSpecializations() {
                 key={category.id}
                 type="button"
                 onClick={() => toggleCategory(category.id)}
-                className={`relative flex cursor-pointer flex-col items-center rounded-2xl border p-6 text-center transition-colors select-none ${isSelected
+                className={`relative flex cursor-pointer flex-col items-center rounded-xl border p-6 text-center transition-colors select-none ${isSelected
                   ? 'border-primary bg-surface-container shadow-sm'
                   : 'border-surface-container-highest bg-surface-container-low hover:border-primary/40'
                   }`}
@@ -83,6 +84,7 @@ export default function AccountSpecializations() {
           <Button
             variant="primary"
             onClick={handleSave}
+            iconRight={<SaveIcon height="24"/>}
             loading={updatedMutation.isPending}
             className="max-w-60"
           >

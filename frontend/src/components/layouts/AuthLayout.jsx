@@ -9,10 +9,10 @@ export default function AuthLayout() {
       className={`min-h-screen bg-surface-container-lowest text-on-surface flex flex-row max-lg:flex-col`}
     >
       <aside
-        className={`auth-brand-panel ${isLogin ? "translate-x-0" : "translate-x-[185%]"} transition-all relative hidden min-h-screen overflow-hidden px-15 py-17 text-on-primary lg:flex lg:flex-col w-[35%]`}
+        className={`auth-brand-panel ${isLogin ? "translate-x-0" : "translate-x-[185%]"} transition-all relative hidden min-h-screen overflow-hidden px-15 py-17 text-on-primary lg:flex lg:flex-col lg:w-[35%]`}
       >
         <header className="flex items-center gap-5">
-          <div className="flex items-center justify-center rounded-[4px] border-3 border-on-primary">
+          <div className="flex items-center justify-center rounded-sm border-3 border-on-primary">
             <svg
               aria-hidden="true"
               className="size-6"
@@ -40,8 +40,8 @@ export default function AuthLayout() {
           </h1>
 
           <div className="mt-9 grid max-w-[560px] gap-8">
-            <article className="flex gap-5 rounded-[8px] border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-[8px] bg-white/20">
+            <article className="flex gap-5 rounded-lg border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-white/20">
                 <svg
                   aria-hidden="true"
                   className="size-7"
@@ -69,8 +69,8 @@ export default function AuthLayout() {
               </div>
             </article>
 
-            <article className="flex gap-5 rounded-[8px] border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-[8px] bg-white/20">
+            <article className="flex gap-5 rounded-lg border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-white/20">
                 <svg
                   aria-hidden="true"
                   className="size-7"
@@ -100,9 +100,9 @@ export default function AuthLayout() {
       </aside>
 
       <section
-        className={`flex min-h-screen ${isLogin ? "lg:translate-x-0" : "lg:-translate-x-[54%]"} transition-all items-center justify-center  px-6 py-10 sm:px-10 lg:px-15 w-[65%] mx-auto`}
+        className={`flex min-h-screen ${isLogin ? "lg:translate-x-0" : "lg:-translate-x-[54%]"} transition-all items-center justify-center px-6 py-10 sm:px-10 lg:px-15 w-[65%] max-lg:w-[90vw] mx-auto`}
       >
-        <div className="w-full max-w-[560px]">
+        <div className="w-140 max-lg:w-full">
           <Outlet />
         </div>
       </section>

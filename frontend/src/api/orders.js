@@ -31,6 +31,11 @@ class Orders {
     const { data } = await axiosInstance.patch(`orders/${order_id}/cancel`);
     return data;
   }
+
+  async finishedOrder(order_id) {
+    const { data } = await axiosInstance.patch(`orders/${order_id}/finish`);
+    return data;
+  }
 }
 
 export default new Orders();

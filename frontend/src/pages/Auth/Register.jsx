@@ -1,15 +1,15 @@
 import { Link, useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
-import { useAuth } from "../../hooks/useAuth";
-import RegisterForm from "../../components/auth/RegisterForm";
-import RegisterRoleForm from "../../components/auth/RegisterRoleForm";
-import RegisterSummaryForm from "../../components/auth/RegisterSummaryForm";
+import { useRegister } from "../../hooks/useAuth";
+import RegisterForm from "../../components/ui/auth/RegisterForm";
+import RegisterRoleForm from "../../components/ui/auth/RegisterRoleForm";
+import RegisterSummaryForm from "../../components/ui/auth/RegisterSummaryForm";
 import Stepper from "../../components/ui/shared/Stepper";
 
 const Register = () => {
   const methods = useForm()
   const { handleSubmit } = methods
-  const { registerMutation } = useAuth()
+  const registerMutation = useRegister()
   const navigate = useNavigate();
 
   const onSubmit = (credentials) => {
@@ -46,9 +46,8 @@ const Register = () => {
           <h1 className="text-4xl text-on-surface font-semibold">
             Crear nueva cuenta
           </h1>
-          <p className="text-tertiary font-light">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-            laboriosam dolor, obcaecati illum qui nobis voluptate dolorem.
+          <p className="text-tertiary text-lg font-light max-lg:text-md">
+            Crea tu cuenta en Dr Device y accede a una red de técnicos especializados para resolver problemas en tus dispositivos de forma rápida, segura y confiable.
           </p>
         </div>
         <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
