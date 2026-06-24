@@ -31,6 +31,8 @@ import SaveIcon from '@iconify-react/material-symbols/save';
 import OrderIcon from '@iconify-react/lets-icons/order';
 import DateIcon from '@iconify-react/lets-icons/date-range-fill';
 import MoreIcon from '@iconify-react/ri/more-fill';
+import ShieldIcon from '@iconify-react/material-symbols/shield-outline';
+import SpeedIcon from '@iconify-react/material-symbols/speed-outline';
 
 export {
   UserIcon,
@@ -65,5 +67,7 @@ export {
   SaveIcon,
   OrderIcon,
   DateIcon,
-  MoreIcon
+  MoreIcon,
+  ShieldIcon,
+  SpeedIcon
 };

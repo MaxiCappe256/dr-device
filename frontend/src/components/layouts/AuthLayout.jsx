@@ -1,4 +1,6 @@
 import { Outlet, useLocation } from "react-router";
+import Logo from "../ui/shared/Logo";
+import { ShieldIcon, SpeedIcon } from '../../utils/icons';
 
 export default function AuthLayout() {
   const { pathname } = useLocation();
@@ -12,26 +14,7 @@ export default function AuthLayout() {
         className={`auth-brand-panel ${isLogin ? "translate-x-0" : "translate-x-[185%]"} transition-all relative hidden min-h-screen overflow-hidden px-15 py-17 text-on-primary lg:flex lg:flex-col lg:w-[35%]`}
       >
         <header className="flex items-center gap-5">
-          <div className="flex items-center justify-center rounded-sm border-3 border-on-primary">
-            <svg
-              aria-hidden="true"
-              className="size-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="3"
-            >
-              <path d="M8 6V4h8v2" />
-              <path d="M4 6h16v14H4z" />
-              <path d="M12 10v6" />
-              <path d="M9 13h6" />
-            </svg>
-          </div>
-          <span className="text-2xl font-bold tracking-[-0.02em]">
-            Dr. Device
-          </span>
+          <Logo to="/" iconClassName="size-6 brightness-0 invert" textClassName="max-md:text-xs" />
         </header>
 
         <section className="flex flex-1 flex-col justify-center">
@@ -42,21 +25,7 @@ export default function AuthLayout() {
           <div className="mt-9 grid max-w-[560px] gap-8">
             <article className="flex gap-5 rounded-lg border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
               <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                <svg
-                  aria-hidden="true"
-                  className="size-7"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.4"
-                >
-                  <path d="M4 14a8 8 0 0 1 15.5-2" />
-                  <path d="M4 14h5" />
-                  <path d="m14 13 4-4" />
-                  <path d="M20 14a8 8 0 0 1-.7 3.3" />
-                </svg>
+                <SpeedIcon height="24px" />
               </div>
               <div>
                 <h2 className="text-2xl leading-7 font-bold">
@@ -71,19 +40,7 @@ export default function AuthLayout() {
 
             <article className="flex gap-5 rounded-lg border border-white/20 bg-white/10 p-5.5 backdrop-blur-sm">
               <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-white/20">
-                <svg
-                  aria-hidden="true"
-                  className="size-7"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.4"
-                >
-                  <path d="m12 3 8 3v6c0 5-3.4 7.9-8 9-4.6-1.1-8-4-8-9V6z" />
-                  <path d="m9 12 2 2 4-5" />
-                </svg>
+                <ShieldIcon height="24px" />
               </div>
               <div>
                 <h2 className="text-2xl leading-7 font-bold">

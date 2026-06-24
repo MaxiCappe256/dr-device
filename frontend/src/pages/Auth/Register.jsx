@@ -59,7 +59,7 @@ const Register = () => {
             className="text-primary font-semibold hover:underline"
             to="/auth/login"
           >
-            Inicia sessión
+            Inicia sesión
           </Link>
         </p>
       </div>
