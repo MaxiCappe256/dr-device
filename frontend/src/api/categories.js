@@ -20,6 +20,11 @@ class Categories {
     const { data } = await axiosInstance.patch(`/categories/${id}`, payload);
     return data;
   }
+
+  async deleteCategory(id) {
+    const { data } = await axiosInstance.delete(`/categories/${id}`);
+    return data;
+  }
 }
 
 export default new Categories();
