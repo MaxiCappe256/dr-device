@@ -28,12 +28,13 @@ export default function PersonalDataTab({ fullName, email, phone }) {
       onSubmit={handleSubmit(onSubmit)}
       className="grid w-full gap-5 md:grid-cols-2"
     >
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="full_name" className="text-lg font-medium text-tertiary">
           Nombre completo
-        </span>
+        </label>
         <Input
           type="text"
+          name="full_name"
           {...register("full_name", {
             required: "Este campo es obligatorio.",
             maxLength: {
@@ -52,14 +53,15 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         {getMutationError("full_name") && (
           <Error message={getMutationError("full_name")} />
         )}
-      </label>
+      </div>
 
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="email" className="text-lg font-medium text-tertiary">
           Correo electrónico
-        </span>
+        </label>
         <Input
           type="email"
+          name="email"
           defaultValue={email}
           autocomplete="on"
           icon={<EmailIcon height="24" />}
@@ -69,20 +71,19 @@ export default function PersonalDataTab({ fullName, email, phone }) {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: "El correo electrónico no es válido.",
             },
-          })}
-        />
+          })} />
         {errors.email && <Error message={errors.email.message} />}
         {getMutationError("email") && (
           <Error message={getMutationError("email")} />
         )}
-      </label>
-
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="phone" className="text-lg font-medium text-tertiary">
           Teléfono
-        </span>
+        </label>
         <Input
           type="tel"
+          name="phone"
           icon={<PhoneIcon height="24" />}
           {...register("phone", {
             required: "Este campo es obligatorio.",
@@ -101,12 +102,13 @@ export default function PersonalDataTab({ fullName, email, phone }) {
         {getMutationError("phone") && (
           <Error message={getMutationError("phone")} />
         )}
-      </label>
+      </div>
+
       <div className="flex justify-end md:col-span-2">
         <Button
           variant="primary"
           type="submit"
-          iconRight={ <SaveIcon height="24"/> }
+          iconRight={<SaveIcon height="24" />}
           loading={updatedMutation.isPending}
           className="w-auto! px-8"
         >

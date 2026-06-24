@@ -7,7 +7,6 @@ import { LockIcon, SaveIcon } from "../../../utils/icons";
 export default function SecurityTab() {
   const changePasswordMutation = useChangePassword();
   const {
-    control,
     register,
     handleSubmit,
     reset,
@@ -30,12 +29,14 @@ export default function SecurityTab() {
 
   return (
     <form className="grid gap-8 md:grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Contraseña actual</span>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="current_password" className="text-lg font-medium text-tertiary">
+          Contraseña actual
+        </label>
         <Input
           type="password"
           placeholder="••••••••"
-          // name="current_password"
+          name="current_password"
           icon={<LockIcon height='24' />}
           {...register("current_password", {
             required: "La contraseña actual es requerida",
@@ -45,14 +46,16 @@ export default function SecurityTab() {
         {errors.current_password && (
           <p className="text-error text-sm">{errors.current_password.message}</p>
         )}
-      </label>
+      </div>
 
-      <label className="space-y-3">
-        <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Nueva contraseña</span>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="new_password" className="text-lg font-medium text-tertiary">
+          Contraseña nueva
+        </label>
         <Input
           type="password"
           placeholder="••••••••"
-          // name="new_password"
+          name="new_password"
           icon={<LockIcon height='24' />}
           {...register("new_password", {
             required: "La nueva contraseña es requerida",
@@ -62,7 +65,7 @@ export default function SecurityTab() {
         {errors.new_password && (
           <p className="text-error text-sm">{errors.new_password.message}</p>
         )}
-      </label>
+      </div>
 
       <div className="flex justify-end md:col-span-2">
         <Button
