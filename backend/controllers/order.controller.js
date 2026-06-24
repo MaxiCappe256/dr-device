@@ -3,27 +3,32 @@ import { getCategorySrv } from "../services/categories.service.js";
 import {
   changeStatusOrderSrv,
   createOrderSrv,
+  getAvailableOrdersSrv,
   getOrderSrv,
+  getOrdersByUserSrv,
   getOrdersPerUserSrv,
   isOrderOwnerSrv,
   isTechnicianOwnerSrv,
+  getOrdersByTechnicianSrv,
 } from "../services/order.service.js";
 import AppError from "../utils/appError.js";
 
 export const createOrderCtrl = async (req, res) => {
   const response = new ApiResponse(res);
-  const { category_id, description } = req.body;
+  const { category_id, description, title } = req.body;
   const user_id = req.user.id;
   try {
     await getCategorySrv(category_id);
     const createdOrder = await createOrderSrv({
       category_id,
       description,
+      title,
       user_id,
     });
     response.ok("Orden creada", createdOrder);
   } catch (error) {
     console.error(error.message);
+    if (error.statusCode === 400) return response.badRequest(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }
@@ -109,6 +114,76 @@ export const getOrderCtrl = async (req, res) => {
     response.ok("Orden obtenida correctamente", order);
   } catch (error) {
     console.error(error.message);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getAvailableOrdersCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const categoryIds = req.user.specializations.map((s) => s.id);
+  const userId = req.user.id;
+
+  try {
+    const orders = await getAvailableOrdersSrv(categoryIds, userId);
+    response.ok("Ordenes disponibles obtenidas", orders);
+  } catch (error) {
+    console.error(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getOrdersByUserCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const user_id = req.user.id;
+
+  try {
+    const orders = await getOrdersByUserSrv(user_id);
+    response.ok("Ordenes obtenidas correctamente", orders);
+  } catch (error) {
+    console.log(error);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const getOrdersByTechnicianCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const technician_id = req.user.id;
+
+  try {
+    const orders = await getOrdersByTechnicianSrv(technician_id);
+    response.ok("Ordenes obtenidas correctamente", orders);
+  } catch (error) {
+    console.log(error);
+    if (error.statusCode === 404) return response.notFound(error.message);
+    return response.error(error.message);
+  }
+};
+
+export const techCancelOrderCtrl = async (req, res) => {
+  const response = new ApiResponse(res);
+  const { id: order_id } = req.params;
+  const user_id = req.user.id;
+
+  try {
+    // ademas de verificar si existe esa orden tambien verifica que le pertenezca a ese usuario.
+    const order = await isTechnicianOwnerSrv(user_id, order_id);
+    // verificar que no este en el estado que no este cancelada.
+
+    if (order.status === "CANCELLED")
+      throw new AppError("La orden ya se encuentra cancelada", 400);
+
+    // verificar que no este en el estado que no este cancelada.
+    if (order.status === "COMPLETED")
+      throw new AppError("La orden ya se encuentra terminada", 400);
+
+    await changeStatusOrderSrv(order_id, "SEARCHING");
+    response.ok("Orden cancelada correctamente");
+  } catch (error) {
+    console.error(error.message);
+    if (error.statusCode === 401) return response.unauthorized(error.message);
+    if (error.statusCode === 400) return response.badRequest(error.message);
     if (error.statusCode === 404) return response.notFound(error.message);
     return response.error(error.message);
   }

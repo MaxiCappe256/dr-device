@@ -2,6 +2,10 @@ import { body } from 'express-validator';
 import validate from '../middlewares/validate.middleware.js';
 
 export const createOrderDTO = [
+    body('title')
+        .notEmpty().withMessage('El titulo no puede estar vacio.')
+        .isString().withMessage('El titulo debe ser un texto.')
+        .isLength({ min: 3, max: 100 }).withMessage('El titulo debe tener entre 3 y 100 caracteres.'),
     body('description')
         .notEmpty().withMessage('La descripcion no puede estar vacia.')
         .isString().withMessage('La descripcion debe ser un texto.')

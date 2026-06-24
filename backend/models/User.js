@@ -32,10 +32,6 @@ export const User = sequelize.define(
     phone: {
       type: DataTypes.STRING(20),
     },
-
-    avatar: {
-      type: DataTypes.STRING,
-    },
     deleted_at: {
       type: DataTypes.DATE,
     },

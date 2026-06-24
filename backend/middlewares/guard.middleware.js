@@ -8,11 +8,10 @@ export const validateAccessMiddleware = (requiredPermissions) => {
         try {
             if (!requiredPermissions || !requiredPermissions.length) throw new Error('No se recibieron permisos');
 
-            await getPermissionsSrv([], requiredPermissions);
+            await getPermissionsSrv(requiredPermissions, []);
 
             const user = req.user;
-            
-            const contain = requiredPermissions.every(reqPer => user.permissions.includes(reqPer));
+            const contain = requiredPermissions.every(reqPer => user.permissions.some(({ action }) => reqPer === action));
 
             if (!contain) response.unauthorized('Acceso denegado')
 

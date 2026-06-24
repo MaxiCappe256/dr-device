@@ -14,7 +14,6 @@ export const registerSrv = async (body) => {
     email,
     password: passwordBody,
     phone,
-    avatar,
     role_id,
   } = body;
 
@@ -37,7 +36,6 @@ export const registerSrv = async (body) => {
       email,
       password: await hashedPassword(passwordBody),
       phone,
-      avatar,
     })
   ).dataValues;
 
@@ -74,6 +72,22 @@ export const registerSrv = async (body) => {
   };
 };
 
+export const changePasswordSrv = async (user_id, current_password, new_password) => {
+  const user = await User.findByPk(user_id);
+  if (!user) throw new AppError("Usuario no encontrado.", 404);
+
+  const isValid = comparePassword(current_password, user.password);
+  if (!isValid) throw new AppError("La contraseña actual no es correcta.", 400);
+
+  const isSame = comparePassword(new_password, user.password);
+  if (isSame) throw new AppError("La nueva contraseña no puede ser igual a la actual.", 400);
+
+  await User.update(
+    { password: await hashedPassword(new_password) },
+    { where: { id: user_id } }
+  );
+};
+
 export const loginSrv = async (body) => {
   const { email, password: originalPassword } = body;
 
@@ -82,7 +96,7 @@ export const loginSrv = async (body) => {
   if (!userExists) throw new AppError("Las crendenciales no coinciden.", 401);
 
   if (userExists.dataValues.deleted_at !== null) await removeDeletedAtUserSrv(userExists.dataValues.id);
- 
+
   // verificar que la contraseña es valida, comparando la encriptada con la ingresada
   const isValidPassword = comparePassword(
     originalPassword,

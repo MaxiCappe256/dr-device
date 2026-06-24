@@ -1,7 +1,6 @@
 import { body } from 'express-validator';
 import validate from '../middlewares/validate.middleware.js'
 
-// TODO: Falta colocar el AVATAR, deberia estar validado en otro lugar ya que se requiere logica customizada.
 export const registerDTO = [
     body('full_name')
         .notEmpty().withMessage('El nombre completo no puede estar vacío.')
@@ -24,6 +23,17 @@ export const registerDTO = [
     body('role_id')
         .notEmpty().withMessage('El rol no puede estar vacío.')
         .matches(/^[0-9a-fA-F-]{36}$/).withMessage('El rol debe ser un UUID válido.'),
+    validate
+]
+
+export const changePasswordDTO = [
+    body('current_password')
+        .notEmpty().withMessage('La contraseña actual no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La contraseña actual debe tener mínimo 6 caracteres.'),
+
+    body('new_password')
+        .notEmpty().withMessage('La nueva contraseña no puede estar vacía.')
+        .isLength({ min: 6 }).withMessage('La nueva contraseña debe tener mínimo 6 caracteres.'),
     validate
 ]
 

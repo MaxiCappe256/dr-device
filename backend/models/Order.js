@@ -2,8 +2,6 @@ import sequelize from '../db/index.js';
 import { DataTypes } from 'sequelize';
 import { Category } from './Category.js';
 
-// falta terminar las relaciones
-
 export const Order = sequelize.define(
   'Order',
   {
@@ -17,6 +15,11 @@ export const Order = sequelize.define(
       type: DataTypes.ENUM('SEARCHING', 'PENDING', 'IN_PROGRESS', 'CANCELLED', 'COMPLETED'),
       allowNull: false,
       defaultValue: 'SEARCHING',
+    },
+
+    title: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
     },
 
     description: {
@@ -56,7 +59,7 @@ export const Order = sequelize.define(
 Order.associate = (models) => {
   Order.belongsTo(models.User, {
     foreignKey: 'user_id',
-    as: 'Client'
+    as: 'user'
   })
 
   Order.belongsTo(models.User, {
@@ -72,7 +75,11 @@ Order.associate = (models) => {
   Order.belongsToMany(models.User, {
     through: models.Offer,
     foreignKey: 'order_id',
-    as: 'Offers'
+    as: 'offers'
+  })
+
+  Order.hasMany(models.Offer, {
+    foreignKey: 'order_id'
   })
 }
 

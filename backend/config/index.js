@@ -5,6 +5,7 @@ loadEnvFile('.env');
 const config = {
     prefix: "DR Device",
     port: process.env.PORT || 3000,
+    origin_url: process.env.ORIGIN_URL,
     sequelize: {
         dialect: 'postgres',
         port: process.env.DB_PORT,
