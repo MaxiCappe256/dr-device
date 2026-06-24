@@ -4,7 +4,8 @@ import Modal from '../shared/Modal';
 import Button from '../shared/Button';
 import Input from '../shared/Input';
 import Error from '../shared/Error';
-import { useCreateCategory, useUpdateCategory } from '../../../hooks/useCategories';
+import { SpecializationIcon } from '../../../utils/icons.js';
+import { useCreateCategory, useUpdateCategory, useDeleteCategory } from '../../../hooks/useCategories';
 
 export default function CategoriesList({ categories, isLoading }) {
   const [editingCategory, setEditingCategory] = useState(null);
@@ -14,6 +15,7 @@ export default function CategoriesList({ categories, isLoading }) {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const createMutation = useCreateCategory();
   const updateMutation = useUpdateCategory();
+  const deleteCategoryMutation = useDeleteCategory();
 
   const mutation = isEdit ? updateMutation : createMutation;
   const { mutateAsync, isPending, error: mutationError } = mutation;
@@ -87,32 +89,45 @@ export default function CategoriesList({ categories, isLoading }) {
 
       {showModal && (
         <Modal title={modalTitle} onClose={handleClose}>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
             {mutationError?.response?.data && (
               <Error message={mutationError.response.data.message} />
             )}
 
-            <label className="space-y-2">
-              <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Nombre</span>
-              <Input
-                type="text"
-                placeholder="Ej: Tablet"
-                {...register('name', { required: 'El nombre es obligatorio' })}
-              />
-              {errors.name && <Error message={errors.name.message} />}
+            <label htmlFor="name" className="text-lg font-medium text-tertiary">
+              Nombre
             </label>
+            <Input
+              name="name"
+              type="text"
+              icon={<SpecializationIcon height='24' />}
+              placeholder="Ej: Tablet"
+              {...register('name', { required: 'El nombre es obligatorio' })}
+            />
+            {errors.name && <Error message={errors.name.message} />}
 
-            <label className="space-y-2">
-              <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Descripción</span>
-              <Input
-                type="text"
-                placeholder="Ej: Diagnóstico y reparación de tablets"
-                {...register('description', { required: 'La descripción es obligatoria' })}
-              />
-              {errors.description && <Error message={errors.description.message} />}
+
+            <label htmlFor="description" className="text-lg font-medium text-tertiary">
+              Descripción
             </label>
+            <Input
+              name="description"
+              type="textarea"
+              placeholder="Ej: Diagnóstico y reparación de tablets"
+              {...register('description', { required: 'La descripción es obligatoria' })}
+            />
+            {errors.description && <Error message={errors.description.message} />}
 
             <div className="flex gap-4">
+              {isEdit && (
+                <Button variant="danger" type="button" loading={deleteCategoryMutation.isPending} onClick={async () => {
+                  await deleteCategoryMutation.mutateAsync(editingCategory.id);
+                  setEditingCategory(null);
+                  setShowCreateModal(false);
+                }}>
+                  Eliminar categoría
+                </Button>
+              )}
               <Button variant="outline" type="button" onClick={handleClose}>
                 Cancelar
               </Button>

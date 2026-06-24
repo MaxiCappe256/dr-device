@@ -6,6 +6,7 @@ import Input from '../shared/Input';
 import Error from '../shared/Error';
 import { useCreateRole, useUpdateRole } from '../../../hooks/useRoles';
 import { usePermissions } from '../../../hooks/usePermissions';
+import { SecurityIcon } from '../../../utils/icons';
 
 export default function RolesList({ roles, isLoading }) {
   const [editingRole, setEditingRole] = useState(null);
@@ -102,19 +103,22 @@ export default function RolesList({ roles, isLoading }) {
 
       {showModal && (
         <Modal title={modalTitle} onClose={handleClose}>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-            <label className="space-y-2">
-              <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Título del rol</span>
-              <Input
-                type="text"
-                placeholder="Ej: supervisor"
-                {...register('title', { required: 'El título es obligatorio' })}
-              />
-              {errors.title && <Error message={errors.title.message} />}
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+            <label htmlFor="title" className="text-lg font-medium text-tertiary">
+              Título
             </label>
+            <Input
+              name="title"
+              type="text"
+              icon={<SecurityIcon height='24'/>}
+              placeholder="Ej: supervisor"
+              {...register('title', { required: 'El título es obligatorio' })}
+            />
+            {errors.title && <Error message={errors.title.message} />}
 
-            <div className="space-y-2">
-              <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Permisos</span>
+            <label htmlFor="name" className="text-lg font-medium text-tertiary">
+              Permisos
+            </label>
               {mutationError?.response?.data && (
                 <Error message={mutationError.response.data.message} />
               )}
@@ -142,7 +146,6 @@ export default function RolesList({ roles, isLoading }) {
                   })}
                 </div>
               )}
-            </div>
 
             <div className="flex gap-4">
               <Button variant="outline" type="button" onClick={handleClose}>
